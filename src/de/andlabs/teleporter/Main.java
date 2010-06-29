@@ -172,8 +172,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         if (destination != null) {
             Place o = new Place();
             o.type = Place.TYPE_ADDRESS;
-            o.name = "Droidcamp";
-            o.address = "Nobelstraße 10, Stuttgart";
+            o.name = "c-base";
+            o.address = "Rungestraße 20, Berlin";
             Place d = new Place();
             d.type = Place.TYPE_ADDRESS;
             d.address = destination;

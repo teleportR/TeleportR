@@ -45,6 +45,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
                         + ");");
 		    db.execSQL("INSERT INTO myplaces values(1, 'Shackspace', 'Stuttgart', 'Äusserer Nordbahnhof 12', "+R.drawable.shackspace+", 23);");
 		    db.execSQL("INSERT INTO myplaces values(2, 'Droidcamp', 'Stuttgart', 'Nobelstrasse 10', "+R.drawable.droidcamp+", 42);");
+		    db.execSQL("INSERT INTO myplaces values(3, 'c-base', 'Berlin', 'Rungestr 20', "+R.drawable.cbase+", 42);");
 		    Log.d(TAG, "created DB");
 		}
 
