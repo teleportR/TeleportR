@@ -43,7 +43,7 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
                 url.append("&f=2&s=").append(URLEncoder.encode(orig.address+"!"));
                 break;
             case Place.TYPE_STATION:
-                url.append("&f=1&s=").append(URLEncoder.encode(orig.name+", "+orig.address));
+                url.append("&f=1&s=").append(URLEncoder.encode(orig.name+"!"));
                 break;
         }
         switch (dest.type) {
@@ -51,7 +51,7 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
                 url.append("&o=2&z=").append(URLEncoder.encode(dest.address+"!"));
                 break;
             case Place.TYPE_STATION:
-                url.append("&o=1&z=").append(URLEncoder.encode(dest.name+", "+dest.address));
+                url.append("&o=1&z=").append(URLEncoder.encode(dest.name+"!"));
                 break;
         }
         url.append("&d="); // date

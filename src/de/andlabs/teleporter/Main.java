@@ -25,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -52,6 +53,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.rides);
         
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -125,6 +127,19 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             }
         });
         
+        findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
+        findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
+        
         priorities = getSharedPreferences("priorities", MODE_PRIVATE);
         fun = ((SeekBar)findViewById(R.id.fun));
         eco = ((SeekBar)findViewById(R.id.eco));
@@ -158,8 +173,30 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         Log.d(TAG, "newIntent: "+intent.toString());
         
         String destination = null;
+        int type = Place.TYPE_ADDRESS;;
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            destination = "\n\n\n"+intent.getStringExtra(SearchManager.QUERY);
+            destination = intent.getStringExtra(SearchManager.QUERY);
+            int icon = Integer.parseInt(intent.getDataString());
+            switch (icon) {
+            case R.drawable.a_bus:
+                type = Place.TYPE_STATION;
+                break;
+            case R.drawable.a_boot:
+                type = Place.TYPE_STATION;
+                break;
+            case R.drawable.a_sbahn:
+                type = Place.TYPE_STATION;
+                break;
+            case R.drawable.a_tram:
+                type = Place.TYPE_STATION;
+                break;
+            case R.drawable.a_ubahn:
+                type = Place.TYPE_STATION;
+                break;
+            case R.drawable.a_zug:
+                type = Place.TYPE_STATION;
+                break;
+            }
         } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             String query = URLDecoder.decode(getIntent().getDataString().substring(10));
             String[] q = query.split(",");
@@ -175,11 +212,12 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             o.name = "c-base";
             o.address = "Rungestraße 20, Berlin";
             Place d = new Place();
-            d.type = Place.TYPE_ADDRESS;
+            d.type = type;
+            d.name = destination;
             d.address = destination;
             multiplexer = new QueryMultiplexer(this, o, d);
             multiplexer.searchLater();
-            setTitle("-->"+destination);
+            ((TextView)findViewById(R.id.dest)).setText(destination);
             MediaPlayer.create(this, R.raw.sound_long).start();
         }
         super.onNewIntent(intent);

@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    
+    <TextView android:id="@+id/orig"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="3dip"
+			    android:text="c-base"
+			    android:textStyle="bold"
+			    android:textSize="23dip"
+			    android:layout_alignParentTop="true"
+			    android:layout_alignParentLeft="true"
+			  ></TextView> 
+		<ImageView
+         android:id="@+id/arrow"
+         android:layout_width="59dip"
+         android:layout_height="35dip"
+			   android:layout_toRightOf="@id/orig"
+			   android:layout_alignParentTop="true"
+         android:src="@drawable/arrow1"
+         />
+    <TextView android:id="@+id/dest"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+		    	android:paddingRight="3dip"
+			    android:textStyle="bold"
+			    android:textSize="23dip"
+			    android:ellipsize="end"
+			    android:singleLine="true"
+			    android:layout_toRightOf="@id/arrow"
+			    android:layout_alignParentTop="true"
+			    android:layout_alignParentRight="true"
+			  ></TextView>  
+    
 		<ListView  
 		android:id="@android:id/list"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/orig"
+		android:layout_alignParentBottom="true"
     android:drawSelectorOnTop="true"
     android:divider="#000000"
     android:dividerHeight="2dip"
@@ -145,4 +179,4 @@
 
 
  </SlidingDrawer>
-</FrameLayout>
+</RelativeLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Teleporter</string>
+    <string name="app_name">TeleportR</string>
 
     <string name="search_hint">Where to beam today?</string>
     <string name="search_label">Station, Address, Name,..</string>

@@ -1,8 +1,11 @@
 package de.andlabs.teleporter;
 
+import android.net.Uri;
+
 public class Place {
 
     public static final String CONTENT_TYPE = "foo";
+    public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
     
     public static final int TYPE_STATION = 0;
     public static final int TYPE_ADDRESS = 1;
