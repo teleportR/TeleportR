@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+        android:hint="@string/origin_search_hint"
+        android:queryAfterZeroResults="true"
+        android:searchSuggestThreshold="0"
+        android:searchButtonText="Hui"
+        android:searchSuggestPath="origin"
+        android:searchMode="queryRewriteFromText"
+        android:searchSuggestAuthority="de.andlabs.teleporter"
+        android:searchSuggestIntentAction="android.intent.action.SEARCH"
+        >
+</searchable>

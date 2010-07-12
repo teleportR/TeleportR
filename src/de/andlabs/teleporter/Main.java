@@ -38,6 +38,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
     private static final String TAG = "Teleporter";
+	protected static final int ORIG = 0;
     private BroadcastReceiver mTimeTickReceiver;
     private QueryMultiplexer multiplexer;
     private ProgressBar progress;
@@ -62,13 +63,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
             startActivity(new Intent(this, DownloadsActivity.class));
         }
-        
-        mTimeTickReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(final Context pContext, final Intent pIntent) {
-                getListView().invalidateViews();
-            }
-        };
         
         multiplexer = new QueryMultiplexer(this, null, null);
         progress = new ProgressBar(this);
@@ -126,19 +120,15 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 return 2;
             }
         });
+
         
-        findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
+        mTimeTickReceiver = new BroadcastReceiver() {
             @Override
-            public void onClick(View v) {
-                onSearchRequested();
+            public void onReceive(final Context pContext, final Intent pIntent) {
+                getListView().invalidateViews();
             }
-        });
-        findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSearchRequested();
-            }
-        });
+        };
+        
         
         priorities = getSharedPreferences("priorities", MODE_PRIVATE);
         fun = ((SeekBar)findViewById(R.id.fun));
@@ -157,7 +147,27 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         fast.setProgress(priorities.getInt("fast", 0));
         green.setProgress(priorities.getInt("green", 0));
         social.setProgress(priorities.getInt("social", 0));
-        multiplexer.sort();
+//        multiplexer.sort();
+        
+        
+        findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		startActivityForResult(new Intent(Main.this, HereIAmActivity.class), ORIG);
+        	}
+        });
+        findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
+        findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchRequested();
+            }
+        });
     }
     
     @Override
@@ -167,8 +177,16 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         multiplexer.sort();
         getListView().invalidateViews();
     }
+    
+    
 
     @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	Log.d(TAG, "onActivityResult "+resultCode);
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
     protected void onNewIntent(Intent intent) {
         Log.d(TAG, "newIntent: "+intent.toString());
         

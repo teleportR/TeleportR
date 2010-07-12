@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 public class DownloadsActivity extends PreferenceActivity implements OnPreferenceClickListener {
 
+	private static final String HOST = "http://teleportr.org";
     private static final String TAG = "Settings";
     private ProgressDialog progress;
 
@@ -104,6 +106,71 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
         return super.onOptionsItemSelected(item);
     }
 
+    
+    
+
+// -- background tasks --
+
+    private class FetchNearbyDownloads extends AsyncTask<String, String, JSONArray> {
+        
+
+		@Override
+        protected void onPreExecute() {
+            progress = new ProgressDialog(DownloadsActivity.this);
+            progress.setMessage(getString(R.string.downloads_fetch_progress));
+            progress.show();
+            super.onPreExecute();
+        }
+        
+        @Override
+        protected JSONArray doInBackground(String... params) {
+        	Location loc = null;
+            try {
+                loc = ((LocationManager)getSystemService(LOCATION_SERVICE)).getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (loc == null)
+                    loc = ((LocationManager)getSystemService(LOCATION_SERVICE)).getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            } catch (Exception e) {
+            	Log.e(TAG, "problem location");
+            } finally {
+            	// fallback berlin 
+            	if (loc == null) { 
+            		loc = new Location(LocationManager.GPS_PROVIDER);
+            		loc.setLatitude(52.5);
+            		loc.setLongitude(13.4);
+            	}
+            }
+				try {
+					URL url = new URL(HOST+"/downloads.json?lat="+loc.getLatitude()+"&lon="+loc.getLongitude());
+					return new JSONArray(new BufferedReader(new InputStreamReader(url.openStream())).readLine());
+				} catch (Exception e) {
+					Log.e(TAG, "problem nearby downloads server access");
+					return null;
+				}
+        }
+        
+        @Override
+        protected void onPostExecute(JSONArray json) {
+            try {
+                for (int i = 0; i < json.length(); i++) {
+                    JSONObject j = json.getJSONObject(i).getJSONObject("download");
+                    if (!getPreferenceScreen().getSharedPreferences().contains(j.getString("file"))) {
+                        CheckBoxPreference c = new CheckBoxPreference(DownloadsActivity.this);
+                        c.setKey(j.getString("file"));
+                        String title = j.getString("title");
+                        c.setTitle(title.split(" ")[0]);
+                        c.setSummary(title.substring(title.indexOf(" ")));
+                        c.setOnPreferenceClickListener(DownloadsActivity.this);
+                        getPreferenceScreen().addItemFromInflater(c);
+                    }
+                }
+            } catch (Exception e) {
+            	Log.e(TAG, "problem parsing nearby downloads json");
+                Toast.makeText(DownloadsActivity.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
+            }
+            progress.dismiss();
+            super.onPostExecute(json);
+        }
+    }
 
 
 
@@ -121,7 +188,7 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
         protected Boolean doInBackground(String... params) {
             try {
                 new DefaultHttpClient().execute(
-                    new HttpGet("http://may.base45.de:3000/downloads/"+params[0])).getEntity()
+                    new HttpGet(HOST+"/downloads/"+params[0])).getEntity()
                     .writeTo(
                     new FileOutputStream(new File("/sdcard/teleporter/"+params[0])));
                 progress.setProgress(50);
@@ -143,59 +210,6 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
             progress.dismiss();
             if (!success) 
                 Toast.makeText(DownloadsActivity.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    private class FetchNearbyDownloads extends AsyncTask<String, String, JSONArray> {
-        
-        @Override
-        protected void onPreExecute() {
-            progress = new ProgressDialog(DownloadsActivity.this);
-            progress.setMessage(getString(R.string.downloads_fetch_progress));
-            progress.show();
-            super.onPreExecute();
-        }
-        
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                Location loc = ((LocationManager)getSystemService(LOCATION_SERVICE)).getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if (loc == null)
-                    loc = ((LocationManager)getSystemService(LOCATION_SERVICE)).getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                if (loc == null) { // fallback berlin 
-                    loc = new Location(LocationManager.GPS_PROVIDER);
-                    loc.setLatitude(52.5);
-                    loc.setLongitude(13.4);
-                }
-                URL url = new URL("http://may.base45.de:3000/downloads.json?lat="+loc.getLatitude()+"&lon="+loc.getLongitude());
-                return new JSONArray(new BufferedReader(new InputStreamReader(url.openStream())).readLine());
-            } catch (Exception e) {
-                Log.e(TAG, "problem location or internet");
-                return null;
-            }
-        }
-        
-        @Override
-        protected void onPostExecute(JSONArray json) {
-            try {
-                for (int i = 0; i < json.length(); i++) {
-                    JSONObject j = json.getJSONObject(i).getJSONObject("download");
-                    if (!getPreferenceScreen().getSharedPreferences().contains(j.getString("file"))) {
-                        CheckBoxPreference c = new CheckBoxPreference(DownloadsActivity.this);
-                        c.setKey(j.getString("file"));
-                        String title = j.getString("title");
-                        c.setTitle(title.split(" ")[0]);
-                        c.setSummary(title.substring(title.indexOf(" ")));
-                        c.setOnPreferenceClickListener(DownloadsActivity.this);
-                        getPreferenceScreen().addItemFromInflater(c);
-                    }
-                }
-            } catch (Exception e) {
-                Toast.makeText(DownloadsActivity.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
-            }
-            progress.dismiss();
-            super.onPostExecute(json);
         }
     }
 
