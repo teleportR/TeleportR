@@ -38,10 +38,8 @@ public class QueryMultiplexer {
     private Handler mUpdateHandler;
     private Thread worker;
 
-    public QueryMultiplexer(Context ctx, Place o, Place d) {
+    public QueryMultiplexer(Context ctx) {
         this.ctx = ctx;
-        orig = o;
-        dest = d;
 
         
         nextRides = new ArrayList<Ride>();
@@ -69,7 +67,6 @@ public class QueryMultiplexer {
             }
         };
         plugIns = new ArrayList<ITeleporterPlugIn>();
-        if (o!=null && d!=null) {
             SharedPreferences plugInSettings = ctx.getSharedPreferences("plugIns", ctx.MODE_PRIVATE);
             try {
                 for (String p : plugInSettings.getAll().keySet()) {
@@ -85,7 +82,6 @@ public class QueryMultiplexer {
             }
             priorities = (Map<String, Integer>) ctx.getSharedPreferences("priorities", ctx.MODE_PRIVATE).getAll();
             
-        }
 
         this.mUpdateHandler = new Handler();
 
@@ -119,7 +115,7 @@ public class QueryMultiplexer {
 //        this.ctx.registerReceiver(this.mPluginResponseReceiver, new IntentFilter("org.teleporter.intent.action.RECEIVE_RESPONSE"));
     }
 
-    public boolean searchLater() {
+    public boolean search(final Place orig, final Place dest) {
         // TODO just query just plugins that ...
         // TODO use ThreadPoolExecutor ...
 
@@ -144,15 +140,18 @@ public class QueryMultiplexer {
                     nextRides.addAll(p.find(orig, dest, new Date(requestTimestamp)));
                     
                     mLastSearchTimestamp = requestTimestamp;
-                    mUpdateHandler.post(new Runnable() {
-                        
-                        @Override
-                        public void run() {
-                            rides.addAll(nextRides);
-                            nextRides.clear();
-                            ((Main)ctx).datasetChanged();
-                        }
-                    });
+
+                    rides.addAll(nextRides);
+                    Log.d(TAG, "added "+nextRides.size());
+                    nextRides.clear();
+                    
+                    ctx.getContentResolver().notifyChange(Ride.URI, null);
+//                    mUpdateHandler.post(new Runnable() {
+//                        
+//                        @Override
+//                        public void run() {
+//                        }
+//                    });
                 }
                 
 //                Intent requestIntent = new Intent("org.teleporter.intent.action.RECEIVE_REQUEST");

@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">TeleportR</string>
 
+    <string name="origin_hint">Here Am I.</string>
+    <string name="destination_hint">There We Go!</string>
     <string name="search_hint">Where to beam today?</string>
     <string name="search_label">Station, Address, Name,..</string>
     <string name="search_settings_description">Places to beam..</string>

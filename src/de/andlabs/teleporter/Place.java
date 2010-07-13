@@ -1,20 +1,70 @@
 package de.andlabs.teleporter;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 
 public class Place {
 
     public static final String CONTENT_TYPE = "foo";
     public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
+    public static final String[] PROJECTION = new String[] {"name", "icon"};
     
     public static final int TYPE_STATION = 0;
     public static final int TYPE_ADDRESS = 1;
+    
+    
+    public static Place find(Uri uri, Context ctx) {
+    	Place p = new Place();
+    	Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
+    	if (c.getCount() > 0) {
+    		c.moveToFirst();
+    		p.name = c.getString(0);
+//    		p.address = c.getString(2);
+    		switch (c.getInt(1)) {
+        		case R.drawable.a_bus:
+        			p.type = Place.TYPE_STATION;
+        			break;
+        		case R.drawable.a_boot:
+        			p.type = Place.TYPE_STATION;
+        			break;
+        		case R.drawable.a_sbahn:
+        			p.type = Place.TYPE_STATION;
+        			break;
+        		case R.drawable.a_tram:
+        			p.type = Place.TYPE_STATION;
+        			break;
+        		case R.drawable.a_ubahn:
+        			p.type = Place.TYPE_STATION;
+        			break;
+        		case R.drawable.a_zug:
+        			p.type = Place.TYPE_STATION;
+        			break;
+				default:
+					break;
+			}
+    	}
+    	return p;
+	}
+    
     
     public int lat;
     public int lon;
     public int type;
     public String name;
     public String address;
+	public String city;
+    
+    // multiple external IDs FROM foreign provider
+    // links
+    // 
+    
+    
+    
+    
+    
+    
+    
     
     @Override
     public int hashCode() {

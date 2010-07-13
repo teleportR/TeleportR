@@ -62,7 +62,7 @@ public class RidesActivity extends ListActivity implements OnSeekBarChangeListen
         d.lat = 52512288;
         d.lon = 13419910;
         
-        multiplexer = new QueryMultiplexer(this, o, d);
+//        multiplexer = new QueryMultiplexer(this, o, d);
         
   
         
@@ -96,7 +96,7 @@ public class RidesActivity extends ListActivity implements OnSeekBarChangeListen
                         view.clearAnimation();
                     return view;
                 } else {
-                    multiplexer.searchLater();
+//                    multiplexer.searchLater();
                     return progress;
                 }
             }

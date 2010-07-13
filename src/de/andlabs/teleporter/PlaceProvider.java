@@ -20,8 +20,9 @@ import android.util.Log;
 
 public class PlaceProvider extends ContentProvider implements OnSharedPreferenceChangeListener {
 	
-    private static final int PLACES = 0;
-    private static final int PLACE = 1;
+	private static final int ORIGIN = 0;
+    private static final int PLACES = 1;
+    private static final int PLACE = 2;
     private static final UriMatcher sUriMatcher;
 	private static final String TAG = "PlaceProvider";
 	private static DatabaseHelper db;
@@ -60,13 +61,17 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 
 	private static final String SQL = 
 	    "SELECT _id, " +
-	            "icon AS "+SearchManager.SUGGEST_COLUMN_INTENT_DATA+", "+
+	            "'"+Place.CONTENT_URI+"/%3$s/' || _id " +
+	            	 "AS "+SearchManager.SUGGEST_COLUMN_INTENT_DATA+", "+
 	            "name AS "+SearchManager.SUGGEST_COLUMN_TEXT_1+", " +
             	"%1$s AS "+SearchManager.SUGGEST_COLUMN_TEXT_2+", " +
             	"icon AS "+SearchManager.SUGGEST_COLUMN_ICON_1+", " +
-            	"'"+R.drawable.icon+"' AS "+SearchManager.SUGGEST_COLUMN_ICON_2+", " +
-            	"%2$s || ', ' || %1$s AS "+SearchManager.SUGGEST_COLUMN_QUERY+", "+
-            	"'"+SearchManager.SUGGEST_NEVER_MAKE_SHORTCUT+"' AS "+SearchManager.SUGGEST_COLUMN_SHORTCUT_ID+" "+
+            	"'"+R.drawable.icon+"' " +
+            		 "AS "+SearchManager.SUGGEST_COLUMN_ICON_2+", " +
+            	"%2$s || ', ' || %1$s " +
+            		 "AS "+SearchManager.SUGGEST_COLUMN_QUERY+", "+
+            	"'"+SearchManager.SUGGEST_NEVER_MAKE_SHORTCUT+"' " +
+            		 "AS "+SearchManager.SUGGEST_COLUMN_SHORTCUT_ID+" "+
             	"FROM %3$s " +
             	"WHERE name LIKE '%%1$s%%%%' ";
    
@@ -136,12 +141,21 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		Cursor cursor = null;
-		
+		Log.d(TAG, "query: "+uri);
 		String query;
+		Cursor cursor = null;
         switch (sUriMatcher.match(uri)) {
+        case PLACE:
+        	Log.d(TAG, "matched PLACE: "+uri+" "+uri.getPathSegments().get(1));
+        	cursor = db.getReadableDatabase().query(uri.getPathSegments().get(1), projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	break;
+		case ORIGIN:
+			Log.d(TAG, "matched ORIGIN: "+uri);
+			cursor = db.getReadableDatabase().rawQuery(String.format(sql, ""), null);
+			break;
 		case PLACES:
-		    query = uri.getPathSegments().size() == 2 ? uri.getLastPathSegment(): "";
+			Log.d(TAG, "matched PLACES: "+uri);
+			query = uri.getPathSegments().size() == 2 ? uri.getLastPathSegment(): "";
 			cursor = db.getReadableDatabase().rawQuery(String.format(sql, query), null);
 //					"SELECT _id, " +
 //					    "name AS "+SearchManager.SUGGEST_COLUMN_TEXT_1+", " +
@@ -180,9 +194,10 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-//		sUriMatcher.addURI("de.andlabs.teleporter", Place.CONTENT_URI+"/*", PLACE);
+		sUriMatcher.addURI("de.andlabs.teleporter", "places/*/#", PLACE);
 		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
 		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
+		sUriMatcher.addURI("de.andlabs.teleporter", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY, ORIGIN);
 		
 	}
 }

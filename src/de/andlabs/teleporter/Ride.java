@@ -3,10 +3,13 @@ package de.andlabs.teleporter;
 import java.util.Date;
 
 import android.content.Intent;
+import android.net.Uri;
 
 public class Ride {
 
-    public final static int MODE_TELEPORTER = 0;
+	public static final Uri URI = Uri.parse("content://org.teleportr/rides");
+
+	public final static int MODE_TELEPORTER = 0;
     public final static int MODE_SKATEBOARD = 1;
     public final static int MODE_TRANSIT = 2;
     public final static int MODE_FLIGHT = 3;
