@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class HereIAmActivity extends Activity {
 
     private static final String TAG = "HereIAm";
+	private Teleporter teleporter;
 
 	/** Called when the activity is first created. */
     @Override
@@ -25,7 +26,8 @@ public class HereIAmActivity extends Activity {
         onSearchRequested();
 
         setContentView(R.layout.place_detail);
-        display(((Teleporter)getApplication()).currentPlace);
+        teleporter = (Teleporter) getApplication();
+        display(teleporter.currentPlace);
     }
 
 	private void display(Place place) {
@@ -42,15 +44,17 @@ public class HereIAmActivity extends Activity {
         Place place = null;
         if (intent.getData() != null) {
         	place = Place.find(intent.getData(), this);
-        	((Teleporter)getApplication()).currentPlace = place;
-        	
         } else if (intent.hasExtra(SearchManager.QUERY)) {
         	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
-        	((Teleporter)getApplication()).currentPlace = place;
         }
+        if (teleporter.currentPlace != null) 
+        	teleporter.reset();
+        
+        teleporter.currentPlace = place;
+        display(place);
+        
         if (place.name!=null && place.address!=null) // unambigious
         	finish(); // back to search results
-        display(place);
     }
 
 

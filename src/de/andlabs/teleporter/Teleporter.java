@@ -18,22 +18,27 @@ public class Teleporter extends Application {
 		// smartspace fallback
 		currentPlace = new Place();
         currentPlace.name = "c-base";
-        currentPlace.type = Place.TYPE_ADDRESS;
         currentPlace.address = "Rungestraße 20, Berlin";
+
 	}
 
 	public void beam() {
 		
 		Log.d(TAG, "BEAMING..");
-		if (multiplexer == null) 
+		if (multiplexer == null)
 			multiplexer = new QueryMultiplexer(this);
 		if (currentPlace!=null && destination!=null) {
 			multiplexer.search(currentPlace, destination);
 		}
 	}
 	
+	public void reset() {
+		if (multiplexer != null)
+			multiplexer.rides.clear();
+		getContentResolver().notifyChange(Ride.URI, null);
+	}
+	
 	public Ride[] getRides() {
 		return multiplexer.rides.toArray(new Ride[multiplexer.rides.size()]);
 	}
-	
 }

@@ -1,6 +1,5 @@
 package de.andlabs.teleporter;
 
-import java.net.URLDecoder;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -204,7 +203,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		Log.d(Teleporter.TAG, "changed current place: ");
-		teleporter.beam();
+		
 	}
 
 	@Override
@@ -214,16 +213,25 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         getListView().setVisibility(View.VISIBLE);
         
+        Place place = null;
         if (intent.getData() != null) {
-        	teleporter.destination = Place.find(intent.getData(), this);
+        	place = Place.find(intent.getData(), this);
         } else if (intent.hasExtra(SearchManager.QUERY)) {
-        	teleporter.destination = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
+        	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
+        if (teleporter.destination != null)
+        	teleporter.reset();
         
         // GO..
+        teleporter.destination = place;
         teleporter.beam();
+        
 //        MediaPlayer.create(this, R.raw.sound_long).start();
-        ((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
+        if (place.name != null)
+        	((TextView)findViewById(R.id.dest)).setText(place.name);
+        else
+        	((TextView)findViewById(R.id.dest)).setText(place.address);
+        	
     }
 
     @Override

@@ -63,7 +63,9 @@
 	    
 	    <activity android:name="SettingsActivity"></activity>
 	    
-	    <activity android:name="DownloadsActivity"></activity>
+	    <activity android:name="DownloadsActivity"
+	    		  android:screenOrientation="portrait">
+	    </activity>
 </application>
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>

@@ -65,4 +65,12 @@ android:text="addressline of place"
 android:textSize="14dip"
 >
 </TextView>
+
+<ImageView
+android:id="@+id/icon"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+>
+</ImageView>
+
 </LinearLayout>

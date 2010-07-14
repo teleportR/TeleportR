@@ -38,22 +38,17 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
         StringBuilder url = new StringBuilder();
         url.append("http://mobile.bahn.de/bin/mobil/query.exe/dox?");
         url.append("n=1");
-        switch (orig.type) {
-            case Place.TYPE_ADDRESS:
-                url.append("&f=2&s=").append(URLEncoder.encode(orig.address+"!"));
-                break;
-            case Place.TYPE_STATION:
-                url.append("&f=1&s=").append(URLEncoder.encode(orig.name+"!"));
-                break;
-        }
-        switch (dest.type) {
-            case Place.TYPE_ADDRESS:
-                url.append("&o=2&z=").append(URLEncoder.encode(dest.address+"!"));
-                break;
-            case Place.TYPE_STATION:
-                url.append("&o=1&z=").append(URLEncoder.encode(dest.name+"!"));
-                break;
-        }
+        
+        if (orig.address != null)
+        	url.append("&f=2&s=").append(URLEncoder.encode(orig.address+", "+orig.city+"!"));
+        else
+        	url.append("&f=1&s=").append(URLEncoder.encode(orig.name+", "+orig.city+"!"));
+        
+        if (dest.address != null)
+        	url.append("&o=2&z=").append(URLEncoder.encode(dest.address+", "+dest.city+"!"));
+        else
+        	url.append("&o=1&z=").append(URLEncoder.encode(dest.name+", "+dest.city+"!"));
+
         url.append("&d="); // date
         url.append((new SimpleDateFormat("ddMMyy")).format(time));
         url.append("&t="); // time

@@ -38,18 +38,19 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 		    db.execSQL("CREATE TABLE myplaces ("
-                        + "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                        + "name TEXT,"
-                        + "city TEXT,"
-                        + "lat INTEGER,"
-                        + "lon INTEGER,"
-                        + "address TEXT,"
-                        + "icon INTEGER,"
+                        + Place._ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        + Place._COUNT+" INTEGER,"
+                        + Place.NAME+" TEXT,"
+                        + Place.CITY+" TEXT,"
+                        + Place.LAT+" INTEGER,"
+                        + Place.LON+" INTEGER,"
+                        + Place.ADDRESS+" TEXT,"
+                        + Place.ICON+" INTEGER,"
                         + "tlp_id INTEGER"
                         + ");");
-		    db.execSQL("INSERT INTO myplaces values(1, 'Shackspace', 'Stuttgart', 48803262, 9188745, 'Äusserer Nordbahnhof 12', "+R.drawable.shackspace+", 23);");
-		    db.execSQL("INSERT INTO myplaces values(2, 'Droidcamp', 'Stuttgart', 48740955, 9100823, 'Nobelstrasse 10', "+R.drawable.droidcamp+", 42);");
-		    db.execSQL("INSERT INTO myplaces values(3, 'c-base', 'Berlin', 52512923, 13420555, 'Rungestr 20', "+R.drawable.cbase+", 42);");
+		    db.execSQL("INSERT INTO myplaces values(1, 5, 'Shackspace', 'Stuttgart', 48803262, 9188745, 'Äusserer Nordbahnhof 12', "+R.drawable.shackspace+", 23);");
+		    db.execSQL("INSERT INTO myplaces values(2, 3, 'Droidcamp', 'Stuttgart', 48740955, 9100823, 'Nobelstrasse 10', "+R.drawable.droidcamp+", 42);");
+		    db.execSQL("INSERT INTO myplaces values(3, 7, 'c-base', 'Berlin', 52512923, 13420555, 'Rungestr 20', "+R.drawable.cbase+", 42);");
 		    Log.d(TAG, "created DB");
 		}
 
@@ -125,13 +126,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	@Override
 	public String getType(Uri uri) {
-//        switch (sUriMatcher.match(uri)) {
-//        case PLACES:
-        	return Place.CONTENT_TYPE;
-        	
-//        default:
-//            throw new IllegalArgumentException("Unknown URI " + uri);
-//        }
+		return null;
 	}
 	
 	
@@ -149,8 +144,20 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 		Cursor cursor = null;
         switch (sUriMatcher.match(uri)) {
         case PLACE:
-        	Log.d(TAG, "matched PLACE: "+uri+" "+uri.getPathSegments().get(1));
-        	cursor = db.getReadableDatabase().query(uri.getPathSegments().get(1), projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	String table = uri.getPathSegments().get(1);
+        	Log.d(TAG, "matched PLACE: "+uri+" "+table);
+        	if (table.equals("myplaces")) {
+        		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	} else if (table.contains("Haltestellen")) {
+        		projection[1] = "'' AS "+Place.ADDRESS;
+        		projection[2] = "'"+table.split("_")[1]+"' AS "+Place.CITY;
+        		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	} else if (table.contains("Straßen")) {
+        		projection[1] = "name AS "+Place.ADDRESS;
+        		projection[2] = "'"+table.split("_")[1]+"' AS "+Place.CITY;
+        		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	}
+
         	break;
 		case ORIGIN:
 			Log.d(TAG, "matched ORIGIN: "+uri);

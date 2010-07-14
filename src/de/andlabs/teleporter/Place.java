@@ -5,19 +5,24 @@ import java.net.URLDecoder;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.BaseColumns;
 
-public class Place {
+public class Place implements BaseColumns {
 
-    public static final String CONTENT_TYPE = "foo";
-    public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
-//    public static final String[] PROJECTION = new String[] {"name", "address", "lat", "lon", "icon"};
-    public static final String[] PROJECTION = new String[] {"name", "icon", "lat", "lon"};
+	public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
+	
+	public static final String NAME = "name";
+	public static final String ADDRESS = "address";
+	public static final String CITY = "city";
+	public static final String ICON = "ICON";
+	public static final String LAT = "lat";
+	public static final String LON = "lon";
+
+	public static final String[] PROJECTION = 
+			    new String[] { NAME, ADDRESS, CITY, LAT, LON, ICON };
     
-    public static final int TYPE_ADDRESS = 0;
-    public static final int TYPE_STATION = 1;
-    
-    
-    public static Place find(Uri uri, Context ctx) {
+
+	public static Place find(Uri uri, Context ctx) {
     	Place p = new Place();
     	
     	if (uri.getScheme().equals("content")) {
@@ -25,12 +30,11 @@ public class Place {
     		Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
     		if (c.getCount() > 0) {
     			c.moveToFirst();
-    			if (c.getInt(1) != R.drawable.a_street) 
-    				p.name = c.getString(0);
-    			else
-    				p.address = p.name+" 23";
-    			p.lat = c.getInt(2);
-    			p.lon = c.getInt(3);
+    			p.name = c.getString(0);
+    			p.address = c.getString(1);
+    			p.city = c.getString(2);
+    			p.lat = c.getInt(3);
+    			p.lon = c.getInt(4);
     		}
     		c.close();
     		
