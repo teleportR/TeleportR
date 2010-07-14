@@ -1,5 +1,7 @@
 package de.andlabs.teleporter;
 
+import java.net.URLDecoder;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -8,44 +10,53 @@ public class Place {
 
     public static final String CONTENT_TYPE = "foo";
     public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
-    public static final String[] PROJECTION = new String[] {"name", "icon"};
+//    public static final String[] PROJECTION = new String[] {"name", "address", "lat", "lon", "icon"};
+    public static final String[] PROJECTION = new String[] {"name", "icon", "lat", "lon"};
     
-    public static final int TYPE_STATION = 0;
-    public static final int TYPE_ADDRESS = 1;
+    public static final int TYPE_ADDRESS = 0;
+    public static final int TYPE_STATION = 1;
     
     
     public static Place find(Uri uri, Context ctx) {
     	Place p = new Place();
-    	Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
-    	if (c.getCount() > 0) {
-    		c.moveToFirst();
-    		p.name = c.getString(0);
-//    		p.address = c.getString(2);
-    		switch (c.getInt(1)) {
-        		case R.drawable.a_bus:
-        			p.type = Place.TYPE_STATION;
-        			break;
-        		case R.drawable.a_boot:
-        			p.type = Place.TYPE_STATION;
-        			break;
-        		case R.drawable.a_sbahn:
-        			p.type = Place.TYPE_STATION;
-        			break;
-        		case R.drawable.a_tram:
-        			p.type = Place.TYPE_STATION;
-        			break;
-        		case R.drawable.a_ubahn:
-        			p.type = Place.TYPE_STATION;
-        			break;
-        		case R.drawable.a_zug:
-        			p.type = Place.TYPE_STATION;
-        			break;
-				default:
-					break;
-			}
+    	
+    	if (uri.getScheme().equals("content")) {
+    		
+    		Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
+    		if (c.getCount() > 0) {
+    			c.moveToFirst();
+    			if (c.getInt(1) != R.drawable.a_street) 
+    				p.name = c.getString(0);
+    			else
+    				p.address = p.name+" 23";
+    			p.lat = c.getInt(2);
+    			p.lon = c.getInt(3);
+    		}
+    		c.close();
+    		
+    	} else if (uri.getScheme().equals("geo")) {
+    		String query = URLDecoder.decode(uri.toString().substring(10));
+    		
+            String[] q = query.split(",");
+            if (Character.isDigit(query.charAt(0))) {
+                p.address = q[0].substring(q[0].indexOf(" ")+1) +" "+ q[0].substring(0, q[0].indexOf(" "))+", "+q[1].split(" ")[1];
+            } else {
+                p.address = q[0]+", "+ q[1].split(" ")[2];
+            }
+            p.name = p.address;
     	}
+    	
     	return p;
 	}
+    
+	public static Place find(String query, Context ctx) {
+		Place p = new Place();
+		p.name = query;
+		return p;
+	}
+    
+    
+    
     
     
     public int lat;
@@ -54,17 +65,6 @@ public class Place {
     public String name;
     public String address;
 	public String city;
-    
-    // multiple external IDs FROM foreign provider
-    // links
-    // 
-    
-    
-    
-    
-    
-    
-    
     
     @Override
     public int hashCode() {
@@ -104,5 +104,6 @@ public class Place {
             return false;
         return true;
     }
+
 
 }

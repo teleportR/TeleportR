@@ -12,16 +12,14 @@ public class Teleporter extends Application {
 	Place destination;
 
 	
-	
 	public Teleporter() {
 		super();
 		
-		// fallback
+		// smartspace fallback
 		currentPlace = new Place();
         currentPlace.name = "c-base";
         currentPlace.type = Place.TYPE_ADDRESS;
         currentPlace.address = "Rungestraße 20, Berlin";
-
 	}
 
 	public void beam() {
@@ -37,7 +35,5 @@ public class Teleporter extends Application {
 	public Ride[] getRides() {
 		return multiplexer.rides.toArray(new Ride[multiplexer.rides.size()]);
 	}
-
-
 	
 }

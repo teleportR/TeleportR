@@ -41,13 +41,15 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
                         + "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         + "name TEXT,"
                         + "city TEXT,"
+                        + "lat INTEGER,"
+                        + "lon INTEGER,"
                         + "address TEXT,"
                         + "icon INTEGER,"
                         + "tlp_id INTEGER"
                         + ");");
-		    db.execSQL("INSERT INTO myplaces values(1, 'Shackspace', 'Stuttgart', 'Äusserer Nordbahnhof 12', "+R.drawable.shackspace+", 23);");
-		    db.execSQL("INSERT INTO myplaces values(2, 'Droidcamp', 'Stuttgart', 'Nobelstrasse 10', "+R.drawable.droidcamp+", 42);");
-		    db.execSQL("INSERT INTO myplaces values(3, 'c-base', 'Berlin', 'Rungestr 20', "+R.drawable.cbase+", 42);");
+		    db.execSQL("INSERT INTO myplaces values(1, 'Shackspace', 'Stuttgart', 48803262, 9188745, 'Äusserer Nordbahnhof 12', "+R.drawable.shackspace+", 23);");
+		    db.execSQL("INSERT INTO myplaces values(2, 'Droidcamp', 'Stuttgart', 48740955, 9100823, 'Nobelstrasse 10', "+R.drawable.droidcamp+", 42);");
+		    db.execSQL("INSERT INTO myplaces values(3, 'c-base', 'Berlin', 52512923, 13420555, 'Rungestr 20', "+R.drawable.cbase+", 42);");
 		    Log.d(TAG, "created DB");
 		}
 
@@ -123,12 +125,13 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	@Override
 	public String getType(Uri uri) {
-        switch (sUriMatcher.match(uri)) {
-        case PLACES:
+//        switch (sUriMatcher.match(uri)) {
+//        case PLACES:
         	return Place.CONTENT_TYPE;
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
-        }
+        	
+//        default:
+//            throw new IllegalArgumentException("Unknown URI " + uri);
+//        }
 	}
 	
 	
@@ -198,6 +201,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
 		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
 		sUriMatcher.addURI("de.andlabs.teleporter", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY, ORIGIN);
+		sUriMatcher.addURI("de.andlabs.teleporter", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
 		
 	}
 }
