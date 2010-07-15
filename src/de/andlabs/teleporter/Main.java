@@ -21,9 +21,13 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.SlidingDrawer;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 
 public class Main extends ListActivity implements OnSeekBarChangeListener {
@@ -142,6 +146,24 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             }
             
         });
+
+        SlidingDrawer slider = ((SlidingDrawer)findViewById(R.id.priorities));
+        slider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
+        	
+        	@Override
+        	public void onDrawerOpened() {
+        		((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle_close);
+        		
+        	}
+        });
+        slider.setOnDrawerCloseListener(new OnDrawerCloseListener() {
+        	
+        	@Override
+        	public void onDrawerClosed() {
+        		((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle);
+        		
+        	}
+        });
         
         priorities = getSharedPreferences("priorities", MODE_PRIVATE);
         fun = ((SeekBar)findViewById(R.id.fun));
@@ -161,6 +183,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         green.setProgress(priorities.getInt("green", 0));
         social.setProgress(priorities.getInt("social", 0));
 //        multiplexer.sort();
+        
         
     }
     
