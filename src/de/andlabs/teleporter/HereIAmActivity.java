@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HereIAmActivity extends Activity {
@@ -32,14 +33,14 @@ public class HereIAmActivity extends Activity {
 
 	private void display(Place place) {
 		((TextView)findViewById(R.id.name)).setText(place.name);
-		((TextView)findViewById(R.id.address)).setText(place.address);
 		((TextView)findViewById(R.id.latlon)).setText(place.lat+"\n"+place.lon);
+		((TextView)findViewById(R.id.address)).setText(place.address+", "+place.city);
+		((ImageView)findViewById(R.id.icon)).setImageResource(place.icon);
 	}
     
     @Override
     protected void onNewIntent(Intent intent) {
         Log.d(TAG, "newIntent: "+intent.toString());
-        Log.d(TAG, "newIntent: "+intent.getDataString());
         
         Place place = null;
         if (intent.getData() != null) {
@@ -51,9 +52,10 @@ public class HereIAmActivity extends Activity {
         	teleporter.reset();
         
         teleporter.currentPlace = place;
+        teleporter.beam();
         display(place);
         
-        if (place.name!=null && place.address!=null) // unambigious
+        if (place.name!=null) // unambigious
         	finish(); // back to search results
     }
 

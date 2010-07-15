@@ -149,12 +149,12 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
         	if (table.equals("myplaces")) {
         		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
         	} else if (table.contains("Haltestellen")) {
-        		projection[1] = "'' AS "+Place.ADDRESS;
-        		projection[2] = "'"+table.split("_")[1]+"' AS "+Place.CITY;
+        		projection[5] = "NULL AS "+Place.ADDRESS;
+        		projection[4] = "'"+table.split("_")[1].split("\\.")[0]+"' AS "+Place.CITY;
         		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
         	} else if (table.contains("Straßen")) {
-        		projection[1] = "name AS "+Place.ADDRESS;
-        		projection[2] = "'"+table.split("_")[1]+"' AS "+Place.CITY;
+        		projection[5] = "name AS "+Place.ADDRESS;
+        		projection[4] = "'"+table.split("_")[1].split("\\.")[0]+"' AS "+Place.CITY;
         		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
         	}
 

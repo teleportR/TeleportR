@@ -168,7 +168,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	protected void onStart() {
 		super.onStart();
 		Log.d(Teleporter.TAG, "onStart");
-		((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 		
 		registerReceiver(mTimeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
 		getContentResolver().registerContentObserver(Ride.URI, false, mContentObserver);
@@ -203,6 +202,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		Log.d(Teleporter.TAG, "changed current place: ");
+		((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 		
 	}
 

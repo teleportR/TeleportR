@@ -11,30 +11,32 @@ public class Place implements BaseColumns {
 
 	public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
 	
-	public static final String NAME = "name";
-	public static final String ADDRESS = "address";
-	public static final String CITY = "city";
-	public static final String ICON = "ICON";
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
+	public static final String ICON = "ICON";
+	public static final String CITY = "city";
+	public static final String NAME = "name";
+	public static final String ADDRESS = "address";
 
-	public static final String[] PROJECTION = 
-			    new String[] { NAME, ADDRESS, CITY, LAT, LON, ICON };
+	public static final String[] PROJECTION =
+			        new String[] { LAT, LON, ICON, NAME, CITY, ADDRESS };
     
 
 	public static Place find(Uri uri, Context ctx) {
-    	Place p = new Place();
+    	
+		Place p = new Place();
     	
     	if (uri.getScheme().equals("content")) {
     		
     		Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
     		if (c.getCount() > 0) {
     			c.moveToFirst();
-    			p.name = c.getString(0);
-    			p.address = c.getString(1);
-    			p.city = c.getString(2);
-    			p.lat = c.getInt(3);
-    			p.lon = c.getInt(4);
+    			p.lat = c.getInt(0);
+    			p.lon = c.getInt(1);
+    			p.icon = c.getInt(2);
+    			p.name = c.getString(3);
+    			p.city = c.getString(4);
+    			p.address = c.getString(5);
     		}
     		c.close();
     		
@@ -65,10 +67,11 @@ public class Place implements BaseColumns {
     
     public int lat;
     public int lon;
-    public int type;
+    public int icon;
     public String name;
     public String address;
 	public String city;
+
     
     @Override
     public int hashCode() {
@@ -78,7 +81,7 @@ public class Place implements BaseColumns {
         result = prime * result + lat;
         result = prime * result + lon;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + type;
+        result = prime * result + icon;
         return result;
     }
     @Override
@@ -104,7 +107,7 @@ public class Place implements BaseColumns {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (type != other.type)
+        if (icon != other.icon)
             return false;
         return true;
     }
