@@ -77,6 +77,12 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 onSearchRequested();
             }
         });
+        findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		onSearchRequested();
+        	}
+        });
         
         // search results
         rides = new Ride[0];
@@ -88,6 +94,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "new rides found");
         		rides = teleporter.getRides();
+        		if (rides.length > 0) findViewById(R.id.logo).setVisibility(View.GONE);
+        		else findViewById(R.id.logo).setVisibility(View.VISIBLE);
         		getListView().invalidateViews();
         	}
         };

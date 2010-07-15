@@ -52,6 +52,12 @@
 	    android:listSelector="@drawable/selector"
 	    android:visibility="gone"
     />
+     <ImageView android:id="@+id/logo"
+        android:layout_centerInParent="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/logo"
+        />
     
     <SlidingDrawer android:id="@+id/priorities"
      android:layout_width="fill_parent"
@@ -61,8 +67,7 @@
      android:content="@+id/pane"
      >
 
-     <ImageView
-         android:id="@id/handle"
+     <ImageView android:id="@id/handle"
          android:layout_width="29dip"
          android:layout_height="fill_parent"
          android:paddingTop="410dip"
