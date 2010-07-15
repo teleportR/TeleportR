@@ -2,32 +2,19 @@ package de.andlabs.teleporter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import de.andlabs.teleporter.plugin.ITeleporterPlugIn;
 
 public class QueryMultiplexer {
 
     private static final String TAG = "Multiplexer";
-    private Place orig;
-    private Place dest;
     public ArrayList<Ride> rides;
     public ArrayList<ITeleporterPlugIn> plugIns;
     private ArrayList<Ride> nextRides;

@@ -64,9 +64,9 @@
      <ImageView
          android:id="@id/handle"
          android:layout_width="75dip"
-         android:layout_height="142dip"
-         android:layout_gravity="bottom"
-         android:src="@drawable/close"
+         android:paddingTop="410dip"
+         android:layout_height="fill_parent"
+         android:src="@drawable/handle"
          />
 
      <LinearLayout android:id="@id/pane"
@@ -172,13 +172,6 @@
 			    android:max="5"
 			    android:tag="social"
 		    ></SeekBar>
-		    
-		    <ImageButton
-		    	android:id="@+id/close"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:src="@drawable/close"
-		    />
 
 			</LinearLayout>
 
