@@ -1,4 +1,4 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.net.URLDecoder;
 
@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 
 public class Place implements BaseColumns {
 
-	public static final Uri CONTENT_URI = Uri.parse("content://de.andlabs.teleporter/places");
+	public static final Uri CONTENT_URI = Uri.parse("content://org.teleportr/places");
 	
 	public static final String LAT = "lat";
 	public static final String LON = "lon";

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="de.andlabs.teleporter"
+      package="org.teleportr"
       android:versionCode="2"
       android:versionName="0.0.01">
       
@@ -51,7 +51,7 @@
         
         <!-- Provides search suggestions for places. -->
         <provider android:name="PlaceProvider"
-                android:authorities="de.andlabs.teleporter"
+                android:authorities="org.teleportr"
                 android:syncable="false" />
 
 		 <activity android:name="TeleporterActivity" android:screenOrientation="portrait">

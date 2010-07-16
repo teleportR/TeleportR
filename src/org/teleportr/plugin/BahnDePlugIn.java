@@ -1,4 +1,4 @@
-package de.andlabs.teleporter.plugin;
+package org.teleportr.plugin;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -9,11 +9,10 @@ import java.util.regex.MatchResult;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.teleportr.Place;
+import org.teleportr.Ride;
 
-import de.andlabs.teleporter.Place;
-import de.andlabs.teleporter.R;
-import de.andlabs.teleporter.Ride;
-import de.andlabs.teleporter.R.drawable;
+import org.teleportr.R;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -31,7 +30,7 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
     }
 
     /* (non-Javadoc)
-     * @see de.andlabs.teleporter.ITeleporterPlugIn#find(de.andlabs.teleporter.Place, de.andlabs.teleporter.Place, java.util.Date)
+     * @see org.teleportr.ITeleporterPlugIn#find(org.teleportr.Place, org.teleportr.Place, java.util.Date)
      */
     public ArrayList<Ride> find(Place orig, Place dest, Date time) {
         

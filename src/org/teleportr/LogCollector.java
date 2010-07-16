@@ -1,8 +1,8 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.util.List;
 
-import de.andlabs.teleporter.R;
+import org.teleportr.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

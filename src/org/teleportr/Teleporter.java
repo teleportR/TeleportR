@@ -1,5 +1,6 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
+import org.teleportr.R;
 import android.app.Application;
 import android.util.Log;
 

@@ -1,12 +1,13 @@
-package de.andlabs.teleporter.plugin;
+package org.teleportr.plugin;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.teleportr.Place;
+import org.teleportr.Ride;
+
 import android.content.Intent;
 
-import de.andlabs.teleporter.Place;
-import de.andlabs.teleporter.Ride;
 
 public class TeleporterPlugIn implements ITeleporterPlugIn {
 

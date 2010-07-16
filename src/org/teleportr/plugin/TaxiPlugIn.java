@@ -1,11 +1,12 @@
-package de.andlabs.teleporter.plugin;
+package org.teleportr.plugin;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.andlabs.teleporter.Place;
-import de.andlabs.teleporter.R;
-import de.andlabs.teleporter.Ride;
+import org.teleportr.Place;
+import org.teleportr.Ride;
+
+import org.teleportr.R;
 
 public class TaxiPlugIn implements ITeleporterPlugIn {
 

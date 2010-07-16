@@ -1,16 +1,17 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
+import org.teleportr.plugin.ITeleporterPlugIn;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
-import de.andlabs.teleporter.plugin.ITeleporterPlugIn;
 
 public class QueryMultiplexer {
 
@@ -60,7 +61,7 @@ public class QueryMultiplexer {
                     Log.d(TAG, "plugin "+p);
                     if (plugInSettings.getBoolean(p, false)){
                         Log.d(TAG, "add plugin "+p);
-                        plugIns.add((ITeleporterPlugIn) Class.forName("de.andlabs.teleporter.plugin."+p).newInstance());
+                        plugIns.add((ITeleporterPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
                     }
                 }
             } catch (Exception e) {

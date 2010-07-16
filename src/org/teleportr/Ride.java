@@ -1,4 +1,4 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.util.Date;
 

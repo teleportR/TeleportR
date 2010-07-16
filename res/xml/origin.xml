@@ -8,7 +8,7 @@
         android:queryAfterZeroResults="true"
         android:searchSuggestPath="origin"
         android:searchMode="queryRewriteFromText"
-        android:searchSuggestAuthority="de.andlabs.teleporter"
+        android:searchSuggestAuthority="org.teleportr"
         android:searchSuggestIntentAction="org.teleportr.BEAM"
         >
 </searchable>

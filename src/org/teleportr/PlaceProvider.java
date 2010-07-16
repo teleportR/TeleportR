@@ -1,6 +1,8 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.io.File;
+
+import org.teleportr.R;
 
 import android.app.SearchManager;
 import android.content.ContentProvider;
@@ -204,11 +206,11 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-		sUriMatcher.addURI("de.andlabs.teleporter", "places/*/#", PLACE);
-		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
-		sUriMatcher.addURI("de.andlabs.teleporter", SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
-		sUriMatcher.addURI("de.andlabs.teleporter", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY, ORIGIN);
-		sUriMatcher.addURI("de.andlabs.teleporter", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
+		sUriMatcher.addURI("org.teleportr", "places/*/#", PLACE);
+		sUriMatcher.addURI("org.teleportr", SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
+		sUriMatcher.addURI("org.teleportr", SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
+		sUriMatcher.addURI("org.teleportr", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY, ORIGIN);
+		sUriMatcher.addURI("org.teleportr", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
 		
 	}
 }

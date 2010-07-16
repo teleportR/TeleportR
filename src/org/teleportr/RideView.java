@@ -1,7 +1,9 @@
-package de.andlabs.teleporter;
+package org.teleportr;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.teleportr.R;
 
 import android.content.Context;
 import android.util.AttributeSet;
