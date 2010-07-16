@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class HereAmI extends Activity {
 
-    private static final String TAG = "HereIAm";
+    private static final String TAG = "HereAmI";
 	private Teleporter teleporter;
 
 	/** Called when the activity is first created. */

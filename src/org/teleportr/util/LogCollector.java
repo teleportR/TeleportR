@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.teleportr.R;
 import org.teleportr.R.string;
+import org.teleportr.Teleporter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,11 +34,14 @@ public class LogCollector {
                intent.putExtra("com.xtralogic.logcollector.intent.extra.FORMAT", "time");
 
                //The log can be filtered to contain data relevant only to your app
-               /*String[] filterSpecs = new String[3];
+               String[] filterSpecs = new String[3];
                filterSpecs[0] = "AndroidRuntime:E";
-               filterSpecs[1] = TAG + ":V";
                filterSpecs[2] = "*:S";
-               intent.putExtra(EXTRA_FILTER_SPECS, filterSpecs);*/
+               filterSpecs[1] = "HereAmI"+ ":V";
+               filterSpecs[1] = Teleporter.TAG + ":V";
+               filterSpecs[1] = "PlaceProvider" + ":V";
+               filterSpecs[1] = "Autocompletion" + ":V";
+               intent.putExtra("com.xtralogic.logcollector.intent.extra.EXTRA_FILTER_SPECS", filterSpecs);
 
                ctx.startActivity(intent);
         } else {

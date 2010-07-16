@@ -41,7 +41,7 @@ import android.widget.Toast;
 public class Autocompletion extends PreferenceActivity implements OnPreferenceClickListener {
 
 	private static final String HOST = "http://teleportr.org";
-    private static final String TAG = "Settings";
+    private static final String TAG = "Autocompletion";
     private ProgressDialog progress;
 
     /** Called when the activity is first created. */
