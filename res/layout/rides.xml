@@ -50,7 +50,6 @@
 	    android:divider="#000000"
 	    android:dividerHeight="2dip"
 	    android:listSelector="@drawable/selector"
-	    android:visibility="gone"
     />
      <ImageView android:id="@+id/logo"
         android:layout_centerInParent="true"

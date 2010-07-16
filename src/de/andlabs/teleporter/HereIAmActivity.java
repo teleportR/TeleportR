@@ -53,10 +53,11 @@ public class HereIAmActivity extends Activity {
         
         teleporter.currentPlace = place;
         teleporter.beam();
-        display(place);
         
         if (place.name!=null) // unambigious
         	finish(); // back to search results
+
+        display(place);
     }
 
 

@@ -14,6 +14,8 @@ public class Teleporter extends Application {
 	
 	public Teleporter() {
 		super();
+
+		Log.d(TAG, "onCreate");
 		
 		// smartspace fallback 
 		currentPlace = new Place();
@@ -45,7 +47,9 @@ public class Teleporter extends Application {
 		getContentResolver().notifyChange(Ride.URI, null);
 	}
 	
-	public Ride[] getRides() {
-		return multiplexer.rides.toArray(new Ride[multiplexer.rides.size()]);
+	public Ride[] getRides(Ride[] rides) {
+		if (multiplexer != null)
+			return multiplexer.rides.toArray(new Ride[multiplexer.rides.size()]);
+		else return rides;
 	}
 }

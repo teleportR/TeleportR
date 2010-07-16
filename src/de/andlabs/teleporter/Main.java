@@ -1,5 +1,6 @@
 package de.andlabs.teleporter;
 
+import de.andlabs.teleporter.plugin.ITeleporterPlugIn;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -10,6 +11,7 @@ import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,8 +34,8 @@ import android.widget.TextView;
 
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
-    private BroadcastReceiver mTimeTickReceiver; // every minute..
-    private ContentObserver mContentObserver; // new rides..
+    private BroadcastReceiver timetick; // every minute..
+    private ContentObserver observer; // new rides..
     private SharedPreferences priorities; // criteria..
     private Teleporter teleporter; // to beam..
     private Ride[] rides; // results..
@@ -83,31 +85,18 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		onSearchRequested();
         	}
         });
-        
-        // search results
-        rides = new Ride[0];
+
+        // this is it
         teleporter = (Teleporter) getApplication();
         
-        mContentObserver = new ContentObserver(new Handler()) {
-        	
-        	@Override
-        	public void onChange(boolean selfChange) {
-        		Log.d(Teleporter.TAG, "new rides found");
-        		rides = teleporter.getRides();
-        		if (rides.length > 0) findViewById(R.id.logo).setVisibility(View.GONE);
-        		else findViewById(R.id.logo).setVisibility(View.VISIBLE);
-        		getListView().invalidateViews();
-        	}
-        };
+        if (teleporter.currentPlace != null)
+        	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
+		if (teleporter.destination != null)
+			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
         
-        mTimeTickReceiver = new BroadcastReceiver() {
-        	@Override
-        	public void onReceive(final Context pContext, final Intent pIntent) {
-        		Log.d(Teleporter.TAG, "count down another minute");
-        		getListView().invalidateViews();
-        	}
-        };
 
+		// search results
+		rides = teleporter.getRides(new Ride[0]);
         setListAdapter(new BaseAdapter() {
             
             @Override
@@ -154,6 +143,33 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             }
             
         });
+        
+        observer = new ContentObserver(new Handler()) {
+        	
+        	@Override
+        	public void onChange(boolean selfChange) {
+        		Log.d(Teleporter.TAG, "new rides found");
+        		rides = teleporter.getRides(rides);
+        		if (rides.length > 0) {
+        			findViewById(R.id.logo).setVisibility(View.GONE);
+        			getListView().setVisibility(View.VISIBLE);
+        		}
+        		else {
+        			findViewById(R.id.logo).setVisibility(View.VISIBLE);
+        			getListView().setVisibility(View.GONE);
+        		}
+        		onContentChanged();
+        	}
+        };
+        observer.onChange(true);
+        
+        timetick = new BroadcastReceiver() {
+        	@Override
+        	public void onReceive(final Context pContext, final Intent pIntent) {
+        		Log.d(Teleporter.TAG, "count down another minute");
+        		getListView().invalidateViews();
+        	}
+        };
 
         SlidingDrawer slider = ((SlidingDrawer)findViewById(R.id.priorities));
         slider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
@@ -200,8 +216,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 		super.onStart();
 		Log.d(Teleporter.TAG, "onStart");
 		
-		registerReceiver(mTimeTickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
-		getContentResolver().registerContentObserver(Ride.URI, false, mContentObserver);
+		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
+		getContentResolver().registerContentObserver(Ride.URI, false, observer);
 	}
 	
 //    @Override
@@ -220,8 +236,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     protected void onStop() {
     	super.onStop();
     	Log.d(Teleporter.TAG, "onStop");
-    	unregisterReceiver(this.mTimeTickReceiver);
-    	getContentResolver().unregisterContentObserver(mContentObserver);
+    	unregisterReceiver(this.timetick);
+    	getContentResolver().unregisterContentObserver(observer);
     }
     
     
@@ -233,8 +249,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		Log.d(Teleporter.TAG, "changed current place: ");
-		((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
-		
+		if (teleporter.currentPlace != null)
+			((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 	}
 
 	@Override
@@ -242,26 +258,24 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 //		super.onNewIntent(intent);
         Log.d(Teleporter.TAG, "changed destination place: ");
         
-        getListView().setVisibility(View.VISIBLE);
-        
-        Place place = null;
+        Place destination = null;
         if (intent.getData() != null) {
-        	place = Place.find(intent.getData(), this);
+        	destination = Place.find(intent.getData(), this);
         } else if (intent.hasExtra(SearchManager.QUERY)) {
-        	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
+        	destination = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
         if (teleporter.destination != null)
         	teleporter.reset();
         
         // GO..
-        teleporter.destination = place;
+        teleporter.destination = destination;
         teleporter.beam();
         
 //        MediaPlayer.create(this, R.raw.sound_long).start();
-        if (place.name != null)
-        	((TextView)findViewById(R.id.dest)).setText(place.name);
+        if (destination.name != null)
+        	((TextView)findViewById(R.id.dest)).setText(destination.name);
         else
-        	((TextView)findViewById(R.id.dest)).setText(place.address);
+        	((TextView)findViewById(R.id.dest)).setText(destination.address);
         	
     }
 
