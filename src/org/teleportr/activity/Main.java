@@ -99,9 +99,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         if (teleporter.currentPlace != null)
         	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
-		if (teleporter.destination != null)
+		if (teleporter.destination != null) {
 			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
-        
+			findViewById(R.id.logo).setVisibility(View.GONE);
+			getListView().setVisibility(View.VISIBLE);
+		}
 
 		// search results
 		rides = teleporter.getRides(new Ride[0]);
@@ -158,14 +160,14 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "new rides found");
         		rides = teleporter.getRides(rides);
-        		if (rides.length > 0) {
-        			findViewById(R.id.logo).setVisibility(View.GONE);
-        			getListView().setVisibility(View.VISIBLE);
-        		}
-        		else {
-        			findViewById(R.id.logo).setVisibility(View.VISIBLE);
-        			getListView().setVisibility(View.GONE);
-        		}
+//        		if (rides.length > 0) {
+//        			findViewById(R.id.logo).setVisibility(View.GONE);
+//        			getListView().setVisibility(View.VISIBLE);
+//        		}
+//        		else {
+//        			findViewById(R.id.logo).setVisibility(View.VISIBLE);
+//        			getListView().setVisibility(View.GONE);
+//        		}
         		onContentChanged();
         	}
         };
@@ -278,6 +280,9 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         // GO..
         teleporter.destination = destination;
         teleporter.beam();
+        
+        findViewById(R.id.logo).setVisibility(View.GONE);
+		getListView().setVisibility(View.VISIBLE);
         
 //        MediaPlayer.create(this, R.raw.sound_long).start();
         if (destination.name != null)

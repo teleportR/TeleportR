@@ -11,11 +11,14 @@
 		    	android:paddingTop="9dip"
 		    	android:paddingLeft="3dip"
 		    	android:paddingRight="3dip"
+			    android:ellipsize="end"
 			    android:text="c-base"
 			    android:textStyle="bold"
 			    android:textSize="23dip"
+			    android:singleLine="true"
 			    android:layout_alignParentTop="true"
 			    android:layout_alignParentLeft="true"
+			    android:maxEms="5"
 			  ></TextView> 
 	<ImageView
 	           android:id="@+id/arrow"
@@ -50,6 +53,7 @@
 	    android:divider="#000000"
 	    android:dividerHeight="2dip"
 	    android:listSelector="@drawable/selector"
+	    android:visibility="gone"
     />
      <ImageView android:id="@+id/logo"
         android:layout_centerInParent="true"
