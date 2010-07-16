@@ -1,13 +1,15 @@
-package org.teleportr;
+package org.teleportr.activity;
 
 import org.teleportr.R;
+import org.teleportr.R.xml;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
-public class SettingsActivity extends PreferenceActivity {
+public class Settings extends PreferenceActivity {
 
     private static final String TAG = "Settings";
     private SharedPreferences prefs;
@@ -23,7 +25,7 @@ public class SettingsActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.settings);
 
         ((PreferenceScreen)findPreference("autocompletion"))
-        .setIntent(new Intent(this, DownloadsActivity.class));
+        .setIntent(new Intent(this, Autocompletion.class));
     }
 
 

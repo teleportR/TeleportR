@@ -1,9 +1,12 @@
-package org.teleportr;
+package org.teleportr.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.teleportr.R;
+import org.teleportr.R.drawable;
+import org.teleportr.R.id;
+import org.teleportr.model.Ride;
 
 import android.content.Context;
 import android.util.AttributeSet;

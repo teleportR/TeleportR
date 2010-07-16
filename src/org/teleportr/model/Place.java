@@ -1,4 +1,4 @@
-package org.teleportr;
+package org.teleportr.model;
 
 import java.net.URLDecoder;
 

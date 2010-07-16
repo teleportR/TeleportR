@@ -1,6 +1,11 @@
-package org.teleportr;
+package org.teleportr.activity;
 
 import org.teleportr.R;
+import org.teleportr.Teleporter;
+import org.teleportr.R.id;
+import org.teleportr.R.layout;
+import org.teleportr.model.Place;
+
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ContentUris;
@@ -13,7 +18,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HereIAmActivity extends Activity {
+public class HereAmI extends Activity {
 
     private static final String TAG = "HereIAm";
 	private Teleporter teleporter;

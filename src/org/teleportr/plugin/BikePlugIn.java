@@ -4,8 +4,8 @@ import java.lang.reflect.ReflectPermission;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.teleportr.Place;
-import org.teleportr.Ride;
+import org.teleportr.model.Place;
+import org.teleportr.model.Ride;
 
 
 public class BikePlugIn implements ITeleporterPlugIn {

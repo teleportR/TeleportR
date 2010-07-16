@@ -1,10 +1,12 @@
-package org.teleportr;
+package org.teleportr.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
+import org.teleportr.model.Place;
+import org.teleportr.model.Ride;
 import org.teleportr.plugin.ITeleporterPlugIn;
 
 import android.content.BroadcastReceiver;

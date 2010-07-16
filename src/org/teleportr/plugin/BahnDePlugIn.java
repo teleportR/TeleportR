@@ -9,10 +9,10 @@ import java.util.regex.MatchResult;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.teleportr.Place;
-import org.teleportr.Ride;
 
 import org.teleportr.R;
+import org.teleportr.model.Place;
+import org.teleportr.model.Ride;
 
 import android.content.Intent;
 import android.net.Uri;

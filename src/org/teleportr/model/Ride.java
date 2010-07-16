@@ -1,6 +1,7 @@
-package org.teleportr;
+package org.teleportr.model;
 
 import java.util.Date;
+
 
 import android.content.Intent;
 import android.net.Uri;

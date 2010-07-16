@@ -1,6 +1,11 @@
-package org.teleportr;
+package org.teleportr.activity;
 
 import org.teleportr.R;
+import org.teleportr.R.drawable;
+import org.teleportr.R.id;
+import org.teleportr.R.layout;
+import org.teleportr.R.raw;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +19,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.widget.ImageView;
 
-public class TeleporterActivity extends Activity {
+public class Energy extends Activity {
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -55,7 +60,7 @@ public class TeleporterActivity extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				TeleporterActivity.this.showDialog(DIALOG_ERROR);
+				Energy.this.showDialog(DIALOG_ERROR);
 			}
 		}, 3000);
 	}
@@ -66,7 +71,7 @@ public class TeleporterActivity extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				TeleporterActivity.this.mLogoAnimationDrawable.start();
+				Energy.this.mLogoAnimationDrawable.start();
 			}
 		}, 100);
 	}
@@ -90,7 +95,7 @@ public class TeleporterActivity extends Activity {
 				.setPositiveButton(android.R.string.ok, new OnClickListener() {
 					@Override
 					public void onClick(final DialogInterface pDialog, final int pWhich) {
-						TeleporterActivity.this.finish();
+						Energy.this.finish();
 					}
 				})
 				.create();

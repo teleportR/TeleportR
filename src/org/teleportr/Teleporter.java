@@ -1,6 +1,10 @@
 package org.teleportr;
 
 import org.teleportr.R;
+import org.teleportr.model.Place;
+import org.teleportr.model.Ride;
+import org.teleportr.util.QueryMultiplexer;
+
 import android.app.Application;
 import android.util.Log;
 
@@ -9,8 +13,8 @@ public class Teleporter extends Application {
 	public static final String TAG = "Teleporter";
 	private QueryMultiplexer multiplexer;
 	
-	Place currentPlace;
-	Place destination;
+	public Place currentPlace;
+	public Place destination;
 
 	
 	public Teleporter() {

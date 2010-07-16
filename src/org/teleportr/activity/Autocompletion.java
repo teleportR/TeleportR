@@ -1,4 +1,4 @@
-package org.teleportr;
+package org.teleportr.activity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.teleportr.R;
+import org.teleportr.R.menu;
+import org.teleportr.R.string;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -36,7 +38,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class DownloadsActivity extends PreferenceActivity implements OnPreferenceClickListener {
+public class Autocompletion extends PreferenceActivity implements OnPreferenceClickListener {
 
 	private static final String HOST = "http://teleportr.org";
     private static final String TAG = "Settings";
@@ -75,7 +77,7 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
 
     @Override
     public boolean onPreferenceClick(final Preference preference) {
-        new AlertDialog.Builder(DownloadsActivity.this)
+        new AlertDialog.Builder(Autocompletion.this)
             .setTitle(preference.getTitle())
             .setMessage(preference.getSummary())
             .setPositiveButton(getString(R.string.dialog_yes), new OnClickListener() {
@@ -118,7 +120,7 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
 
 		@Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(DownloadsActivity.this);
+            progress = new ProgressDialog(Autocompletion.this);
             progress.setMessage(getString(R.string.downloads_fetch_progress));
             progress.show();
             super.onPreExecute();
@@ -156,18 +158,18 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
                 for (int i = 0; i < json.length(); i++) {
                     JSONObject j = json.getJSONObject(i).getJSONObject("download");
                     if (!getPreferenceScreen().getSharedPreferences().contains(j.getString("file"))) {
-                        CheckBoxPreference c = new CheckBoxPreference(DownloadsActivity.this);
+                        CheckBoxPreference c = new CheckBoxPreference(Autocompletion.this);
                         c.setKey(j.getString("file"));
                         String title = j.getString("title");
                         c.setTitle(title.split(" ")[0]);
                         c.setSummary(title.substring(title.indexOf(" ")));
-                        c.setOnPreferenceClickListener(DownloadsActivity.this);
+                        c.setOnPreferenceClickListener(Autocompletion.this);
                         getPreferenceScreen().addItemFromInflater(c);
                     }
                 }
             } catch (Exception e) {
             	Log.e(TAG, "problem parsing nearby downloads json");
-                Toast.makeText(DownloadsActivity.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(Autocompletion.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
             }
             progress.dismiss();
             super.onPostExecute(json);
@@ -180,7 +182,7 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
         
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(DownloadsActivity.this);
+            progress = new ProgressDialog(Autocompletion.this);
             progress.setMessage(getString(R.string.downloading_prog_dnld));
             progress.show();
             super.onPreExecute();
@@ -211,7 +213,7 @@ public class DownloadsActivity extends PreferenceActivity implements OnPreferenc
             super.onPostExecute(success);
             progress.dismiss();
             if (!success) 
-                Toast.makeText(DownloadsActivity.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
+                Toast.makeText(Autocompletion.this, getString(R.string.download_error), Toast.LENGTH_LONG).show();
         }
     }
 

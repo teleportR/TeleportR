@@ -1,8 +1,9 @@
-package org.teleportr;
+package org.teleportr.model;
 
 import java.io.File;
 
 import org.teleportr.R;
+import org.teleportr.R.drawable;
 
 import android.app.SearchManager;
 import android.content.ContentProvider;

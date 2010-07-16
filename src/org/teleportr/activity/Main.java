@@ -1,4 +1,14 @@
-package org.teleportr;
+package org.teleportr.activity;
+
+import org.teleportr.R;
+import org.teleportr.Teleporter;
+import org.teleportr.R.drawable;
+import org.teleportr.R.id;
+import org.teleportr.R.layout;
+import org.teleportr.R.menu;
+import org.teleportr.model.Place;
+import org.teleportr.model.Ride;
+import org.teleportr.util.LogCollector;
 
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -51,7 +61,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         if (getSharedPreferences("autocompletion", MODE_PRIVATE).getAll().isEmpty()) {
             getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
-            startActivity(new Intent(this, DownloadsActivity.class));
+            startActivity(new Intent(this, Autocompletion.class));
         }
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
@@ -62,7 +72,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
-        		startActivityForResult(new Intent(Main.this, HereIAmActivity.class), 0);
+        		startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
         	}
         });
         findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
@@ -309,7 +319,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             break;
 
         case R.id.settings:
-            startActivity(new Intent(this, SettingsActivity.class));
+            startActivity(new Intent(this, Settings.class));
             break;
         case R.id.feedback:
             LogCollector.feedback(this, "flo@andlabs.de", "bla bla");
