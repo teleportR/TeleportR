@@ -16,13 +16,13 @@ public class SettingsActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings);
         
         getPreferenceManager().setSharedPreferencesName("plugIns");
+        
+        addPreferencesFromResource(R.xml.settings);
 
         ((PreferenceScreen)findPreference("autocompletion"))
         .setIntent(new Intent(this, DownloadsActivity.class));
-        
     }
 
 

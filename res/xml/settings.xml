@@ -11,30 +11,31 @@
 			</PreferenceCategory>
 		</PreferenceScreen>
 
+
 		<PreferenceScreen 
 			android:key="plugIns"
 			android:title="PlugIns"
 			android:summary="@string/plugIns_settings_summary">
 			<PreferenceCategory android:title="Installed PlugIns">
 				<CheckBoxPreference  
-				android:key="BvgPlugIn"  
-				android:title="Bvg.de"  
+				android:key="MvgPlugIn"  
+				android:title="Mvg.de"  
 				android:summary="U-Bahn, Bus und Tram für München"  
 				/>
 				<CheckBoxPreference  
 				android:key="BahnDePlugIn"  
 				android:title="Bahn.de"  
-				android:summary="public transport germany"  
+				android:summary="german public transport"  
 				/>
 				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
-				android:title="Mitfahrgelegenheit.de"  
+				android:title="mitfahrgelegenheit.de"  
 				android:summary="ridesharing agency"  
 				/>
 				<CheckBoxPreference  
 				android:key="TaxiPlugIn"  
 				android:title="Taxi Ruf Berlin"  
-				android:summary="Tarif-Rechner + gratis Tel"  
+				android:summary="Tarif-Rechner + 0800 Tel"  
 				/>
 				<CheckBoxPreference  
 				android:key="FlightPlugIn"  
@@ -44,12 +45,12 @@
 				<CheckBoxPreference  
 				android:key="DrivePlugIn"  
 				android:title="Drive"  
-				android:summary="AndNav2 car navigation"
+				android:summary="car navigation"
 				/>
 				<CheckBoxPreference  
 				android:key="BikePlugIn"  
 				android:title="Bike"  
-				android:summary="bike maps"  
+				android:summary="biking maps"  
 				/>
 				<CheckBoxPreference  
 				android:key="WalkPlugIn"  
