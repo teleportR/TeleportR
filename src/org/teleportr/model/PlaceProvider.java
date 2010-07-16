@@ -151,14 +151,17 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
         	Log.d(TAG, "matched PLACE: "+uri+" "+table);
         	if (table.equals("myplaces")) {
         		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
-        	} else if (table.contains("Haltestellen")) {
-        		projection[5] = "NULL AS "+Place.ADDRESS;
-        		projection[4] = "'"+table.split("_")[1].split("\\.")[0]+"' AS "+Place.CITY;
-        		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
-        	} else if (table.contains("Straßen")) {
-        		projection[5] = "name AS "+Place.ADDRESS;
-        		projection[4] = "'"+table.split("_")[1].split("\\.")[0]+"' AS "+Place.CITY;
-        		cursor = db.getReadableDatabase().query(table, projection, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        	} else {
+        		String[] proj = projection.clone();
+        		proj[4] = "'"+table.split("_")[1].split("\\.")[0]+"' AS "+Place.CITY;
+        		
+        		if (table.contains("Haltestellen")) {
+        			proj[5] = "NULL AS "+Place.ADDRESS;
+        			cursor = db.getReadableDatabase().query(table, proj, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        		} else if (table.contains("Straßen")) {
+        			proj[5] = "name AS "+Place.ADDRESS;
+        			cursor = db.getReadableDatabase().query(table, proj, "_id="+uri.getLastPathSegment(), selectionArgs, null, null, null);
+        		}
         	}
 
         	break;
@@ -168,7 +171,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 			break;
 		case PLACES:
 			Log.d(TAG, "matched PLACES: "+uri);
-			query = uri.getPathSegments().size() == 2 ? uri.getLastPathSegment(): "";
+			query = uri.getPathSegments().size() == 3 ? uri.getLastPathSegment(): "";
 			cursor = db.getReadableDatabase().rawQuery(String.format(sql, query), null);
 //					"SELECT _id, " +
 //					    "name AS "+SearchManager.SUGGEST_COLUMN_TEXT_1+", " +
@@ -208,10 +211,10 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI("org.teleportr", "places/*/#", PLACE);
-		sUriMatcher.addURI("org.teleportr", SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
-		sUriMatcher.addURI("org.teleportr", SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
 		sUriMatcher.addURI("org.teleportr", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY, ORIGIN);
 		sUriMatcher.addURI("org.teleportr", "origin/"+SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
+		sUriMatcher.addURI("org.teleportr", "destination/"+SearchManager.SUGGEST_URI_PATH_QUERY, PLACES);
+		sUriMatcher.addURI("org.teleportr", "destination/"+SearchManager.SUGGEST_URI_PATH_QUERY+"/*", PLACES);
 		
 	}
 }
