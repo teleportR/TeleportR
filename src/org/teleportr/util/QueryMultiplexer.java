@@ -22,7 +22,7 @@ public class QueryMultiplexer {
     public ArrayList<ITeleporterPlugIn> plugIns;
     private ArrayList<Ride> nextRides;
     private Map<String, Integer> priorities;
-    private long mLastSearchTimestamp;
+    private Ride latest;
     private BroadcastReceiver mPluginResponseReceiver;
     private final Context ctx;
     private Handler mUpdateHandler;
@@ -73,7 +73,6 @@ public class QueryMultiplexer {
             priorities = (Map<String, Integer>) ctx.getSharedPreferences("priorities", ctx.MODE_PRIVATE).getAll();
             
 
-        this.mUpdateHandler = new Handler();
 
 //        this.mPluginResponseReceiver = new BroadcastReceiver() {
 //            @Override
@@ -106,7 +105,6 @@ public class QueryMultiplexer {
     }
 
     public boolean search(final Place orig, final Place dest) {
-        // TODO just query just plugins that ...
         // TODO use ThreadPoolExecutor ...
 
         if (worker != null && worker.isAlive())
@@ -116,32 +114,21 @@ public class QueryMultiplexer {
             
             @Override
             public void run() {
-                // TODO Auto-generated method stub
+            	
                 for (ITeleporterPlugIn p : plugIns) {
                     Log.d(TAG, "query plugin "+p);
                     
-                    final long requestTimestamp;
-                    if(mLastSearchTimestamp == 0 ) {
-                        requestTimestamp = System.currentTimeMillis();
-                    } else {
-                        requestTimestamp = mLastSearchTimestamp + 300000; // 5 Minutes
-                    }
+                    nextRides.addAll(p.find(orig, dest, 
+                    				(latest != null)? latest.dep : new Date()));
                     
-                    nextRides.addAll(p.find(orig, dest, new Date(requestTimestamp)));
-                    
-                    mLastSearchTimestamp = requestTimestamp;
+                    if (!nextRides.isEmpty())
+                    	latest = nextRides.get(nextRides.size()-1);
 
                     rides.addAll(nextRides);
                     Log.d(TAG, "added "+nextRides.size());
                     nextRides.clear();
                     
                     ctx.getContentResolver().notifyChange(Ride.URI, null);
-//                    mUpdateHandler.post(new Runnable() {
-//                        
-//                        @Override
-//                        public void run() {
-//                        }
-//                    });
                 }
                 
 //                Intent requestIntent = new Intent("org.teleporter.intent.action.RECEIVE_REQUEST");
@@ -150,7 +137,6 @@ public class QueryMultiplexer {
 //                requestIntent.putExtra("destLatitude", dest.lat);
 //                requestIntent.putExtra("destLongitude", dest.lon);
 //                ctx.sendBroadcast(requestIntent);
-                
             }
         });
         worker.start();
