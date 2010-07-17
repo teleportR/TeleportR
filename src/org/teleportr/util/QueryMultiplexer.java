@@ -22,7 +22,7 @@ public class QueryMultiplexer {
     public ArrayList<ITeleporterPlugIn> plugIns;
     private ArrayList<Ride> nextRides;
     private Map<String, Integer> priorities;
-    private Ride latest;
+    public Ride latest;
     private BroadcastReceiver mPluginResponseReceiver;
     private final Context ctx;
     private Handler mUpdateHandler;
@@ -141,6 +141,11 @@ public class QueryMultiplexer {
         });
         worker.start();
         return true;
+    }
+    
+    public void removeOutdated() { 
+    	while (!rides.isEmpty() && rides.get(0).dep.before(new Date(System.currentTimeMillis()-180000)))
+    		rides.remove(0); // if departured more than 3 minutes ago
     }
 
     public void sort() {

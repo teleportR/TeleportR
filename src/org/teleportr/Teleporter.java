@@ -1,6 +1,5 @@
 package org.teleportr;
 
-import org.teleportr.R;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import org.teleportr.util.QueryMultiplexer;
@@ -47,14 +46,18 @@ public class Teleporter extends Application {
 	}
 	
 	public void reset() {
-		if (multiplexer != null)
+		if (multiplexer != null) {
 			multiplexer.rides.clear();
+			multiplexer.latest = null;
+		}
 		getContentResolver().notifyChange(Ride.URI, null);
 	}
 	
 	public Ride[] getRides(Ride[] rides) {
-		if (multiplexer != null)
+		if (multiplexer != null) {
+			multiplexer.removeOutdated();
 			return multiplexer.rides.toArray(new Ride[multiplexer.rides.size()]);
+		}
 		else return rides;
 	}
 }

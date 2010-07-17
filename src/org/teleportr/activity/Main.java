@@ -43,7 +43,7 @@ import android.widget.TextView;
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
     private BroadcastReceiver timetick; // every minute..
-    private ContentObserver observer; // new rides..
+    private ContentObserver refresh; // new rides..
     private SharedPreferences priorities; // criteria..
     private Teleporter teleporter; // to beam..
     private Ride[] rides; // results..
@@ -155,7 +155,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             }
         });
         
-        observer = new ContentObserver(new Handler()) {
+        refresh = new ContentObserver(new Handler()) {
         	@Override
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "new rides found");
@@ -163,13 +163,13 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		onContentChanged();
         	}
         };
-        observer.onChange(true);
+        refresh.onChange(true);
         
         timetick = new BroadcastReceiver() {
         	@Override
         	public void onReceive(final Context pContext, final Intent pIntent) {
         		Log.d(Teleporter.TAG, "count down another minute");
-        		getListView().invalidateViews();
+        		refresh.onChange(true);
         	}
         };
     }
@@ -180,7 +180,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 		super.onStart();
 		Log.d(Teleporter.TAG, "onStart");
 		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
-		getContentResolver().registerContentObserver(Ride.URI, false, observer);
+		getContentResolver().registerContentObserver(Ride.URI, false, refresh);
 	}
 
     @Override
@@ -188,7 +188,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     	super.onStop();
     	Log.d(Teleporter.TAG, "onStop");
     	unregisterReceiver(this.timetick);
-    	getContentResolver().unregisterContentObserver(observer);
+    	getContentResolver().unregisterContentObserver(refresh);
     }
     
     
