@@ -32,16 +32,18 @@ public class Place implements BaseColumns {
     	if (uri.getScheme().equals("content")) {
     		
     		Cursor c = ctx.getContentResolver().query(uri, PROJECTION, null, null, null);
-    		if (c.getCount() > 0) {
-    			c.moveToFirst();
-    			p.lat = c.getInt(0);
-    			p.lon = c.getInt(1);
-    			p.icon = c.getInt(2);
-    			p.name = c.getString(3);
-    			p.city = c.getString(4);
-    			p.address = c.getString(5);
-    		}
-    		c.close();
+    		if (c != null) {
+    			if (c.getCount() > 0) {
+    				c.moveToFirst();
+    				p.lat = c.getInt(0);
+    				p.lon = c.getInt(1);
+    				p.icon = c.getInt(2);
+    				p.name = c.getString(3);
+    				p.city = c.getString(4);
+    				p.address = c.getString(5);
+    			}
+    			c.close();
+    		} else Log.d(Teleporter.TAG, "place not found!");
     		
     	} else if (uri.getScheme().equals("geo")) {
     		String query = URLDecoder.decode(uri.toString().substring(10));
