@@ -12,10 +12,11 @@ import org.teleportr.plugin.ITeleporterPlugIn;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Handler;
 import android.util.Log;
 
-public class QueryMultiplexer {
+public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "Multiplexer";
     public ArrayList<Ride> rides;
@@ -56,23 +57,6 @@ public class QueryMultiplexer {
                     super.add(index, object);
             }
         };
-        plugIns = new ArrayList<ITeleporterPlugIn>();
-            SharedPreferences plugInSettings = ctx.getSharedPreferences("plugIns", ctx.MODE_PRIVATE);
-            try {
-                for (String p : plugInSettings.getAll().keySet()) {
-                    Log.d(TAG, "plugin "+p);
-                    if (plugInSettings.getBoolean(p, false)){
-                        Log.d(TAG, "add plugin "+p);
-                        plugIns.add((ITeleporterPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Schade!");
-                e.printStackTrace();
-            }
-            priorities = (Map<String, Integer>) ctx.getSharedPreferences("priorities", ctx.MODE_PRIVATE).getAll();
-            
-
 
 //        this.mPluginResponseReceiver = new BroadcastReceiver() {
 //            @Override
@@ -80,28 +64,30 @@ public class QueryMultiplexer {
 //                Log.d(TAG, "Plugin Response Received.");
 //                final int duration = intent.getIntExtra("dur", -1);
 //
-//                final Ride ride = new Ride();
-//                ride.duration = duration;
-//                ride.orig = orig;
-//                ride.dest = dest;
-//                ride.mode = Ride.MODE_DRIVE;
-//                ride.fun = 1;
-//                ride.eco = 1;
-//                ride.fast = 5;
-//                ride.social = 1;
-//                ride.green = 1;
-//                
-//                mUpdateHandler.post(new Runnable() {
-//                    
-//                    @Override
-//                    public void run() {
-//                        nextRides.add(ride);
-//                    }
-//                });
-//            }
-//        };
-
 //        this.ctx.registerReceiver(this.mPluginResponseReceiver, new IntentFilter("org.teleporter.intent.action.RECEIVE_RESPONSE"));
+        
+        SharedPreferences plugInSettings = ctx.getSharedPreferences("plugIns", ctx.MODE_PRIVATE);
+        plugInSettings.registerOnSharedPreferenceChangeListener(this);
+        onSharedPreferenceChanged(plugInSettings, "plugIns");
+    }
+    
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences plugInSettings, String key) {
+        Log.d(TAG, "onSharedPreferenceChanged");
+        
+        plugIns = new ArrayList<ITeleporterPlugIn>();
+        try {
+            for (String p : plugInSettings.getAll().keySet()) {
+                if (plugInSettings.getBoolean(p, false)){
+                    Log.d(TAG, " + plugin "+p+" selected");
+                    plugIns.add((ITeleporterPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
+                } else Log.d(TAG, " + plugin "+p+" NOT selected");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Schade!");
+            e.printStackTrace();
+        }
+
     }
 
     public boolean search(final Place orig, final Place dest) {
@@ -116,20 +102,19 @@ public class QueryMultiplexer {
             public void run() {
             	
                 for (ITeleporterPlugIn p : plugIns) {
-                    Log.d(TAG, "query plugin "+p);
                     
-                    nextRides.addAll(p.find(orig, dest, 
-                    				(latest != null)? latest.dep : new Date()));
+                    nextRides.addAll(p.find(orig, dest, (latest != null)? 
+                    						latest.dep : new Date()));
                     
                     if (!nextRides.isEmpty())
                     	latest = nextRides.get(nextRides.size()-1);
 
+                    Log.d(TAG, " + "+p+" found: "+nextRides.size());
                     rides.addAll(nextRides);
-                    Log.d(TAG, "added "+nextRides.size());
                     nextRides.clear();
                     
-                    ctx.getContentResolver().notifyChange(Ride.URI, null);
                 }
+                ctx.getContentResolver().notifyChange(Ride.URI, null);
                 
 //                Intent requestIntent = new Intent("org.teleporter.intent.action.RECEIVE_REQUEST");
 //                requestIntent.putExtra("origLatitude", orig.lat);

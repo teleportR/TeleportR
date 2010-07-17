@@ -160,7 +160,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "new rides found");
         		rides = teleporter.getRides(rides);
-        		onContentChanged();
+        		getListView().invalidateViews();
         	}
         };
         refresh.onChange(true);

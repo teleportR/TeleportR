@@ -26,10 +26,10 @@
 			    android:textStyle="bold"
 			    android:textSize="23dip"
 			    android:singleLine="true"
-			    android:maxWidth="145dip"
+			    android:maxWidth="135dip"
 			  ></TextView> 
     <TextView android:id="@+id/dest"
-			    android:maxWidth="145dip"
+			    android:maxWidth="155dip"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_below="@id/orig_label"
@@ -41,7 +41,7 @@
 			    android:textStyle="bold"
 			    android:ellipsize="start"
 			    android:gravity="right"
-			    android:text="[deeeeeeeeeeestination]"
+			    android:text="[destination]"
 			  ></TextView>  
 	<ImageView
 	           android:id="@+id/arrow"
