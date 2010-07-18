@@ -43,22 +43,16 @@ import android.widget.TextView;
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
     private BroadcastReceiver timetick; // every minute..
-    private ContentObserver observer; // new rides..
+    private ContentObserver refresh; // new rides..
     private SharedPreferences priorities; // criteria..
     private Teleporter teleporter; // to beam..
     private Ride[] rides; // results..
-
-    private SeekBar fun;
-    private SeekBar eco;
-    private SeekBar fast;
-    private SeekBar green;
-    private SeekBar social;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        // on first start redirect to autocompletion downloads
         if (getSharedPreferences("autocompletion", MODE_PRIVATE).getAll().isEmpty()) {
             getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
             startActivity(new Intent(this, Autocompletion.class));
@@ -69,24 +63,28 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         setContentView(R.layout.rides);
         
+        // set origin place
         findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
         		startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
         	}
         });
+        //set destination place
         findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSearchRequested();
             }
         });
+        //set destination place
         findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSearchRequested();
             }
         });
+        //set destination place
         findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
@@ -94,9 +92,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	}
         });
 
-        // this is it
+
         teleporter = (Teleporter) getApplication();
         
+        // bind UI
         if (teleporter.currentPlace != null)
         	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 		if (teleporter.destination != null) {
@@ -104,6 +103,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 			findViewById(R.id.logo).setVisibility(View.GONE);
 			getListView().setVisibility(View.VISIBLE);
 		}
+        bindSlidingDrawer(); // priorities pane
 
 		// search results
 		rides = teleporter.getRides(new Ride[0]);
@@ -125,6 +125,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 }
                 if (position < rides.length)
                     ((RideView)view).setRide(rides[position]);
+                else 
+                	teleporter.beam(); // search for more rides
                 return view;
             }
             
@@ -151,121 +153,54 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             public long getItemId(int position) {
                 return (position < rides.length)? rides[position].hashCode() : 2342;
             }
-            
         });
         
-        observer = new ContentObserver(new Handler()) {
-        	
+        refresh = new ContentObserver(new Handler()) {
         	@Override
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "new rides found");
         		rides = teleporter.getRides(rides);
-//        		if (rides.length > 0) {
-//        			findViewById(R.id.logo).setVisibility(View.GONE);
-//        			getListView().setVisibility(View.VISIBLE);
-//        		}
-//        		else {
-//        			findViewById(R.id.logo).setVisibility(View.VISIBLE);
-//        			getListView().setVisibility(View.GONE);
-//        		}
-        		onContentChanged();
+        		getListView().invalidateViews();
         	}
         };
-        observer.onChange(true);
+        refresh.onChange(true);
         
         timetick = new BroadcastReceiver() {
         	@Override
         	public void onReceive(final Context pContext, final Intent pIntent) {
         		Log.d(Teleporter.TAG, "count down another minute");
-        		getListView().invalidateViews();
+        		refresh.onChange(true);
         	}
         };
-
-        SlidingDrawer slider = ((SlidingDrawer)findViewById(R.id.priorities));
-        slider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
-        	
-        	@Override
-        	public void onDrawerOpened() {
-        		((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle_close);
-        		
-        	}
-        });
-        slider.setOnDrawerCloseListener(new OnDrawerCloseListener() {
-        	
-        	@Override
-        	public void onDrawerClosed() {
-        		((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle);
-        		
-        	}
-        });
-        
-        priorities = getSharedPreferences("priorities", MODE_PRIVATE);
-        fun = ((SeekBar)findViewById(R.id.fun));
-        eco = ((SeekBar)findViewById(R.id.eco));
-        fast = ((SeekBar)findViewById(R.id.fast));
-        green = ((SeekBar)findViewById(R.id.green));
-        social = ((SeekBar)findViewById(R.id.social));
-        fun.setOnSeekBarChangeListener(this);
-        eco.setOnSeekBarChangeListener(this);
-        fast.setOnSeekBarChangeListener(this);
-        green.setOnSeekBarChangeListener(this);
-        social.setOnSeekBarChangeListener(this);
-        
-        fun.setProgress(priorities.getInt("fun", 0));
-        eco.setProgress(priorities.getInt("eco", 0));
-        fast.setProgress(priorities.getInt("fast", 0));
-        green.setProgress(priorities.getInt("green", 0));
-        social.setProgress(priorities.getInt("social", 0));
-//        multiplexer.sort();
-        
-        
     }
-    
+
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		Log.d(Teleporter.TAG, "onStart");
-		
 		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
-		getContentResolver().registerContentObserver(Ride.URI, false, observer);
+		getContentResolver().registerContentObserver(Ride.URI, false, refresh);
 	}
-	
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Log.d(Teleporter.TAG, "onResume");
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//    	Log.d(Teleporter.TAG, "onPause");
-//        super.onPause();
-//    }
 
     @Override
     protected void onStop() {
     	super.onStop();
     	Log.d(Teleporter.TAG, "onStop");
     	unregisterReceiver(this.timetick);
-    	getContentResolver().unregisterContentObserver(observer);
+    	getContentResolver().unregisterContentObserver(refresh);
     }
-    
-    
-    
-    
-/** user interaction **/
     
     
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		Log.d(Teleporter.TAG, "changed current place: ");
+		Log.d(Teleporter.TAG, "changed origin place: ");
 		if (teleporter.currentPlace != null)
 			((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 	}
 
 	@Override
     protected void onNewIntent(Intent intent) {
-//		super.onNewIntent(intent);
         Log.d(Teleporter.TAG, "changed destination place: ");
         
         Place destination = null;
@@ -284,27 +219,20 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         findViewById(R.id.logo).setVisibility(View.GONE);
 		getListView().setVisibility(View.VISIBLE);
         
-//        MediaPlayer.create(this, R.raw.sound_long).start();
         if (destination.name != null)
         	((TextView)findViewById(R.id.dest)).setText(destination.name);
         else
         	((TextView)findViewById(R.id.dest)).setText(destination.address);
         	
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-    	Log.d(Teleporter.TAG, "changed search priorities: ");
-    	priorities.edit().putInt((String)seekBar.getTag(), progress).commit();
-//        multiplexer.sort();
-    	getListView().invalidateViews();
+//        MediaPlayer.create(this, R.raw.sound_long).start();
     }
 
     @Override
     protected void onListItemClick(final ListView pListView, final View pView, final int pPosition, final long pID) {
     	Log.d(Teleporter.TAG, "clicked on search result ride: ");
         Ride ride = (Ride) getListAdapter().getItem(pPosition);
-        startActivity(ride.intent);
+        if (ride != null && ride.intent != null)
+        	startActivity(ride.intent);
     }
     
     
@@ -332,7 +260,65 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    
+    
+/** search priorities **/
+    
+    private SeekBar fun;
+    private SeekBar eco;
+    private SeekBar fast;
+    private SeekBar green;
+    private SeekBar social;
 
+    private void bindSlidingDrawer() {
+
+    	SlidingDrawer slider = ((SlidingDrawer)findViewById(R.id.priorities));
+    	slider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
+
+    		@Override
+    		public void onDrawerOpened() {
+    			((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle_close);
+
+    		}
+    	});
+    	slider.setOnDrawerCloseListener(new OnDrawerCloseListener() {
+
+    		@Override
+    		public void onDrawerClosed() {
+    			((ImageView)findViewById(R.id.handle)).setImageResource(R.drawable.handle);
+
+    		}
+    	});
+
+    	priorities = getSharedPreferences("priorities", MODE_PRIVATE);
+    	fun = ((SeekBar)findViewById(R.id.fun));
+    	eco = ((SeekBar)findViewById(R.id.eco));
+    	fast = ((SeekBar)findViewById(R.id.fast));
+    	green = ((SeekBar)findViewById(R.id.green));
+    	social = ((SeekBar)findViewById(R.id.social));
+    	fun.setOnSeekBarChangeListener(this);
+    	eco.setOnSeekBarChangeListener(this);
+    	fast.setOnSeekBarChangeListener(this);
+    	green.setOnSeekBarChangeListener(this);
+    	social.setOnSeekBarChangeListener(this);
+
+    	fun.setProgress(priorities.getInt("fun", 0));
+    	eco.setProgress(priorities.getInt("eco", 0));
+    	fast.setProgress(priorities.getInt("fast", 0));
+    	green.setProgress(priorities.getInt("green", 0));
+    	social.setProgress(priorities.getInt("social", 0));
+    }
+    
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    	Log.d(Teleporter.TAG, "changed search priority");
+    	priorities.edit().putInt((String)seekBar.getTag(), progress).commit();
+//        multiplexer.sort();
+    	getListView().invalidateViews();
+    }
+    
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         // TODO Auto-generated method stub

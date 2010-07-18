@@ -17,50 +17,46 @@
 			android:title="PlugIns"
 			android:summary="@string/plugIns_settings_summary">
 			<PreferenceCategory android:title="Installed PlugIns">
-				<CheckBoxPreference  
-				android:key="MvgPlugIn"  
-				android:title="Mvg.de"  
-				android:summary="U-Bahn, Bus und Tram für München"  
-				/>
+
 				<CheckBoxPreference  
 				android:key="BahnDePlugIn"  
 				android:title="Bahn.de"  
-				android:summary="german public transport"  
+				android:summary="public transport.."  
 				/>
 				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
 				android:title="mitfahrgelegenheit.de"  
-				android:summary="ridesharing agency"  
+				android:summary="ridesharing agency.."  
 				/>
 				<CheckBoxPreference  
 				android:key="TaxiPlugIn"  
 				android:title="Taxi Ruf Berlin"  
-				android:summary="Tarif-Rechner + 0800 Tel"  
+				android:summary="price calculator.."  
 				/>
 				<CheckBoxPreference  
 				android:key="FlightPlugIn"  
 				android:title="Fly"  
-				android:summary="flight shedules"  
+				android:summary="airline shedules.."  
 				/>
 				<CheckBoxPreference  
 				android:key="DrivePlugIn"  
 				android:title="Drive"  
-				android:summary="car navigation"
+				android:summary="turn-by-turn navigation.."
 				/>
 				<CheckBoxPreference  
 				android:key="BikePlugIn"  
 				android:title="Bike"  
-				android:summary="biking maps"  
+				android:summary="biking maps.."  
 				/>
 				<CheckBoxPreference  
 				android:key="WalkPlugIn"  
 				android:title="Walk"  
-				android:summary="sightseeing + walking directions"  
+				android:summary="sightseeing walking directions.."  
 				/>
 				<CheckBoxPreference  
 				android:key="SkateboardPlugIn"  
 				android:title="Skate"  
-				android:summary="skateboard spots on the way"  
+				android:summary="spots on the way.."  
 				/>
 				<CheckBoxPreference  
 				android:key="TeleporterPlugIn"  
