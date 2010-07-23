@@ -99,8 +99,8 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
         date.setHours(Integer.parseInt(hours));
         date.setMinutes(Integer.parseInt(minutes));
         date.setSeconds(0);
-        date.setTime((date.getTime() / 1000) * 1000);
-        if (System.currentTimeMillis() - date.getTime() > 36000000) { // Mitternacht..
+        //date.setTime((date.getTime() / 1000) * 1000);
+        if (System.currentTimeMillis() - date.getTime() > 300000) { // Mitternacht..
             long oneDay = (long) 1000.0 * 60 * 60 * 24;
             date.setTime(date.getTime() + oneDay);
         }
