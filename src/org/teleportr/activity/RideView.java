@@ -24,6 +24,7 @@ public class RideView extends RelativeLayout {
     private TextView minutes;
     private TextView hours;
     private TextView hours_label;
+    private TextView minutes_label;
 
 
 
@@ -42,6 +43,7 @@ public class RideView extends RelativeLayout {
         minutes = (TextView) findViewById(R.id.minutes);
         duration = (TextView) findViewById(R.id.duration);
         hours_label = (TextView) findViewById(R.id.hours_label);
+	minutes_label = (TextView) findViewById(R.id.minutes_label);
     }
 
 
@@ -66,16 +68,22 @@ public class RideView extends RelativeLayout {
             minutes.setTextSize(46);
             hours.setVisibility(GONE);
             hours_label.setVisibility(GONE);
+	    minutes.setVisibility(VISIBLE);
+	    minutes_label.setVisibility(VISIBLE);
         } else if (waitingTime < 10*60) {
             hours.setText(String.valueOf((int)waitingTime/60));
             hours.setVisibility(VISIBLE);
             hours_label.setVisibility(VISIBLE);
+	    minutes.setVisibility(VISIBLE);
+	    minutes_label.setVisibility(VISIBLE);
             minutes.setText(String.valueOf(waitingTime%60));
             minutes.setTextSize(20);
         } else if (waitingTime < 100*60) {
             hours.setText(String.valueOf((int)waitingTime/60));
             hours.setVisibility(VISIBLE);
             hours_label.setVisibility(VISIBLE);
+	    minutes.setVisibility(GONE);
+	    minutes_label.setVisibility(GONE);
         }
         if (travelTime < 60)
             duration.setText(travelTime+" min");
