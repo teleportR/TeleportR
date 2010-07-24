@@ -58,6 +58,7 @@ import android.widget.SlidingDrawer;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
@@ -77,6 +78,9 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
         		public void onClick(DialogInterface dialog, int whichButton) {
         			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
+        			getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
+        			// redirect to autocompletion downloads
+        			startActivity(new Intent(Main.this, Autocompletion.class));
         		}})
         		.setNegativeButton(getString(R.string.reject), new DialogInterface.OnClickListener() {
         			public void onClick(DialogInterface dialog, int whichButton) {
@@ -85,11 +89,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		}).create().show();
         }
         
-        // on first start redirect to autocompletion downloads
-//        if (getSharedPreferences("autocompletion", MODE_PRIVATE).getAll().isEmpty()) {
-//            getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
-//            startActivity(new Intent(this, Autocompletion.class));
-//        }
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -191,7 +190,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         refresh = new ContentObserver(new Handler()) {
         	@Override
         	public void onChange(boolean selfChange) {
-        		Log.d(Teleporter.TAG, "new rides found");
+        		Log.d(Teleporter.TAG, "refresh rides list");
         		rides = teleporter.getRides(rides);
         		getListView().invalidateViews();
         	}
@@ -224,17 +223,16 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     	getContentResolver().unregisterContentObserver(refresh);
     }
     
-    
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		Log.d(Teleporter.TAG, "changed origin place: ");
-		if (teleporter.currentPlace != null)
+		if (teleporter.currentPlace != null) {
 			((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
+			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
+		}
 	}
 
 	@Override
     protected void onNewIntent(Intent intent) {
-        Log.d(Teleporter.TAG, "changed destination place: ");
         
         Place destination = null;
         if (intent.getData() != null) {
@@ -252,9 +250,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         findViewById(R.id.logo).setVisibility(View.GONE);
 		getListView().setVisibility(View.VISIBLE);
         
-        if (destination.name != null)
+        if (destination.name != null) {
         	((TextView)findViewById(R.id.dest)).setText(destination.name);
-        else
+        	Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
+        } else
         	((TextView)findViewById(R.id.dest)).setText(destination.address);
         	
 //        MediaPlayer.create(this, R.raw.sound_long).start();

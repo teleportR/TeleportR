@@ -90,6 +90,8 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
         }
         if (getPreferenceScreen().getPreferenceCount() == 0)
             new FetchNearbyDownloads().execute("");
+        
+        Toast.makeText(this, getString(R.string.explain_downloads), Toast.LENGTH_LONG).show();
     }
 
 
