@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +37,14 @@ public class HereAmI extends Activity {
         setContentView(R.layout.place_detail);
         teleporter = (Teleporter) getApplication();
         display(teleporter.currentPlace);
+        
+        findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
     }
 
 	private void display(Place place) {
