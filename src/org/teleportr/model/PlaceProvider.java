@@ -1,10 +1,23 @@
+/**
+ * Copyright (c) 2010: <http://www.teleportr.org/> All rights reserved.
+ *	
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version <http://www.gnu.org/licenses/>
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+**/
+
 package org.teleportr.model;
 
 import java.io.File;
-
 import org.teleportr.R;
 import org.teleportr.R.drawable;
-
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;

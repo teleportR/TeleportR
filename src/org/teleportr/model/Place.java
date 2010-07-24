@@ -1,9 +1,22 @@
+/**
+ * Copyright (c) 2010: <http://www.teleportr.org/> All rights reserved.
+ *	
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version <http://www.gnu.org/licenses/>
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+**/
+
 package org.teleportr.model;
 
 import java.net.URLDecoder;
-
 import org.teleportr.Teleporter;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,17 +25,68 @@ import android.util.Log;
 
 public class Place implements BaseColumns {
 
+	public int lat;
+    public int lon;
+    public int icon;
+    public String name;
+	public String city;
+    public String address;
+
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + lat;
+        result = prime * result + lon;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + icon;
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Place other = (Place) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
+        if (lat != other.lat)
+            return false;
+        if (lon != other.lon)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (icon != other.icon)
+            return false;
+        return true;
+    }
+
+
+
+
+
 	public static final Uri CONTENT_URI = Uri.parse("content://org.teleportr/places");
+
+	public static final String[] PROJECTION =
+			        			 new String[] { LAT, LON, ICON, NAME, CITY, ADDRESS };
 	
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
 	public static final String ICON = "ICON";
-	public static final String CITY = "city";
 	public static final String NAME = "name";
+	public static final String CITY = "city";
 	public static final String ADDRESS = "address";
-
-	public static final String[] PROJECTION =
-			        new String[] { LAT, LON, ICON, NAME, CITY, ADDRESS };
     
 
 	public static Place find(Uri uri, Context ctx) {
@@ -65,57 +129,5 @@ public class Place implements BaseColumns {
 		p.name = query;
 		return p;
 	}
-    
-    
-    
-    
-    
-    public int lat;
-    public int lon;
-    public int icon;
-    public String name;
-    public String address;
-	public String city;
-
-    
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((address == null) ? 0 : address.hashCode());
-        result = prime * result + lat;
-        result = prime * result + lon;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + icon;
-        return result;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Place other = (Place) obj;
-        if (address == null) {
-            if (other.address != null)
-                return false;
-        } else if (!address.equals(other.address))
-            return false;
-        if (lat != other.lat)
-            return false;
-        if (lon != other.lon)
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (icon != other.icon)
-            return false;
-        return true;
-    }
-
 
 }
