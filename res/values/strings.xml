@@ -24,7 +24,7 @@
     <string name="social">social</string>
 
     <string name="dialog_yes">Yeah!</string>
-    <string name="dialog_no">Nö!</string>
+    <string name="dialog_no">Nope!</string>
 
     <string name="autocompletion_settings_summary">cities, streets, stations, etc.</string>
     <string name="plugIns_settings_summary">search results..</string>
@@ -33,4 +33,9 @@
     <string name="downloading_prog_dnld">downloading..</string>
     <string name="downloading_prog_indx">indexing..</string>
     <string name="download_error">Meest! something went wrong</string>
+    
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="eula">This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version http://www.gnu.org/licenses 
+    This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</string>
 </resources>

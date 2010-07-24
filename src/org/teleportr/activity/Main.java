@@ -24,10 +24,13 @@ import org.teleportr.R.menu;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import org.teleportr.util.LogCollector;
+
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -35,6 +38,7 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,11 +71,25 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // on first start redirect to autocompletion downloads
-        if (getSharedPreferences("autocompletion", MODE_PRIVATE).getAll().isEmpty()) {
-            getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
-            startActivity(new Intent(this, Autocompletion.class));
+        // EULA
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("eula_accepted", false)) {
+        	new AlertDialog.Builder(this).setTitle("EULA").setMessage(getString(R.string.eula))
+        	.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+        		public void onClick(DialogInterface dialog, int whichButton) {
+        			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
+        		}})
+        		.setNegativeButton(getString(R.string.reject), new DialogInterface.OnClickListener() {
+        			public void onClick(DialogInterface dialog, int whichButton) {
+        				finish();
+        			}
+        		}).create().show();
         }
+        
+        // on first start redirect to autocompletion downloads
+//        if (getSharedPreferences("autocompletion", MODE_PRIVATE).getAll().isEmpty()) {
+//            getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
+//            startActivity(new Intent(this, Autocompletion.class));
+//        }
 
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
