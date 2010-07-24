@@ -1,0 +1,44 @@
+TeleportR
+=========
+
+* http://teleportr.org
+* http://github.com/orangeman/teleportr/tree/master
+
+
+== About
+
+"multi-modal mobility browser"
+TeleportR (lat. "take/bring somewhere")
+tries to make the cell phone (find) the way to go.
+building a button on the phone to help figure out how to (best) get somewhere.
+Various modes of transportation can be plugged in to provide customized browsing for mobility websites and transportation services.
+
+
+== Build
+
+	$ android update project --path .
+	$ ant install
+
+
+== Extend
+
+	implement plugin/IPlugIn.java[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin/IPlugIn.java]
+	or play with some mockPlugIns[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin]
+	for that Intent API look here[http://wiki.github.com/orangeman/teleportr/intent-api]
+	
+
+== Support:
+
+mailing list
+
+	* scotty@teleportr.org[mailto://scotty-subscribe@teleportr.org]	
+
+experimantal builds
+
+	* cmip.c-base.org/redpill[http://cmip.c-base.org/redpill]	
+
+
+== License
+
+This software is distributed under the GPLv3.  Please see the LICENSE file.
+
