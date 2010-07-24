@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Map;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
-import org.teleportr.plugin.ITeleporterPlugIn;
+import org.teleportr.plugin.IPlugIn;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,7 +33,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "Multiplexer";
     public ArrayList<Ride> rides;
-    public ArrayList<ITeleporterPlugIn> plugIns;
+    public ArrayList<IPlugIn> plugIns;
     private ArrayList<Ride> nextRides;
     private Map<String, Integer> priorities;
     public Ride latest;
@@ -88,12 +88,12 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
     public void onSharedPreferenceChanged(SharedPreferences plugInSettings, String key) {
         Log.d(TAG, "onSharedPreferenceChanged");
         
-        plugIns = new ArrayList<ITeleporterPlugIn>();
+        plugIns = new ArrayList<IPlugIn>();
         try {
             for (String p : plugInSettings.getAll().keySet()) {
                 if (plugInSettings.getBoolean(p, false)){
                     Log.d(TAG, " + plugin "+p+" selected");
-                    plugIns.add((ITeleporterPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
+                    plugIns.add((IPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
                 } else Log.d(TAG, " + plugin "+p+" NOT selected");
             }
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
             @Override
             public void run() {
             	
-                for (ITeleporterPlugIn p : plugIns) {
+                for (IPlugIn p : plugIns) {
                     
                     nextRides.addAll(p.find(orig, dest, (latest != null)? 
                     						latest.dep : new Date()));

@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 import org.apache.http.client.methods.HttpGet;
@@ -30,7 +31,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-public class BahnDePlugIn implements ITeleporterPlugIn {
+public class BahnDePlugIn implements IPlugIn {
     
     private static final String TAG = "PlugIn";
     private DefaultHttpClient client;
@@ -41,9 +42,7 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
         client = new DefaultHttpClient();
     }
 
-    /* (non-Javadoc)
-     * @see org.teleportr.ITeleporterPlugIn#find(org.teleportr.Place, org.teleportr.Place, java.util.Date)
-     */
+    
     public ArrayList<Ride> find(Place orig, Place dest, Date time) {
         
         StringBuilder url = new StringBuilder();
@@ -118,5 +117,11 @@ public class BahnDePlugIn implements ITeleporterPlugIn {
         }
         return date;
     }
+
+	@Override
+	public List<Ride> share(Ride offer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

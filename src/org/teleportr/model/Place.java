@@ -78,15 +78,14 @@ public class Place implements BaseColumns {
 
 	public static final Uri CONTENT_URI = Uri.parse("content://org.teleportr/places");
 
-	public static final String[] PROJECTION =
-			        			 new String[] { LAT, LON, ICON, NAME, CITY, ADDRESS };
-	
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
 	public static final String ICON = "ICON";
 	public static final String NAME = "name";
 	public static final String CITY = "city";
 	public static final String ADDRESS = "address";
+	public static final String[] PROJECTION =
+					new String[] { LAT, LON, ICON, NAME, CITY, ADDRESS };
     
 
 	public static Place find(Uri uri, Context ctx) {

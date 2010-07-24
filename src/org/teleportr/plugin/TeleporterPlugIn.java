@@ -17,12 +17,14 @@ package org.teleportr.plugin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import android.content.Intent;
 
 
-public class TeleporterPlugIn implements ITeleporterPlugIn {
+public class TeleporterPlugIn implements IPlugIn {
 
     @Override
     public ArrayList<Ride> find(Place o, Place d, Date time) {
@@ -50,5 +52,11 @@ public class TeleporterPlugIn implements ITeleporterPlugIn {
         
         return rides;
     }
+
+	@Override
+	public List<Ride> share(Ride offer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

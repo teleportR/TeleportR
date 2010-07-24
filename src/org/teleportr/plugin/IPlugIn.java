@@ -15,14 +15,32 @@
 
 package org.teleportr.plugin;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
 
-public interface ITeleporterPlugIn {
+public interface IPlugIn {
 
-    public abstract ArrayList<Ride> find(Place orig, Place dest, Date time);
+	
+    /**
+     * Called to search for more rides.
+     * 
+     * @param orig  the origin to start from
+     * @param dest  the destination to get to
+     * @param time  the earliest departure time
+     * @return a List of some found search results.
+     */
+    public abstract List<Ride> find(Place orig, Place dest, Date time);
 
+    
+    /**
+     * Called to make a ride available.
+     * 
+     * @param offer  the ride to announce
+     */
+    public abstract List<Ride> share(Ride offer);
+
+    
 }

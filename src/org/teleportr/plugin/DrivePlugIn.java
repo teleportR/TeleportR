@@ -2,13 +2,14 @@ package org.teleportr.plugin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import org.teleportr.R;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
-public class DrivePlugIn implements ITeleporterPlugIn {
+public class DrivePlugIn implements IPlugIn {
 
     @Override
     public ArrayList<Ride> find(Place o, Place d, Date time) {
@@ -31,5 +32,11 @@ public class DrivePlugIn implements ITeleporterPlugIn {
         
         return rides;
     }
+
+	@Override
+	public List<Ride> share(Ride offer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
