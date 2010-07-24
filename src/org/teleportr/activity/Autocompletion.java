@@ -33,14 +33,17 @@ import org.json.JSONObject;
 import org.teleportr.R;
 import org.teleportr.R.menu;
 import org.teleportr.R.string;
+import org.teleportr.util.LogCollector;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -121,7 +124,20 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        new FetchNearbyDownloads().execute("");
+    	switch (item.getItemId()) {
+        
+        case R.id.about:
+        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
+        	break;
+            
+        case R.id.refresh:
+        	new FetchNearbyDownloads().execute("");
+        	break;
+
+        case R.id.feedback:
+            LogCollector.feedback(this, "scotty@teleportr.org", "v1");
+            break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

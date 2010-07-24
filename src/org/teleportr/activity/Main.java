@@ -271,7 +271,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             break;
             
         case R.id.feedback:
-            LogCollector.feedback(this, "flo@andlabs.de", "bla bla");
+            LogCollector.feedback(this, "scotty@teleportr.org", "v1");
             break;
         }
         return super.onOptionsItemSelected(item);
