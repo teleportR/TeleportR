@@ -34,13 +34,14 @@ public class LogCollector {
                intent.putExtra("com.xtralogic.logcollector.intent.extra.FORMAT", "time");
 
                //The log can be filtered to contain data relevant only to your app
-               String[] filterSpecs = new String[3];
-               filterSpecs[0] = "AndroidRuntime:E";
-               filterSpecs[2] = "*:S";
+               String[] filterSpecs = new String[7];
+               filterSpecs[0] = "*:S";
                filterSpecs[1] = "HereAmI"+ ":V";
-               filterSpecs[1] = Teleporter.TAG + ":V";
-               filterSpecs[1] = "PlaceProvider" + ":V";
-               filterSpecs[1] = "Autocompletion" + ":V";
+               filterSpecs[2] = "AndroidRuntime:E";
+               filterSpecs[3] = "BahnDePlugIn" + ":V";
+               filterSpecs[4] = Teleporter.TAG + ":V";
+               filterSpecs[5] = "PlaceProvider" + ":V";
+               filterSpecs[6] = "Autocompletion" + ":V";
                intent.putExtra("com.xtralogic.logcollector.intent.extra.EXTRA_FILTER_SPECS", filterSpecs);
 
                ctx.startActivity(intent);

@@ -33,7 +33,7 @@ import android.util.Log;
 
 public class BahnDePlugIn implements IPlugIn {
     
-    private static final String TAG = "PlugIn";
+    private static final String TAG = "BahnDePlugIn";
     private DefaultHttpClient client;
     private ArrayList<Ride> rides;
 
@@ -72,10 +72,9 @@ public class BahnDePlugIn implements IPlugIn {
             MatchResult m;
             rides.clear();
             Scanner scanner = new Scanner(client.execute(new HttpGet(url.toString())).getEntity().getContent(), "iso-8859-1");
-        Log.d(TAG, "scanned url: "+url.toString());
+        Log.d(TAG, " url: "+url.toString());
             while (scanner.findWithinHorizon("<a href=\"([^\"]*)\">(\\d\\d):(\\d\\d)<br />(\\d\\d):(\\d\\d)", 10000) != null) {
                 m = scanner.match();
-                Log.d(TAG, "found :) "+m);
                 Date dep = parseDate(m.group(2), m.group(3));
                 if (dep.getTime() - time.getTime() > 100000) {
                     r = new Ride();
@@ -91,10 +90,10 @@ public class BahnDePlugIn implements IPlugIn {
                     r.social = 2;
                     r.green = 4;
                     String uriString = m.group(1).replace("&amp;", "&");
-                    Log.d(TAG, "uri: "+uriString);
                     r.intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
                     
                     rides.add(r);
+                    Log.d(TAG, " + found "+uriString);
                 }
             }
         } catch (Exception e) {

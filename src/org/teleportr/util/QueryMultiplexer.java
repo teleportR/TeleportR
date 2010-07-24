@@ -122,7 +122,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     if (!nextRides.isEmpty())
                     	latest = nextRides.get(nextRides.size()-1);
 
-                    Log.d(TAG, " + "+p+" found: "+nextRides.size());
+                    Log.d(TAG, p+" found: "+nextRides.size());
                     rides.addAll(nextRides);
                     nextRides.clear();
                     

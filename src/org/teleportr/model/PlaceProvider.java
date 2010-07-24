@@ -131,12 +131,12 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
                 db.getWritableDatabase().execSQL("ATTACH DATABASE '"+path+"' AS '"+name.replace("-", "_")+"';");
                 builder.append("UNION ALL ");
                 builder.append(String.format(SQL, "'"+name.substring(name.indexOf("_")+1)+"'", "name", name.replace("-", "_")+".places"));
-                Log.d(TAG, name);
+//                Log.d(TAG, name);
             }
         }
         builder.append(" LIMIT 42");
         sql = builder.toString();
-        Log.d(TAG, sql);
+//        Log.d(TAG, sql);
     }
 	
 	
@@ -155,7 +155,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 	
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		Log.d(TAG, "query: "+uri);
+//		Log.d(TAG, "query: "+uri);
 		String query;
 		Cursor cursor = null;
         switch (sUriMatcher.match(uri)) {
