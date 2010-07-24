@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -264,10 +265,15 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         case R.id.search:
             onSearchRequested();
             break;
+            
+        case R.id.about:
+        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
+        	break;
 
         case R.id.settings:
             startActivity(new Intent(this, Settings.class));
             break;
+            
         case R.id.feedback:
             LogCollector.feedback(this, "flo@andlabs.de", "bla bla");
             break;
