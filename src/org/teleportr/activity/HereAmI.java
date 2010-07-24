@@ -48,10 +48,12 @@ public class HereAmI extends Activity {
     }
 
 	private void display(Place place) {
-		((TextView)findViewById(R.id.name)).setText(place.name);
-		((TextView)findViewById(R.id.latlon)).setText(place.lat+"\n"+place.lon);
-		((TextView)findViewById(R.id.address)).setText(place.address+", "+place.city);
-		((ImageView)findViewById(R.id.icon)).setImageResource(place.icon);
+		if (place != null) {
+			((TextView)findViewById(R.id.name)).setText(place.name);
+			((TextView)findViewById(R.id.latlon)).setText(place.lat+"\n"+place.lon);
+			((TextView)findViewById(R.id.address)).setText(place.address+", "+place.city);
+			((ImageView)findViewById(R.id.icon)).setImageResource(place.icon);
+		}
 	}
     
     @Override

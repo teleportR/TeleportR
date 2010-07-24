@@ -102,13 +102,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
         	}
         });
-        //set destination place
-        findViewById(R.id.arrow).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSearchRequested();
-            }
-        });
+
         //set destination place
         findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
             @Override
