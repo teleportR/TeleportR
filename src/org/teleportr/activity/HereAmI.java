@@ -31,12 +31,12 @@ public class HereAmI extends Activity {
     
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        
-        onSearchRequested();
 
         setContentView(R.layout.place_detail);
         teleporter = (Teleporter) getApplication();
         display(teleporter.currentPlace);
+
+        onSearchRequested();
         
         findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
 			
@@ -76,4 +76,13 @@ public class HereAmI extends Activity {
         display(place);
     }
 
+	@Override
+	public boolean onSearchRequested() {
+		if (teleporter.currentPlace != null) {
+			startSearch(teleporter.currentPlace.name, true, null, false);
+			return true;
+		}
+		return super.onSearchRequested();
+	}
+    
 }

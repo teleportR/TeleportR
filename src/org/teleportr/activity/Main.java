@@ -363,5 +363,14 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         // TODO Auto-generated method stub
         
     }
+    
+    @Override
+	public boolean onSearchRequested() {
+		if (teleporter.destination != null) {
+			startSearch(teleporter.destination.name, true, null, false);
+			return true;
+		}
+		return super.onSearchRequested();
+	}
 
 }
