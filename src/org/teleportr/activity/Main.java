@@ -75,7 +75,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-        setContentView(R.layout.rides);
+        setContentView(R.layout.main);
         
         // set origin place
         findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
