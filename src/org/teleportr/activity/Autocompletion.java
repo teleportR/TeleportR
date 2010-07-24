@@ -115,7 +115,7 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings, menu);
+        getMenuInflater().inflate(R.menu.autocompletion, menu);
         return super.onCreateOptionsMenu(menu);
     }
     

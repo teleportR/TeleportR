@@ -17,12 +17,17 @@ package org.teleportr.activity;
 
 import org.teleportr.R;
 import org.teleportr.R.xml;
+import org.teleportr.util.LogCollector;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class Settings extends PreferenceActivity {
 
@@ -43,7 +48,27 @@ public class Settings extends PreferenceActivity {
         .setIntent(new Intent(this, Autocompletion.class));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            
+        case R.id.about:
+        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
+        	break;
+            
+        case R.id.feedback:
+            LogCollector.feedback(this, "flo@andlabs.de", "bla bla");
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
    
 
 }

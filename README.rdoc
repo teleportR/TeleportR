@@ -41,4 +41,5 @@ experimantal builds
 == License
 
 This software is distributed under the GPLv3.  Please see the LICENSE file.
+The autocompletion downloads are by openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] under creative commons attribution share-alike license.
 

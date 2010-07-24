@@ -265,10 +265,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         case R.id.search:
             onSearchRequested();
             break;
-            
-        case R.id.about:
-        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
-        	break;
 
         case R.id.settings:
             startActivity(new Intent(this, Settings.class));
