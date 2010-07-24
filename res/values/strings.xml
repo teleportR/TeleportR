@@ -8,8 +8,8 @@
     <string name="search_label">Station, Address, Name,..</string>
     <string name="search_settings_description">Places to beam..</string>
 
-    <string name="dep_label">ab</string>
-    <string name="arr_label">an</string>
+    <string name="dep_label">dep</string>
+    <string name="arr_label">arr</string>
 
     <string name="menu_about">About</string>
     <string name="menu_search">Search</string>
