@@ -240,10 +240,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         // GO..
         teleporter.destination = destination;
         teleporter.beam();
-        
-        findViewById(R.id.logo).setVisibility(View.GONE);
+	
+	if (teleporter.currentPlace != null) {        
+        	findViewById(R.id.logo).setVisibility(View.GONE);
 		getListView().setVisibility(View.VISIBLE);
-        
+        }
         if (destination.name != null) {
         	((TextView)findViewById(R.id.dest)).setText(destination.name);
         	Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
