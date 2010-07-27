@@ -11,7 +11,7 @@
 				android:layout_marginTop="2dip"
 				android:layout_marginLeft="2dip"
 				android:text="@string/dep_label"
-				android:textSize="7dip"
+				android:textSize="11dip"
 				/>
     <TextView android:id="@+id/orig"
 			    android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
 				android:layout_marginTop="2dip"
 				android:layout_marginLeft="2dip"
 				android:text="@string/arr_label"
-				android:textSize="7dip"
+				android:textSize="11dip"
 	/>
     
 	<ListView  
