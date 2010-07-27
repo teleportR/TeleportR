@@ -38,13 +38,20 @@ public class HereAmI extends Activity {
 
         onSearchRequested();
         
-        findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
+         findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
 			
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+			    @Override
+			    public void onClick(View v) {
+				    finish();
+			      }
+		    });
+  findViewById(R.id.name).setOnClickListener(new OnClickListener() {
+			
+			    @Override
+			    public void onClick(View v) {
+				    onSearchRequested();
+			      }
+		    });
     }
 
 	private void display(Place place) {
