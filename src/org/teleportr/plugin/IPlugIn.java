@@ -40,7 +40,7 @@ public interface IPlugIn {
      * 
      * @param offer  the ride to announce
      */
-    public abstract List<Ride> share(Ride offer);
+    public abstract void share(Ride offer);
 
     
 }
