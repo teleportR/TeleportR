@@ -94,10 +94,9 @@
      >
 
      <ImageView android:id="@id/handle"
-         android:layout_width="29dip"
-         android:layout_height="fill_parent"
-         android:paddingTop="410dip"
-         android:paddingRight="0dip"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:paddingTop="333dip"
          android:src="@drawable/handle"
          />
 
