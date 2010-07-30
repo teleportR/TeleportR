@@ -79,11 +79,22 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		public void onClick(DialogInterface dialog, int whichButton) {
         			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
         			getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
-        			// redirect to autocompletion downloads
-        			startActivity(new Intent(Main.this, Autocompletion.class));
+        			// Download Tip
+        			new AlertDialog.Builder(Main.this).setTitle("Tip   :-)").setMessage(getString(R.string.download_tip))
+        			.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
+        				public void onClick(DialogInterface dialog, int whichButton) {
+        					// redirect to autocompletion downloads
+        					startActivity(new Intent(Main.this, Autocompletion.class));
+        				}})
+        				.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
+        					public void onClick(DialogInterface dialog, int whichButton) {
+        						Toast.makeText(Main.this, "you can do this later on in settings..", Toast.LENGTH_SHORT);
+        					}
+        				}).create().show();
         		}})
         		.setNegativeButton(getString(R.string.reject), new DialogInterface.OnClickListener() {
         			public void onClick(DialogInterface dialog, int whichButton) {
+        				Toast.makeText(Main.this, "sorry!", Toast.LENGTH_SHORT);
         				finish();
         			}
         		}).create().show();
