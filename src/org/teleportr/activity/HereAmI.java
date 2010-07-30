@@ -30,13 +30,8 @@ public class HereAmI extends Activity {
     public void onCreate(Bundle savedInstanceState) {
     
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
-
         setContentView(R.layout.place_detail);
-        teleporter = (Teleporter) getApplication();
-        display(teleporter.currentPlace);
-
-        onSearchRequested();
+        super.onCreate(savedInstanceState);
         
          findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
 			
@@ -45,13 +40,18 @@ public class HereAmI extends Activity {
 				    finish();
 			      }
 		    });
-  findViewById(R.id.name).setOnClickListener(new OnClickListener() {
+         findViewById(R.id.name).setOnClickListener(new OnClickListener() {
 			
 			    @Override
 			    public void onClick(View v) {
 				    onSearchRequested();
 			      }
 		    });
+         
+         teleporter = (Teleporter) getApplication();
+         display(teleporter.currentPlace);
+         
+         onSearchRequested();
     }
 
 	private void display(Place place) {

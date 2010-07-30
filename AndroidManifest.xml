@@ -16,6 +16,8 @@
     			 android:icon="@drawable/icon" 
     			 android:label="@string/app_name" android:name="Teleporter">
         
+        <activity android:name=".activity.About"/>
+        
         <activity android:name=".activity.HereAmI"
 				  android:launchMode="singleTop">
             <intent-filter>

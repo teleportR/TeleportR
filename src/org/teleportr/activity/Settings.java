@@ -60,7 +60,7 @@ public class Settings extends PreferenceActivity {
         switch (item.getItemId()) {
             
         case R.id.about:
-        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
+        	startActivity(new Intent(this, About.class));
         	break;
             
         case R.id.feedback:

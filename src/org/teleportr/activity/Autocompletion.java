@@ -18,28 +18,22 @@ package org.teleportr.activity;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import org.teleportr.R;
-import org.teleportr.R.menu;
-import org.teleportr.R.string;
 import org.teleportr.util.LogCollector;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationManager;
@@ -49,8 +43,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -129,7 +123,7 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
     	switch (item.getItemId()) {
         
         case R.id.about:
-        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://teleportr.org")));
+        	startActivity(new Intent(this, About.class));
         	break;
             
         case R.id.refresh:
