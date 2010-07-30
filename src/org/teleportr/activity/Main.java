@@ -230,6 +230,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		
+		if (teleporter.destination != null) {
+         	        findViewById(R.id.logo).setVisibility(View.GONE);
+                	getListView().setVisibility(View.VISIBLE);
+        	}
 		if (teleporter.currentPlace != null) {
 			((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
 			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
@@ -250,9 +255,9 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         // GO..
         teleporter.destination = destination;
-        teleporter.beam();
 	
-	if (teleporter.currentPlace != null) {        
+	if (teleporter.currentPlace != null) { 
+		teleporter.beam();       
         	findViewById(R.id.logo).setVisibility(View.GONE);
 		getListView().setVisibility(View.VISIBLE);
         }
