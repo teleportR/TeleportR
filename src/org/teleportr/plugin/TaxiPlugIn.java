@@ -38,9 +38,8 @@ public class TaxiPlugIn implements IPlugIn {
     }
 
 	@Override
-	public List<Ride> share(Ride offer) {
+	public void share(Ride offer) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
