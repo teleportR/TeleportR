@@ -60,7 +60,7 @@ public class Teleporter extends Application {
 	public void reset() {
 		if (multiplexer != null) {
 			multiplexer.rides.clear();
-			multiplexer.latest = null;
+			multiplexer.latest.clear();
 		}
 		getContentResolver().notifyChange(Ride.URI, null);
 	}

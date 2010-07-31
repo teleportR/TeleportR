@@ -18,6 +18,7 @@ package org.teleportr.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
@@ -32,21 +33,21 @@ import android.util.Log;
 public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "Multiplexer";
+    private Context ctx;
+    private Thread worker;
     public ArrayList<Ride> rides;
     public ArrayList<IPlugIn> plugIns;
     private ArrayList<Ride> nextRides;
-    private Map<String, Integer> priorities;
-    public Ride latest;
-    private BroadcastReceiver mPluginResponseReceiver;
-    private final Context ctx;
-    private Handler mUpdateHandler;
-    private Thread worker;
+    public HashMap<IPlugIn, Ride> latest;
+
 
     public QueryMultiplexer(Context ctx) {
         this.ctx = ctx;
 
         
         nextRides = new ArrayList<Ride>();
+        latest = new HashMap<IPlugIn, Ride>();
+        
         rides = new ArrayList<Ride>() {
             @Override
             public boolean add(Ride object) {
@@ -114,15 +115,16 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
             @Override
             public void run() {
             	
-                for (IPlugIn p : plugIns) {
+                for (IPlugIn plugin : plugIns) {
                     
-                    nextRides.addAll(p.find(orig, dest, (latest != null)? 
-                    						latest.dep : new Date()));
+                    nextRides.addAll(plugin.find(orig, dest, 
+                    				latest.containsKey(plugin)? 
+                    				latest.get(plugin).dep : new Date()));
                     
                     if (!nextRides.isEmpty())
-                    	latest = nextRides.get(nextRides.size()-1);
+                    	latest.put(plugin, nextRides.get(nextRides.size()-1));
 
-                    Log.d(TAG, p+" found: "+nextRides.size());
+                    Log.d(TAG, plugin+" found: "+nextRides.size());
                     rides.addAll(nextRides);
                     nextRides.clear();
                     
@@ -148,7 +150,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
     public void sort() {
 
-        priorities = (Map<String, Integer>) ctx.getSharedPreferences("priorities", ctx.MODE_PRIVATE).getAll();
+//        priorities = (Map<String, Integer>) ctx.getSharedPreferences("priorities", ctx.MODE_PRIVATE).getAll();
 //        Collections.sort(rides, new Comparator<Ride>() {
 //
 //            @Override
