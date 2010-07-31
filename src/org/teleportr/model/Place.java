@@ -125,7 +125,10 @@ public class Place implements BaseColumns {
     
 	public static Place find(String query, Context ctx) {
 		Place p = new Place();
-		p.name = query;
+		String[] split = query.split(",");
+		if (split.length == 2) 
+			p.city = split[1].trim();
+		p.name = split[0];
 		return p;
 	}
 

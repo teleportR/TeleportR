@@ -49,15 +49,21 @@ public class BahnDePlugIn implements IPlugIn {
         url.append("http://mobile.bahn.de/bin/mobil/query.exe/dox?");
         url.append("n=1");
         
+        if (orig.city!=null)
+        	Log.d(TAG, "aha city "+orig.city);
         if (orig.address != null)
-        	url.append("&f=2&s=").append(URLEncoder.encode(orig.address+", "+orig.city+"!"));
+        	url.append("&f=2&s=").append(URLEncoder.encode(orig.address+
+							(orig.city!=null? (", "+orig.city) : "")+"!"));
         else
-        	url.append("&f=1&s=").append(URLEncoder.encode(orig.name+", "+orig.city+"!"));
-        
+        	url.append("&f=1&s=").append(URLEncoder.encode(orig.name+
+							(orig.city!=null? (", "+orig.city) : "")+"!"));
+		 
         if (dest.address != null)
-        	url.append("&o=2&z=").append(URLEncoder.encode(dest.address+", "+dest.city+"!"));
+        	url.append("&o=2&z=").append(URLEncoder.encode(dest.address+
+							(dest.city!=null? (", "+dest.city) : "")+"!"));
         else
-        	url.append("&o=1&z=").append(URLEncoder.encode(dest.name+", "+dest.city+"!"));
+        	url.append("&o=1&z=").append(URLEncoder.encode(dest.name+
+							(dest.city!=null? (", "+dest.city) : "")+"!"));
 
         url.append("&d="); // date
         url.append((new SimpleDateFormat("ddMMyy")).format(time));
@@ -72,7 +78,7 @@ public class BahnDePlugIn implements IPlugIn {
             MatchResult m;
             rides.clear();
             Scanner scanner = new Scanner(client.execute(new HttpGet(url.toString())).getEntity().getContent(), "iso-8859-1");
-        Log.d(TAG, " url: "+url.toString());
+            Log.d(TAG, " url: "+url.toString());
             while (scanner.findWithinHorizon("<a href=\"([^\"]*)\">(\\d\\d):(\\d\\d)<br />(\\d\\d):(\\d\\d)", 10000) != null) {
                 m = scanner.match();
                 Date dep = parseDate(m.group(2), m.group(3));
