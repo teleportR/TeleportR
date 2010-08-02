@@ -179,11 +179,11 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 
         	break;
 		case ORIGIN:
-			Log.d(TAG, "matched ORIGIN: "+uri);
+//			Log.d(TAG, "matched ORIGIN: "+uri);
 			cursor = db.getReadableDatabase().rawQuery(String.format(sql, ""), null);
 			break;
 		case PLACES:
-			Log.d(TAG, "matched PLACES: "+uri);
+//			Log.d(TAG, "matched PLACES: "+uri);
 			query = uri.getPathSegments().size() == 3 ? uri.getLastPathSegment(): "";
 			cursor = db.getReadableDatabase().rawQuery(String.format(sql, query), null);
 //					"SELECT _id, " +

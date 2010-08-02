@@ -261,7 +261,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         findViewById(R.id.logo).setVisibility(View.GONE);
 		getListView().setVisibility(View.VISIBLE);
         }
-        if (destination.name != null) {
+        if (destination != null && destination.name != null) {
         	((TextView)findViewById(R.id.dest)).setText(destination.name);
         	Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
         } else
