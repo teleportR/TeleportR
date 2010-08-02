@@ -105,6 +105,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         
         setContentView(R.layout.main);
+        teleporter = (Teleporter) getApplication();
         
         // set origin place
         findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
@@ -121,16 +122,18 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 onSearchRequested();
             }
         });
-        //set destination place
+        //set origin or destination place
         findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
-        		onSearchRequested();
+        		if (teleporter.currentPlace == null)
+        			startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
+        		else
+        			onSearchRequested();
         	}
         });
 
 
-        teleporter = (Teleporter) getApplication();
         
         // bind UI
         if (teleporter.currentPlace != null)
