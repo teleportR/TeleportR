@@ -7,11 +7,21 @@ TeleportR
 
 == About
 
-"multi-modal mobility browser"
-TeleportR (lat. "take/bring somewhere")
-tries to make the cell phone (find) the way to go.
-building a button on the phone to help figure out how to (best) get somewhere.
-Various modes of transportation can be plugged in to provide customized browsing for mobility websites and transportation services.
+TeleportR 
+(lat "take/bring somewhere")
+is a "multi-modal mobility Browser".
+
+It tries to make the cell phone (find) the way to go
+by automagically figuring out how to best get some anywhere.
+
+As a customized browser optimized for certain kind of websites related to transportation
+it uses location-based Bookmarks (with some little intelligence regarding url-parameters)
+that can be applied to automate websurfing and compare different modes of transportation
+
+
+it should make users aware what data they provide to whom by using location providers
+it should put users in controll and let them decide how to find out their current location
+
 
 
 == Build
@@ -20,11 +30,12 @@ Various modes of transportation can be plugged in to provide customized browsing
 	$ ant install
 
 
+
 == Extend
 
 	implement plugin/IPlugIn.java[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin/IPlugIn.java]
 	or play with some mockPlugIns[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin]
-	for that Intent API look here[http://wiki.github.com/orangeman/teleportr/intent-api]
+	for the Intent API look here[http://wiki.github.com/orangeman/teleportr/intent-api]
 	
 
 == Support:
@@ -41,5 +52,5 @@ experimantal builds
 == License
 
 This software is distributed under the GPLv3.  Please see the LICENSE file.
-The autocompletion downloads are by openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] under creative commons attribution share-alike license.
+All autocompletion data-sets (c) by openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] distributed under creative commons attribution share-alike license.
 

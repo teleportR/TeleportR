@@ -80,7 +80,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
         			getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
         			// Download Tip
-        			new AlertDialog.Builder(Main.this).setTitle("Tip   :-)").setMessage(getString(R.string.download_tip))
+        			new AlertDialog.Builder(Main.this).setTitle("Setup Assistant").setMessage(getString(R.string.download_tip))
         			.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
         				public void onClick(DialogInterface dialog, int whichButton) {
         					// redirect to autocompletion downloads
@@ -88,7 +88,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         				}})
         				.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
         					public void onClick(DialogInterface dialog, int whichButton) {
-        						Toast.makeText(Main.this, "you can do this later on in settings..", Toast.LENGTH_SHORT);
+        						Toast.makeText(Main.this, "you can still do this later on in settings..", Toast.LENGTH_SHORT);
         					}
         				}).create().show();
         		}})

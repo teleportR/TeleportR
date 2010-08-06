@@ -34,9 +34,13 @@
     <string name="downloading_prog_indx">indexing..</string>
     <string name="download_error">Meest! something went wrong</string>
     
-    <string name="download_tip">files in /sdcard/teleportr can be used for autocompletion and nearby search... \nPlease download some now!</string>
+    <string name="download_tip">Simplify your daily routine!
+\nTeleportR synchronizes your mobile phone with public transportation schedules in your city and provides a customized selection of routes.
+\njust pick your perfect match
+Download autocompletion-data for your area.
+ </string>
 
-    <string name="about">This software is a part of teleportr.org \ndistributed under the GPL3 license.</string>
+    <string name="about">TeleportR is a multi modal mobility browser  for customized websurfing of sites related to different modes of transportation. \nIt is distributed under the GPL3v3 license.</string>
     <string name="osm_attribution">All map data (c) OpenStreetMap contributors</string>
     
     <string name="accept">Accept</string>
