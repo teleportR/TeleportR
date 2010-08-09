@@ -75,23 +75,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         // EULA
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("eula_accepted", false)) {
         	new AlertDialog.Builder(this).setTitle("EULA").setMessage(getString(R.string.eula))
-        	.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface dialog, int whichButton) {
-        			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
-        			getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
-        			// Download Tip
-        			new AlertDialog.Builder(Main.this).setTitle("Setup Assistant").setMessage(getString(R.string.download_tip))
-        			.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
-        				public void onClick(DialogInterface dialog, int whichButton) {
-        					// redirect to autocompletion downloads
-        					startActivity(new Intent(Main.this, Autocompletion.class));
-        				}})
-        				.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-        					public void onClick(DialogInterface dialog, int whichButton) {
-        						Toast.makeText(Main.this, "you can still do this later on in settings..", Toast.LENGTH_SHORT);
-        					}
-        				}).create().show();
-        		}})
+	        	.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+	        		public void onClick(DialogInterface dialog, int whichButton) {
+	        			PreferenceManager.getDefaultSharedPreferences(Main.this).edit().putBoolean("eula_accepted", true).commit();
+	        			getSharedPreferences("plugIns", MODE_WORLD_WRITEABLE).edit().putBoolean("BahnDePlugIn", true).commit();
+	        		}})
         		.setNegativeButton(getString(R.string.reject), new DialogInterface.OnClickListener() {
         			public void onClick(DialogInterface dialog, int whichButton) {
         				Toast.makeText(Main.this, "sorry!", Toast.LENGTH_SHORT);
@@ -122,14 +110,23 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 onSearchRequested();
             }
         });
-        //set origin or destination place
+        
+        // tipps by scotty
         findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
-        	@Override
+        	private int tipp = 1;
+
+			@Override
         	public void onClick(View v) {
-        		if (teleporter.currentPlace == null)
-        			startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
-        		else
-        			onSearchRequested();
+        		if (getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
+        			tipp = 0;
+        			openOptionsMenu();
+        		}
+        		startActivity(new Intent(getResources().getStringArray(R.array.tipps)[tipp++], null, Main.this, Help.class));
+//        		new AlertDialog.Builder(Main.this).setTitle("Tipp")
+//        		.setMessage(getResources().getStringArray(R.array.tipps)[tipp++])
+//        		.setPositiveButton(getString(R.string.got_it), new DialogInterface.OnClickListener() {
+//        			public void onClick(DialogInterface dialog, int whichButton) {}})
+//        		.create().show();
         	}
         });
 

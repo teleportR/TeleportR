@@ -9,13 +9,11 @@
     <string name="autocompletion_settings_summary">Städte, Straßen, Stationen, etc.</string>
     <string name="plugIns_settings_summary">search results..</string>
     <string name="downloads_activity_titel">Autocompletion downloads</string>
-    <string name="downloads_fetch_progress">Aownloads für diese Gegend..</string>
+    <string name="downloads_fetch_progress">Downloads für diese Gegend..</string>
     <string name="downloading_prog_dnld">downloade..</string>
     <string name="downloading_prog_indx">indiziere..</string>
     <string name="download_error">Meest! hat was nicht geklappt!</string>
     
-    <string name="explain_downloads">Downloads für Autovervollständigung..</string>
-
     <string name="accept">Akzeptieren</string>
     <string name="reject">Ablehnen</string>
 </resources>

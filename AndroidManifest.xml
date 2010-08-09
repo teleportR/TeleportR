@@ -66,6 +66,9 @@
 	    <activity android:name=".activity.Autocompletion"
 	    		  android:screenOrientation="portrait">
 	    </activity>
+		<activity android:name=".activity.Help"
+				  android:theme="@android:style/Theme.Dialog">
+		</activity>
 
 
         <provider android:name=".model.PlaceProvider"

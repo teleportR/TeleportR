@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<resources> 
+    <string-array name="tipps"> 
+		<item>Go to Settings->Autocompletion \nto download some data for your area.</item>
+		<item>Hi, this is Scotty.
+			\nIf there is anything bugging or bothering please don\'t hesitate telling me.
+			\nAt any time I\'ll be glad to assist, help and guide you through :-)
+			\nHave a pleasant ride and enjoy the beam!</item>
+		<item>Tap on [destination] \nto set where you want to beam.</item>
+		<item>Tap on [start] \nto set where you\'re at.</item>
+		<item>   That\'s it :-)  </item>
+		<item>There is really nothing more to it right now.</item>
+		<item>This button has no function other than repeating these tipps.</item>
+		<item>Go set your [start] and [destination] and then beam.</item>
+		<item>Have you tried switching it off and on again?</item>
+		<item>So why are you still asking me?</item>
+		<item>You already know what to do.</item>
+		<item>Ok one last time: Tap on [start] and/or [destination].</item>
+		<item>I am really tired of explaining this over and over again!</item>
+		<item>If you don\'t like the user interface Please design a better one!</item>
+		<item>Fork one of the git repos or mail to scotty@teleportr.org what you\'d like to have...</item>
+		<item>I\'m through. This has been the last tipp. </item>
+		<item>This is the absolute final last tipp! </item>
+		<item>I\'ve nothing more to tell you.</item>
+		<item>There are no more tipps here!</item>
+		<item>Stop pressing this button! </item>
+		<item>STOP IT!!!!!!!!!!! </item>
+		<item>please stop.</item>
+		<item>"%$@§X/§! </item>
+		<item>foooo!</item>
+		<item>bar?</item>
+		<item>.</item>
+		<item>Ok you get one more tipp if you promise to stop then!?</item>
+		<item>You just wasted 1.5 minutes of your valuable time pressing this stupid buttopn agaiun and again. You could be teleporting already. Think about it!  n\  ;-P</item>
+    </string-array> 
+</resources> 
