@@ -36,20 +36,20 @@ public class About extends Activity {
 	    	}
 	    });
 	    
-	    findViewById(R.id.openstreetmap).setOnClickListener(new OnClickListener() {
-	    	@Override
-	    	public void onClick(View v) {
-	    		startActivity(new Intent(Intent.ACTION_VIEW, 
-	    				Uri.parse("http://wiki.openstreetmap.org")));
-	    	}
-	    });
-	    findViewById(R.id.creativecommons).setOnClickListener(new OnClickListener() {
-	    	@Override
-	    	public void onClick(View v) {
-	    		startActivity(new Intent(Intent.ACTION_VIEW, 
-	    				Uri.parse("http://creativecommons.org/licenses/by-sa/2.0")));
-	    	}
-	    });
+//	    findViewById(R.id.openstreetmap).setOnClickListener(new OnClickListener() {
+//	    	@Override
+//	    	public void onClick(View v) {
+//	    		startActivity(new Intent(Intent.ACTION_VIEW, 
+//	    				Uri.parse("http://wiki.openstreetmap.org")));
+//	    	}
+//	    });
+//	    findViewById(R.id.creativecommons).setOnClickListener(new OnClickListener() {
+//	    	@Override
+//	    	public void onClick(View v) {
+//	    		startActivity(new Intent(Intent.ACTION_VIEW, 
+//	    				Uri.parse("http://creativecommons.org/licenses/by-sa/2.0")));
+//	    	}
+//	    });
 	    
 	    findViewById(R.id.andlabs).setOnClickListener(new OnClickListener() {
 	    	@Override

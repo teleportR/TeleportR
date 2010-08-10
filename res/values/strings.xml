@@ -10,6 +10,8 @@
 
     <string name="dep_label">dep</string>
     <string name="arr_label">arr</string>
+    <string name="orig_default">[start]</string>
+    <string name="dest_default">[destination]</string>
 
     <string name="menu_about">About</string>
     <string name="menu_search">Search</string>
@@ -35,8 +37,9 @@
     <string name="downloading_prog_indx">indexing..</string>
     <string name="download_error">Meest! something went wrong</string>
 
-    <string name="about">TeleportR is a multi modal mobility browser  for customized websurfing of sites related to different modes of transportation. \nIt is distributed under the GPL3v3 license.</string>
-    <string name="osm_attribution">All map data (c) OpenStreetMap contributors</string>
+    <string name="about">multi modal mobility browser \nfor customized websurfing of sites related to transportation. \n\nTeleportR is distributed under the GPL3v3 license.</string>
+    <string name="copyright">(c) 2010 andlabs gbr, teleportr.org contributors. All rights reserverd.</string>
+    <string name="osm_attribution">Downloaded data (c) OpenStreetMap contributors CC-BY-SA license</string>
     
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>

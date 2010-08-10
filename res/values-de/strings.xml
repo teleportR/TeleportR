@@ -3,6 +3,8 @@
 
     <string name="dep_label">ab</string>
     <string name="arr_label">an</string>
+    <string name="dest_default">[ziel]</string>
+    
 
     <string name="dialog_no">Nö!</string>
 

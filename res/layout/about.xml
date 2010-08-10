@@ -36,26 +36,18 @@
 		android:layout_centerHorizontal="true"
 	/>
 
-	<ImageView android:id="@+id/openstreetmap"
-		android:layout_width="84dip"
-		android:layout_height="84dip"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentBottom="true"
-		android:src="@drawable/logo_openstreetmap2"
-	/>
-	<ImageView android:id="@+id/creativecommons"
-		android:layout_height="84dip"
-		android:layout_width="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentBottom="true"
-		android:layout_toRightOf="@id/openstreetmap"
-		android:src="@drawable/logo_creativecommons"
-	/>
-	<TextView 
-		android:layout_above="@id/openstreetmap"
+	<TextView android:id="@+id/osm"
+		android:textSize="10dip"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
 		android:text="@string/osm_attribution"
 	/>
-		
+	<TextView 
+		android:layout_above="@id/osm"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="10dip"
+		android:text="@string/copyright"
+	/>
 </RelativeLayout>
