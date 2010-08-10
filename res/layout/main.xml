@@ -22,11 +22,11 @@
 		    	android:paddingLeft="3dip"
 		    	android:paddingRight="3dip"
 			    android:ellipsize="end"
-			    android:text="[start]"
 			    android:textStyle="bold"
 			    android:textSize="23dip"
 			    android:singleLine="true"
 			    android:maxWidth="135dip"
+			    android:text="@string/orig_default"
 	></TextView> 
     <TextView android:id="@+id/dest"
 			    android:maxWidth="155dip"
@@ -41,7 +41,7 @@
 			    android:textStyle="bold"
 			    android:ellipsize="start"
 			    android:gravity="right"
-			    android:text="[destination]"
+			    android:text="@string/dest_default"
 	></TextView>  
 	<ImageView android:id="@+id/arrow"
 	           android:layout_width="58dip"
