@@ -4,6 +4,8 @@ import org.teleportr.R;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -16,15 +18,17 @@ public class Help extends Activity {
 	    super.onCreate(savedInstanceState);
 
 	    setTitle("Tipp");
-	    setContentView(R.layout.help);
-	    ((TextView)findViewById(R.id.tipp)).setText(getIntent().getAction());
-	    findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
+	    TextView tv = new TextView(this);
+	    tv.setText(getIntent().getAction());
+	    tv.setGravity(Gravity.CENTER);
+	    tv.setPadding(3, 0, 3, 23);
+	    setContentView(tv);
 	}
 
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		finish();
+		return true;
+	}
+	
 }
