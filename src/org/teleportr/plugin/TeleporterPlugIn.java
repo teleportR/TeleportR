@@ -36,8 +36,6 @@ public class TeleporterPlugIn implements IPlugIn {
         r = new Ride();
         r.orig = o;
         r.dest = d;
-        r.dep = new Date(System.currentTimeMillis());
-        r.arr = new Date(System.currentTimeMillis());
         r.mode = Ride.MODE_TELEPORTER;
         
         r.fun = 5;

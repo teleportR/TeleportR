@@ -62,9 +62,9 @@ import android.widget.Toast;
 
 public class Main extends ListActivity implements OnSeekBarChangeListener {
     
+	private SharedPreferences priorities; // criteria..
     private BroadcastReceiver timetick; // every minute..
     private ContentObserver refresh; // new rides..
-    private SharedPreferences priorities; // criteria..
     private Teleporter teleporter; // to beam..
     private Ride[] rides; // results..
 
@@ -72,7 +72,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // EULA
+        // accept EULA
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("eula_accepted", false)) {
         	new AlertDialog.Builder(this).setTitle("EULA").setMessage(getString(R.string.eula))
 	        	.setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
@@ -88,11 +88,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         		}).create().show();
         }
         
-
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
         setContentView(R.layout.main);
+
         teleporter = (Teleporter) getApplication();
         
         // set origin place
@@ -122,24 +121,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         			openOptionsMenu();
         		}
         		startActivity(new Intent(getResources().getStringArray(R.array.tipps)[tipp++], null, Main.this, Help.class));
-//        		new AlertDialog.Builder(Main.this).setTitle("Tipp")
-//        		.setMessage(getResources().getStringArray(R.array.tipps)[tipp++])
-//        		.setPositiveButton(getString(R.string.got_it), new DialogInterface.OnClickListener() {
-//        			public void onClick(DialogInterface dialog, int whichButton) {}})
-//        		.create().show();
         	}
         });
-
-
         
-        // bind UI
-        if (teleporter.currentPlace != null)
-        	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
-		if (teleporter.destination != null) {
-			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
-			findViewById(R.id.logo).setVisibility(View.GONE);
-			getListView().setVisibility(View.VISIBLE);
-		}
+        bindUI(); // origin/destination buttons
         bindSlidingDrawer(); // priorities pane
 
 		// search results
@@ -151,7 +136,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 if (view == null) {
                 	if (position < rides.length)
                 		view = getLayoutInflater().inflate(R.layout.rideview, parent, false);
-                	else {
+                	else { // show spinning progress loading
                 		view = getLayoutInflater().inflate(R.layout.loading, parent, false);
                 		final RotateAnimation rotateAnimation = new RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 		rotateAnimation.setDuration(600);
@@ -210,12 +195,23 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	}
         };
     }
+    
+    private void bindUI() {
+        if (teleporter.currentPlace != null)
+        	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
+		if (teleporter.destination != null)
+			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
+		if (teleporter.currentPlace != null && teleporter.destination != null) {
+			findViewById(R.id.logo).setVisibility(View.GONE);
+			getListView().setVisibility(View.VISIBLE);
+		}
+	}
 
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Log.d(Teleporter.TAG, "onStart");
+//		Log.d(Teleporter.TAG, "onStart");
 		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
 		getContentResolver().registerContentObserver(Ride.URI, false, refresh);
 	}
@@ -223,22 +219,16 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     @Override
     protected void onStop() {
     	super.onStop();
-    	Log.d(Teleporter.TAG, "onStop");
+//    	Log.d(Teleporter.TAG, "onStop");
     	unregisterReceiver(this.timetick);
     	getContentResolver().unregisterContentObserver(refresh);
     }
     
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		
-		if (teleporter.destination != null) {
-         	        findViewById(R.id.logo).setVisibility(View.GONE);
-                	getListView().setVisibility(View.VISIBLE);
-        	}
-		if (teleporter.currentPlace != null) {
-			((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
-			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
-		}
+
+		bindUI();
+		Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
 	}
 
 	@Override
@@ -250,24 +240,16 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         } else if (intent.hasExtra(SearchManager.QUERY)) {
         	destination = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
-        if (teleporter.destination != null)
-        	teleporter.reset();
         
-        // GO..
-        teleporter.destination = destination;
-	
-	if (teleporter.currentPlace != null) { 
-		teleporter.beam();       
-        findViewById(R.id.logo).setVisibility(View.GONE);
-		getListView().setVisibility(View.VISIBLE);
-        }
         if (destination != null && destination.name != null) {
-        	((TextView)findViewById(R.id.dest)).setText(destination.name);
-        	Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
-        } else
-        	((TextView)findViewById(R.id.dest)).setText(destination.address);
-        	
-//        MediaPlayer.create(this, R.raw.sound_long).start();
+        	if (teleporter.destination != null)
+        		teleporter.reset();
+        	teleporter.destination = destination;
+            if (teleporter.currentPlace != null)
+            	teleporter.beam();       
+            bindUI();
+            Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
+        }
     }
 
     @Override
