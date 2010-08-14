@@ -26,6 +26,7 @@ import org.teleportr.model.Ride;
 import org.teleportr.util.LogCollector;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -34,6 +35,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -228,7 +232,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 		bindUI();
-		Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
+		if (teleporter.currentPlace != null)
+			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
 	}
 
 	@Override
@@ -281,7 +286,26 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             break;
             
         case R.id.feedback:
-            LogCollector.feedback(this, "scotty@teleportr.org", "v1");
+        	new AlertDialog.Builder(this)
+	            .setTitle("feedback")
+	            .setIcon(android.R.drawable.ic_dialog_info)
+	            .setPositiveButton("send logs", new DialogInterface.OnClickListener(){
+	                public void onClick(DialogInterface dialog, int whichButton){
+	                	LogCollector.feedback(Main.this, "scotty@teleportr.org, flo@andlabs.de");
+	                }
+	            })
+	            .setNeutralButton("mail scotty", new Dialog.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int which) {
+	                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:scotty@teleportr.org, flo@andlabs.de"));
+	                    intent.putExtra(Intent.EXTRA_SUBJECT, "feedback "+getString(R.string.app_name));
+						try {
+							PackageInfo info = getPackageManager().getPackageInfo("org.teleportr", PackageManager.GET_META_DATA);
+							intent.putExtra(Intent.EXTRA_TEXT, "version: "+info.versionName+" ("+info.versionCode+") \n");
+						} catch (NameNotFoundException e) {}
+	                    startActivity(intent); 
+	                }}
+	            )
+            .show();
             break;
         }
         return super.onOptionsItemSelected(item);

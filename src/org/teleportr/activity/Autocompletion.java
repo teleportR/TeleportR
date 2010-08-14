@@ -30,9 +30,13 @@ import org.teleportr.R;
 import org.teleportr.util.LogCollector;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -130,8 +134,27 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
         	break;
 
         case R.id.feedback:
-            LogCollector.feedback(this, "scotty@teleportr.org", "v1");
-            break;
+        	new AlertDialog.Builder(this)
+            .setTitle("feedback")
+            .setIcon(android.R.drawable.ic_dialog_info)
+            .setPositiveButton("send logs", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
+                	LogCollector.feedback(Autocompletion.this, "scotty@teleportr.org, flo@andlabs.de");
+                }
+            })
+            .setNeutralButton("mail scotty", new Dialog.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:scotty@teleportr.org, flo@andlabs.de"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "feedback "+getString(R.string.app_name));
+					try {
+						PackageInfo info = getPackageManager().getPackageInfo("org.teleportr", PackageManager.GET_META_DATA);
+						intent.putExtra(Intent.EXTRA_TEXT, "version: "+info.versionName+" ("+info.versionCode+") \n");
+					} catch (NameNotFoundException e) {}
+                    startActivity(intent); 
+                }}
+            )
+        .show();
+        break;
         }
         return super.onOptionsItemSelected(item);
     }
