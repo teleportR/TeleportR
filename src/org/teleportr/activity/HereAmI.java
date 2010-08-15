@@ -30,6 +30,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -109,5 +111,12 @@ public class HereAmI extends Activity {
 		}
 		return super.onSearchRequested();
 	}
-    
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		if (hasFocus)
+			finish();
+		super.onWindowFocusChanged(hasFocus);
+	}
+
 }

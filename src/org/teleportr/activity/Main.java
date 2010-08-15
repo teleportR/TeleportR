@@ -323,7 +323,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 
     private void bindSlidingDrawer() {
 
-    	SlidingDrawer slider = ((SlidingDrawer)findViewById(R.id.priorities));
+    	SlidingDrawer slider = (SlidingDrawer) findViewById(R.id.priorities);
     	slider.setOnDrawerOpenListener(new OnDrawerOpenListener() {
 
     		@Override
@@ -380,6 +380,15 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         // TODO Auto-generated method stub
         
     }
+
+	@Override
+	public void onBackPressed() {
+		SlidingDrawer slider = (SlidingDrawer) findViewById(R.id.priorities);
+		if (slider.isOpened())
+			slider.close();
+		else
+			super.onBackPressed();
+	}
     
     @Override
 	public boolean onSearchRequested() {
