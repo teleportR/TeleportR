@@ -43,6 +43,6 @@
     
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
-    <string name="eula">(c) 2010 andlabs gbr. \n\nTeleportr is free software: \nyou can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the license or later
+    <string name="eula">Copyright (c) 2010 andlabs gbr, teleportr.org Contributors. \nAll rights reserverd. \n\nTeleportR is free software: \nyou can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the license or later
     \n\nTeleportR is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For more details see \nhttp://www.gnu.org/licenses  \n\nAll downloaded map data (c) OpenStreetMap contributors, \nCC-BY-SA license.</string>
 </resources>
