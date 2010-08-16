@@ -116,12 +116,12 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         
         // tipps by scotty
         findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
-        	private int tipp = 1;
+        	private int tipp = 0;
 
 			@Override
         	public void onClick(View v) {
-        		if (getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
-        			tipp = 0;
+        		if (tipp > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
+        			tipp = 1;
         			openOptionsMenu();
         		}
         		startActivity(new Intent(getResources().getStringArray(R.array.tipps)[tipp++], null, Main.this, Help.class));
