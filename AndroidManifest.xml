@@ -19,6 +19,7 @@
         <activity android:name=".activity.About"/>
         
         <activity android:name=".activity.HereAmI"
+        		  android:windowSoftInputMode="adjustResize"
 				  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

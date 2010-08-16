@@ -16,6 +16,8 @@
 package org.teleportr.model;
 
 import java.net.URLDecoder;
+
+import org.teleportr.R;
 import org.teleportr.Teleporter;
 import android.content.Context;
 import android.database.Cursor;
@@ -129,6 +131,8 @@ public class Place implements BaseColumns {
 		if (split.length == 2) 
 			p.city = split[1].trim();
 		p.name = split[0];
+		p.address = split[0];
+		p.icon = R.drawable.a_street;
 		return p;
 	}
 

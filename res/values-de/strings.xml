@@ -12,8 +12,6 @@
     <string name="plugIns_settings_summary">search results..</string>
     <string name="downloads_activity_titel">Autocompletion downloads</string>
     <string name="downloads_fetch_progress">Downloads für diese Gegend..</string>
-    <string name="downloading_prog_dnld">downloade..</string>
-    <string name="downloading_prog_indx">indiziere..</string>
     <string name="download_error">Meest! hat was nicht geklappt!</string>
     
     <string name="accept">Akzeptieren</string>
