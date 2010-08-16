@@ -70,12 +70,15 @@ public class Autocompletion extends PreferenceActivity implements OnPreferenceCl
         getPreferenceManager().setSharedPreferencesName("autocompletion");
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(this));
         
-        // clean up (autocompletion downloads deleted on sdcard)
-        final Map<String, ?> vals = getPreferenceManager().getSharedPreferences().getAll();
-        getPreferenceManager().getSharedPreferences().edit().clear().commit();
-        
         File dir = new File(Environment.getExternalStorageDirectory().getPath()+"/teleporter");
         if (!dir.exists()) dir.mkdir();
+        
+        final Map<String, ?> vals = getPreferenceManager().getSharedPreferences().getAll();
+        if (vals.isEmpty() && dir.list().length > 0)
+        	Toast.makeText(this, getString(R.string.inform_sdcard), Toast.LENGTH_LONG).show();
+        // clean up (autocompletion downloads deleted on sdcard)
+        getPreferenceManager().getSharedPreferences().edit().clear().commit();
+
         for (String file : dir.list()) {
             CheckBoxPreference c = new CheckBoxPreference(this);
             getPreferenceScreen().addItemFromInflater(c);

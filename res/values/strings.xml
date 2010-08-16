@@ -32,6 +32,7 @@
     <string name="autocompletion_settings_summary">cities, streets, stations, etc.</string>
     <string name="plugIns_settings_summary">search results..</string>
     <string name="downloads_activity_titel">Autocompletion downloads</string>
+    <string name="inform_sdcard">Found teleportr data on your sdcard \nMenu->Refresh to download more..</string>
     <string name="downloads_fetch_progress">downloads for this area..</string>
     <string name="downloading_prog_dnld">downloading..</string>
     <string name="downloading_prog_indx">indexing..</string>
