@@ -1,4 +1,4 @@
-TeleportR
+TelePortR
 =========
 
 * http://teleportr.org
@@ -12,15 +12,14 @@ TeleportR
 is a "multi-modal mobility Browser".
 
 It tries to make the cell phone (find) the way to go
-by automagically figuring out how to best get some anywhere.
+by automagically figuring out how to best get somewhere.
 
 As a customized browser optimized for certain kind of websites related to transportation
 it uses location-based Bookmarks (with some little intelligence regarding url-parameters)
 that can be applied to automate websurfing and compare different modes of transportation
 
-
-it should make users aware what data they provide to whom by using location providers
-it should put users in controll and let them decide how to find out their current location
+It should make users aware what data they provide to whom by using positioning detection
+thus putting them in controll and let them decide how to find out their current location
 
 
 
@@ -31,26 +30,25 @@ it should put users in controll and let them decide how to find out their curren
 
 
 
-== Extend
+== Improve
 
 	implement plugin/IPlugIn.java[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin/IPlugIn.java]
 	or play with some mockPlugIns[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin]
 	for the Intent API look here[http://wiki.github.com/orangeman/teleportr/intent-api]
 	
 
-== Support:
 
 mailing list
 
 	* scotty@teleportr.org[mailto://scotty-subscribe@teleportr.org]	
 
-experimantal builds
+experimental builds
 
 	* cmip.c-base.org/redpill[http://cmip.c-base.org/redpill]	
 
 
 == License
 
-This software is distributed under the GPLv3.  Please see the LICENSE file.
-All autocompletion data-sets (c) by openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] distributed under creative commons attribution share-alike license.
+TelePortR is distributed under the GPLv3.  Please see the LICENSE file.
+All autocompletion data-sets (c) openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] distributed under CC-BY-SA license.
 
