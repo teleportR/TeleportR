@@ -114,17 +114,17 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
             }
         });
         
-        // tipps by scotty
+        // tips by scotty
         findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
-        	private int tipp = 0;
+        	private int tip = 0;
 
 			@Override
         	public void onClick(View v) {
-        		if (tipp > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
-        			tipp = 1;
+        		if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
+        			tip = 1;
         			openOptionsMenu();
         		}
-        		startActivity(new Intent(getResources().getStringArray(R.array.tipps)[tipp++], null, Main.this, Help.class));
+        		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, Help.class));
         	}
         });
         
