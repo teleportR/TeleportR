@@ -263,6 +263,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         Ride ride = (Ride) getListAdapter().getItem(pPosition);
         if (ride != null && ride.intent != null)
         	startActivity(ride.intent);
+        else
+        	startActivity(new Intent(getString(R.string.explain_mock_plugin), null, Main.this, Help.class));
     }
     
     
