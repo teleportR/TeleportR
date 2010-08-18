@@ -27,6 +27,8 @@ import org.teleportr.model.Place;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.app.SearchManager.OnCancelListener;
+import android.app.SearchManager.OnDismissListener;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
@@ -92,14 +94,14 @@ public class HereAmI extends Activity {
         			 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         				 v.setVisibility(View.GONE);
         				 Log.d(TAG, "action "+actionId);
-        					 TextView nmb = (TextView) findViewById(R.id.nmb);
-        					 nmb.setVisibility(View.VISIBLE);
-        					 
-        					 if (nmb.getText().toString().equals("42"))
-        						 teleporter.currentPlace.address += " "+v.getText();
-        					 else
-        						 teleporter.currentPlace.address = teleporter.currentPlace.address.replace(nmb.getText(), v.getText());
-        					 display(teleporter.currentPlace);
+        				 TextView nmb = (TextView) findViewById(R.id.nmb);
+        				 nmb.setVisibility(View.VISIBLE);
+
+        				 if (teleporter.currentPlace.address.matches("(.*)\\s+(\\d+)"))
+        					 teleporter.currentPlace.address = teleporter.currentPlace.address.replace(nmb.getText(), v.getText());
+        				 else
+        					 teleporter.currentPlace.address += " "+v.getText();
+        				 display(teleporter.currentPlace);
         				 return false;
         			 }
         		 });
@@ -107,10 +109,35 @@ public class HereAmI extends Activity {
         	 }
          });
          
+         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnCancelListener(new OnCancelListener() {
+        	 @Override
+        	 public void onCancel() {
+        		 Log.d(TAG, "onSearchCanceled");
+        		 finish(); 
+        	 }
+         }); 
+         
+         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				Log.d(TAG, "onSearchDismissed");
+			}
+		}); 
+         
          teleporter = (Teleporter) getApplication();
          display(teleporter.currentPlace);
          onSearchRequested();
     }
+    
+
+	@Override
+	public boolean onSearchRequested() {
+		if (teleporter.currentPlace != null) {
+			startSearch(teleporter.currentPlace.name, true, null, false);
+			return true;
+		}
+		return super.onSearchRequested();
+	}
 
 	private void display(Place place) {
 		if (place != null) {
@@ -123,8 +150,10 @@ public class HereAmI extends Activity {
 				if (address.find()) {
 					((TextView)findViewById(R.id.street)).setText(address.group(1));
 					((TextView)findViewById(R.id.nmb)).setText(address.group(2));
-				} else
+				} else {
 					((TextView)findViewById(R.id.street)).setText(place.address);
+					((TextView)findViewById(R.id.nmb)).setText("??");
+				}
 			}
 		}
 	}
@@ -144,27 +173,12 @@ public class HereAmI extends Activity {
         	teleporter.reset();
         teleporter.currentPlace = place;
         teleporter.beam();
+        
+        display(place);
+		if (place != null && place.icon == R.drawable.a_street) {
+			Toast.makeText(HereAmI.this, "house number and city ok?", Toast.LENGTH_LONG).show();
+		} else finish(); 
     }
 
-	@Override
-	public boolean onSearchRequested() {
-		if (teleporter.currentPlace != null) {
-			startSearch(teleporter.currentPlace.name, true, null, false);
-			return true;
-		}
-		return super.onSearchRequested();
-	}
-
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		Log.d(TAG, "onWindowFocus "+hasFocus);
-		if (hasFocus) { 
-			if (teleporter.currentPlace != null && teleporter.currentPlace.icon == R.drawable.a_street) {
-				display(teleporter.currentPlace);
-				Toast.makeText(this, "house number and city ok?", Toast.LENGTH_LONG).show();
-			} else finish(); 
-		}
-	}
 
 }

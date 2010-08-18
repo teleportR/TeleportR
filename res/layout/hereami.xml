@@ -27,9 +27,21 @@ android:textSize="23dip"
 >
 </TextView>
 
+
+<ImageView
+android:id="@+id/icon"
+android:layout_alignParentTop="true"
+android:layout_alignParentRight="true"
+android:paddingTop="12dip"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:src="@drawable/icon"
+>
+</ImageView>
+
 <TextView
 android:id="@+id/street_label"
-android:layout_below="@id/name"
+android:layout_below="@id/icon"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_marginTop="3px"
@@ -44,7 +56,7 @@ android:textStyle="bold"
 android:layout_below="@id/street_label"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:text="street"
+android:text="streetname"
 android:textSize="19dip"
 >
 </TextView>
@@ -57,28 +69,35 @@ android:layout_height="wrap_content"
 android:layout_marginTop="3px"
 android:layout_marginLeft="3px"
 android:textSize="8sp"
-android:text="City"
+android:text="City:"
 />
 <TextView android:id="@+id/city"
 android:layout_below="@id/city_label"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:inputType="numberDecimal"
 android:textStyle="bold"
 android:textSize="19dip"
 />
 
+<TextView
+android:id="@+id/nmb_label"
+android:layout_alignBottom="@id/street_label"
+android:layout_toRightOf="@id/street"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textSize="8sp"
+android:text="Nr.:"
+/>
 
 <TextView android:id="@+id/nmb"
 android:layout_toRightOf="@id/street"
 android:layout_above="@id/city"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:layout_marginLeft="12dip"
-android:inputType="numberDecimal"
+android:layout_marginLeft="14dip"
 android:textStyle="bold"
 android:textSize="42dip"
-android:text="42"
+android:text="\?\?"
 />
 
 <EditText android:id="@+id/nmb_edit"
@@ -116,16 +135,6 @@ android:textSize="14dip"
 >
 </TextView>
 
-<ImageView
-android:id="@+id/icon"
-android:layout_alignParentTop="true"
-android:layout_alignParentRight="true"
-android:paddingTop="12dip"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:src="@drawable/icon"
->
-</ImageView>
 
 
 
