@@ -19,6 +19,7 @@
         <activity android:name=".activity.About"/>
         
         <activity android:name=".activity.HereAmI"
+        		  android:theme="@android:style/Theme.Translucent"
         		  android:windowSoftInputMode="adjustResize"
 				  android:launchMode="singleTop">
             <intent-filter>

@@ -59,10 +59,33 @@ public class HereAmI extends Activity {
     public void onCreate(Bundle savedInstanceState) {
     
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.hereami);
         super.onCreate(savedInstanceState);
         
-         findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
+         
+         
+         teleporter = (Teleporter) getApplication();
+         onSearchRequested();
+         
+         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnCancelListener(new OnCancelListener() {
+        	 @Override
+        	 public void onCancel() {
+        		 Log.d(TAG, "onSearchCanceled");
+        		 finish(); 
+        	 }
+         }); 
+         
+         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				Log.d(TAG, "onSearchDismissed");
+			}
+		});
+    }
+
+
+	private void initUI() {
+        setContentView(R.layout.hereami);
+		findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
 			
 			    @Override
 			    public void onClick(View v) {
@@ -109,25 +132,8 @@ public class HereAmI extends Activity {
         	 }
          });
          
-         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnCancelListener(new OnCancelListener() {
-        	 @Override
-        	 public void onCancel() {
-        		 Log.d(TAG, "onSearchCanceled");
-        		 finish(); 
-        	 }
-         }); 
-         
-         ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnDismissListener(new OnDismissListener() {
-			@Override
-			public void onDismiss() {
-				Log.d(TAG, "onSearchDismissed");
-			}
-		}); 
-         
-         teleporter = (Teleporter) getApplication();
-         display(teleporter.currentPlace);
-         onSearchRequested();
-    }
+
+	}
     
 
 	@Override
@@ -174,9 +180,10 @@ public class HereAmI extends Activity {
         teleporter.currentPlace = place;
         teleporter.beam();
         
-        display(place);
 		if (place != null && place.icon == R.drawable.a_street) {
-			Toast.makeText(HereAmI.this, "house number and city ok?", Toast.LENGTH_LONG).show();
+			initUI(); 
+			display(place);
+			Toast.makeText(HereAmI.this, "house number? and city?", Toast.LENGTH_LONG).show();
 		} else finish(); 
     }
 
