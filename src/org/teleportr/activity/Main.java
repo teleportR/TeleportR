@@ -42,6 +42,7 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -73,8 +74,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     private Ride[] rides; // results..
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle state) {
+        super.onCreate(state);
         
         // accept EULA
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("eula_accepted", false)) {
@@ -128,11 +129,19 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	}
         });
         
+        // search results
+        if (state != null) {
+        	teleporter.origin = state.getParcelable("orig");
+        	teleporter.destination = state.getParcelable("dest");
+        	Parcelable[] pars = state.getParcelableArray("rides");
+        	rides = new Ride[pars.length];
+        	for (int i = 0; i < pars.length; i++) rides[i] = (Ride) pars[i];
+        } else
+        	rides = teleporter.getRides(new Ride[0]);
+
         bindUI(); // origin/destination buttons
         bindSlidingDrawer(); // priorities pane
 
-		// search results
-		rides = teleporter.getRides(new Ride[0]);
         setListAdapter(new BaseAdapter() {
             
             @Override
@@ -201,11 +210,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
     }
     
     private void bindUI() {
-        if (teleporter.currentPlace != null)
-        	((TextView)findViewById(R.id.orig)).setText(teleporter.currentPlace.name);
+        if (teleporter.origin != null)
+        	((TextView)findViewById(R.id.orig)).setText(teleporter.origin.name);
 		if (teleporter.destination != null)
 			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
-		if (teleporter.currentPlace != null && teleporter.destination != null) {
+		if (teleporter.origin != null && teleporter.destination != null) {
 			findViewById(R.id.logo).setVisibility(View.GONE);
 			getListView().setVisibility(View.VISIBLE);
 		}
@@ -232,8 +241,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 		bindUI();
-		if (teleporter.currentPlace != null)
-			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.currentPlace.name);
+		if (teleporter.origin != null)
+			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.origin.name);
 	}
 
 	@Override
@@ -250,14 +259,25 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	if (teleporter.destination != null)
         		teleporter.reset();
         	teleporter.destination = destination;
-            if (teleporter.currentPlace != null)
+            if (teleporter.origin != null)
             	teleporter.beam();       
             bindUI();
             Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
         }
     }
+	
+	
 
     @Override
+	protected void onSaveInstanceState(Bundle state) {
+    	super.onSaveInstanceState(state);
+    	Log.d(Teleporter.TAG, "SAVE STATE");
+    	state.putParcelableArray("rides", rides);
+    	state.putParcelable("orig", teleporter.origin);
+    	state.putParcelable("dest", teleporter.destination);
+	}
+
+	@Override
     protected void onListItemClick(final ListView pListView, final View pView, final int pPosition, final long pID) {
     	Log.d(Teleporter.TAG, "clicked on search result ride: ");
         Ride ride = (Ride) getListAdapter().getItem(pPosition);

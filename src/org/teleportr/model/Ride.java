@@ -16,10 +16,16 @@
 package org.teleportr.model;
 
 import java.util.Date;
+
+import org.teleportr.Teleporter;
+
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
 
-public class Ride {
+public class Ride implements Parcelable {
 
 	public static final Uri URI = Uri.parse("content://org.teleportr/rides");
 
@@ -50,7 +56,27 @@ public class Ride {
     public int social;
     public Intent intent;
 
-    @Override
+    public Ride() {}
+    
+    public Ride(Parcel in) {
+    	Log.d(Teleporter.TAG, "deserialize ride");
+		dep = new Date(in.readLong());
+		arr = new Date(in.readLong());
+		duration = in.readLong();
+		price = in.readInt();
+		mode = in.readInt();
+	}
+    
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeLong(dep.getTime());
+		out.writeLong(arr.getTime());
+		out.writeLong(duration);
+		out.writeInt(price);
+		out.writeInt(mode);
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -116,4 +142,22 @@ public class Ride {
             return false;
         return true;
     }
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	
+	public static final Parcelable.Creator<Ride> CREATOR = new Parcelable.Creator<Ride>() {
+		
+		public Ride createFromParcel(Parcel in) {
+			return new Ride(in);
+		}
+
+		public Ride[] newArray(int size) {
+			return new Ride[size];
+		}
+	};
+
 }

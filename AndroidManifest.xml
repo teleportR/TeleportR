@@ -32,7 +32,6 @@
 		
         <activity android:name=".activity.Main"
                   android:label="@string/app_name"
-                  android:screenOrientation="portrait"
                   android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="org.teleportr.BEAM" />
@@ -55,7 +54,8 @@
                     android:resource="@xml/destination"/>
         </activity>
 
-		 <activity android:name=".activity.Energy" android:screenOrientation="portrait">
+		 <activity android:name=".activity.Energy" 
+		 		   android:screenOrientation="portrait">
 			<intent-filter>
                 <action android:name="BEAM" />
                 <category android:name="android.intent.category.DEFAULT" />

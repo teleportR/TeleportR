@@ -22,10 +22,12 @@ import org.teleportr.Teleporter;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.BaseColumns;
 import android.util.Log;
 
-public class Place implements BaseColumns {
+public class Place implements Parcelable, BaseColumns {
 
 	public int lat;
     public int lon;
@@ -34,6 +36,31 @@ public class Place implements BaseColumns {
 	public String city;
     public String address;
 
+    public Place() {}
+    
+    public Place(Parcel in) {
+    	lat = in.readInt();
+    	lon = in.readInt();
+    	icon = in.readInt();
+    	name = in.readString();
+    	city = in.readString();
+    	address = in.readString();
+    }
+
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeInt(lat);
+		out.writeInt(lon);
+		out.writeInt(icon);
+		out.writeString(name);
+		out.writeString(city);
+		out.writeString(address);
+	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
     
     @Override
     public int hashCode() {
@@ -73,6 +100,17 @@ public class Place implements BaseColumns {
             return false;
         return true;
     }
+
+    
+	@Override
+	public String toString() {
+		return "name:"+ name +
+				" address:"+ address +
+				" latlon:"+ lat+lon +
+				" city:"+ city +
+				" type:"+ icon;
+	}
+
 
 
 
@@ -131,9 +169,29 @@ public class Place implements BaseColumns {
 		if (split.length == 2) 
 			p.city = split[1].trim();
 		p.name = split[0];
-		p.address = split[0];
-		p.icon = R.drawable.a_street;
+		
+		// does it look like streetname with house number?
+		if (p.name.matches("\\w+\\s+\\d+")) {
+			p.icon = R.drawable.a_street;
+			p.address = p.name;
+		} else {
+			p.icon = R.drawable.a_bus;
+		}
+		Log.d(Teleporter.TAG, "found place "+p);
 		return p;
 	}
+	
+	
+	public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {
+		
+		public Place createFromParcel(Parcel in) {
+			return new Place(in);
+		}
+
+		public Place[] newArray(int size) {
+			return new Place[size];
+		}
+	};
+
 
 }

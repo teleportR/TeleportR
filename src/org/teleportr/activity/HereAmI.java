@@ -120,11 +120,11 @@ public class HereAmI extends Activity {
         				 TextView nmb = (TextView) findViewById(R.id.nmb);
         				 nmb.setVisibility(View.VISIBLE);
 
-        				 if (teleporter.currentPlace.address.matches("(.*)\\s+(\\d+)"))
-        					 teleporter.currentPlace.address = teleporter.currentPlace.address.replace(nmb.getText(), v.getText());
+        				 if (teleporter.origin.address.matches("(.*)\\s+(\\d+)"))
+        					 teleporter.origin.address = teleporter.origin.address.replace(nmb.getText(), v.getText());
         				 else
-        					 teleporter.currentPlace.address += " "+v.getText();
-        				 display(teleporter.currentPlace);
+        					 teleporter.origin.address += " "+v.getText();
+        				 display(teleporter.origin);
         				 return false;
         			 }
         		 });
@@ -138,8 +138,8 @@ public class HereAmI extends Activity {
 
 	@Override
 	public boolean onSearchRequested() {
-		if (teleporter.currentPlace != null) {
-			startSearch(teleporter.currentPlace.name, true, null, false);
+		if (teleporter.origin != null) {
+			startSearch(teleporter.origin.name, true, null, false);
 			return true;
 		}
 		return super.onSearchRequested();
@@ -175,9 +175,9 @@ public class HereAmI extends Activity {
         	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
         
-        if (teleporter.currentPlace != null) 
+        if (teleporter.origin != null) 
         	teleporter.reset();
-        teleporter.currentPlace = place;
+        teleporter.origin = place;
         teleporter.beam();
         
 		if (place != null && place.icon == R.drawable.a_street) {
