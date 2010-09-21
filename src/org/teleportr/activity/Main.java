@@ -65,13 +65,14 @@ import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main extends ListActivity implements OnSeekBarChangeListener {
+public class Main extends ListActivity implements OnSeekBarChangeListener, OnClickListener {
     
 	private SharedPreferences priorities; // criteria..
     private BroadcastReceiver timetick; // every minute..
     private ContentObserver refresh; // new rides..
     private Teleporter teleporter; // to beam..
     private Ride[] rides; // results..
+	private int tip;
 
     @Override
     public void onCreate(Bundle state) {
@@ -90,46 +91,17 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         				Toast.makeText(Main.this, "sorry!", Toast.LENGTH_SHORT);
         				finish();
         			}
-        		}).create().show();
+        	}).create().show();
         }
         
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
-        setContentView(R.layout.main);
 
+        setContentView(R.layout.main);
+        findViewById(R.id.orig).setOnClickListener(this);
+        findViewById(R.id.dest).setOnClickListener(this);
+        findViewById(R.id.logo).setOnClickListener(this);
+        
         teleporter = (Teleporter) getApplication();
         
-        // set origin place
-        findViewById(R.id.orig).setOnClickListener(new OnClickListener() {
-        	@Override
-        	public void onClick(View v) {
-        		startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
-        	}
-        });
-
-        //set destination place
-        findViewById(R.id.dest).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSearchRequested();
-            }
-        });
-        
-        // tips by scotty
-        findViewById(R.id.logo).setOnClickListener(new OnClickListener() {
-        	private int tip = 0;
-
-			@Override
-        	public void onClick(View v) {
-        		if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
-        			tip = 1;
-        			openOptionsMenu();
-        		}
-        		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, Help.class));
-        	}
-        });
-        
-        // search results
         if (state != null) {
         	teleporter.origin = state.getParcelable("orig");
         	teleporter.destination = state.getParcelable("dest");
@@ -140,9 +112,88 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         	rides = teleporter.getRides(new Ride[0]);
 
         bindUI(); // origin/destination buttons
+        bindListAdapter(); // the rides results
         bindSlidingDrawer(); // priorities pane
 
-        setListAdapter(new BaseAdapter() {
+        
+        refresh = new ContentObserver(new Handler()) {
+        	@Override
+        	public void onChange(boolean selfChange) {
+        		Log.d(Teleporter.TAG, "refresh rides list");
+        		rides = teleporter.getRides(rides);
+        		getListView().invalidateViews();
+        	}
+        };
+        refresh.onChange(true);
+        
+        timetick = new BroadcastReceiver() {
+        	@Override
+        	public void onReceive(final Context pContext, final Intent pIntent) {
+        		Log.d(Teleporter.TAG, "count down another minute");
+        		refresh.onChange(true);
+        	}
+        };
+    }
+    
+    private void bindUI() {
+    	if (teleporter.origin != null)
+    		((TextView)findViewById(R.id.orig)).setText(teleporter.origin.name);
+    	if (teleporter.destination != null)
+    		((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
+    	if (teleporter.origin != null && teleporter.destination != null) {
+    		findViewById(R.id.logo).setVisibility(View.GONE);
+    		getListView().setVisibility(View.VISIBLE);
+    	}
+    }
+	
+	@Override
+	public void onClick(View v) {
+		
+		if (v.getId() == R.id.dest)
+			onSearchRequested();
+		else if (v.getId() == R.id.orig)
+			startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
+		else if (v.getId() == R.id.orig) {
+			if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
+    			tip = 1;
+    			openOptionsMenu();
+    		}
+    		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, Help.class));
+		}
+	}
+
+    
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+		bindUI();
+		if (teleporter.origin != null)
+			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.origin.name);
+	}
+
+	@Override
+    protected void onNewIntent(Intent intent) {
+        
+        Place destination = null;
+        if (intent.getData() != null) {
+        	destination = Place.find(intent.getData(), this);
+        } else if (intent.hasExtra(SearchManager.QUERY)) {
+        	destination = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
+        }
+        
+        if (destination != null && destination.name != null) {
+        	if (teleporter.destination != null)
+        		teleporter.reset();
+        	teleporter.destination = destination;
+            if (teleporter.origin != null)
+            	teleporter.beam();       
+            bindUI();
+            Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
+        }
+    }
+	
+	private void bindListAdapter() {
+		setListAdapter(new BaseAdapter() {
             
             @Override
             public View getView(int position, View view, ViewGroup parent) {
@@ -189,92 +240,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
                 return (position < rides.length)? rides[position].hashCode() : 2342;
             }
         });
-        
-        refresh = new ContentObserver(new Handler()) {
-        	@Override
-        	public void onChange(boolean selfChange) {
-        		Log.d(Teleporter.TAG, "refresh rides list");
-        		rides = teleporter.getRides(rides);
-        		getListView().invalidateViews();
-        	}
-        };
-        refresh.onChange(true);
-        
-        timetick = new BroadcastReceiver() {
-        	@Override
-        	public void onReceive(final Context pContext, final Intent pIntent) {
-        		Log.d(Teleporter.TAG, "count down another minute");
-        		refresh.onChange(true);
-        	}
-        };
-    }
-    
-    private void bindUI() {
-        if (teleporter.origin != null)
-        	((TextView)findViewById(R.id.orig)).setText(teleporter.origin.name);
-		if (teleporter.destination != null)
-			((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
-		if (teleporter.origin != null && teleporter.destination != null) {
-			findViewById(R.id.logo).setVisibility(View.GONE);
-			getListView().setVisibility(View.VISIBLE);
-		}
-	}
-
-	
-	@Override
-	protected void onStart() {
-		super.onStart();
-//		Log.d(Teleporter.TAG, "onStart");
-		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
-		getContentResolver().registerContentObserver(Ride.URI, false, refresh);
-	}
-
-    @Override
-    protected void onStop() {
-    	super.onStop();
-//    	Log.d(Teleporter.TAG, "onStop");
-    	unregisterReceiver(this.timetick);
-    	getContentResolver().unregisterContentObserver(refresh);
-    }
-    
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
-		bindUI();
-		if (teleporter.origin != null)
-			Log.d(Teleporter.TAG, "changed origin place: "+teleporter.origin.name);
-	}
-
-	@Override
-    protected void onNewIntent(Intent intent) {
-        
-        Place destination = null;
-        if (intent.getData() != null) {
-        	destination = Place.find(intent.getData(), this);
-        } else if (intent.hasExtra(SearchManager.QUERY)) {
-        	destination = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
-        }
-        
-        if (destination != null && destination.name != null) {
-        	if (teleporter.destination != null)
-        		teleporter.reset();
-        	teleporter.destination = destination;
-            if (teleporter.origin != null)
-            	teleporter.beam();       
-            bindUI();
-            Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
-        }
-    }
-	
-	
-
-    @Override
-	protected void onSaveInstanceState(Bundle state) {
-    	super.onSaveInstanceState(state);
-    	Log.d(Teleporter.TAG, "SAVE STATE");
-    	state.putParcelableArray("rides", rides);
-    	state.putParcelable("orig", teleporter.origin);
-    	state.putParcelable("dest", teleporter.destination);
 	}
 
 	@Override
@@ -333,6 +298,30 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
         return super.onOptionsItemSelected(item);
     }
     
+    @Override
+	protected void onStart() {
+		super.onStart();
+//		Log.d(Teleporter.TAG, "onStart");
+		registerReceiver(timetick, new IntentFilter(Intent.ACTION_TIME_TICK));
+		getContentResolver().registerContentObserver(Ride.URI, false, refresh);
+	}
+
+    @Override
+    protected void onStop() {
+    	super.onStop();
+//    	Log.d(Teleporter.TAG, "onStop");
+    	unregisterReceiver(this.timetick);
+    	getContentResolver().unregisterContentObserver(refresh);
+    }
+
+    @Override
+	protected void onSaveInstanceState(Bundle state) {
+    	super.onSaveInstanceState(state);
+    	Log.d(Teleporter.TAG, "SAVE STATE");
+    	state.putParcelableArray("rides", rides);
+    	state.putParcelable("orig", teleporter.origin);
+    	state.putParcelable("dest", teleporter.destination);
+	}
     
     
 /** search priorities **/
@@ -420,5 +409,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener {
 		}
 		return super.onSearchRequested();
 	}
+
 
 }
