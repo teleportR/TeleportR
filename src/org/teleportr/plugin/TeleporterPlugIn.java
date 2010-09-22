@@ -44,7 +44,7 @@ public class TeleporterPlugIn implements IPlugIn {
         r.social = 1;
         r.green = 3;
         
-        r.intent = new Intent("BEAM");
+        r.uri = "beam://disco";
         
         rides.add(r);
         

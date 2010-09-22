@@ -46,6 +46,7 @@ public class Ride implements Parcelable {
     public Date arr;
     public int mode;
     public int price;
+    public String uri;
     public long duration;
 
     // scoring
@@ -54,24 +55,29 @@ public class Ride implements Parcelable {
     public int fast;
     public int green;
     public int social;
-    public Intent intent;
 
     public Ride() {}
     
     public Ride(Parcel in) {
     	Log.d(Teleporter.TAG, "deserialize ride");
-		dep = new Date(in.readLong());
-		arr = new Date(in.readLong());
+    	dep = (Date) in.readSerializable();
+    	arr = (Date) in.readSerializable();
+//		dep = new Date(in.readLong());
+//		arr = new Date(in.readLong());
 		duration = in.readLong();
+		uri = in.readString();
 		price = in.readInt();
 		mode = in.readInt();
 	}
     
 	@Override
 	public void writeToParcel(Parcel out, int flags) {
-		out.writeLong(dep.getTime());
-		out.writeLong(arr.getTime());
+		out.writeSerializable(dep);
+		out.writeSerializable(arr);
+//		out.writeLong((dep!=null)? dep.getTime() : 0);
+//		out.writeLong((arr!=null)? arr.getTime() : 0);
 		out.writeLong(duration);
+		out.writeString(uri);
 		out.writeInt(price);
 		out.writeInt(mode);
 	}

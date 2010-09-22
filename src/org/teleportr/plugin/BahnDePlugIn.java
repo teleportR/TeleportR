@@ -95,11 +95,10 @@ public class BahnDePlugIn implements IPlugIn {
                     r.fast = 1;
                     r.social = 2;
                     r.green = 4;
-                    String uriString = m.group(1).replace("&amp;", "&");
-                    r.intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uriString));
+                    r.uri = m.group(1).replace("&amp;", "&");
                     
                     rides.add(r);
-                    Log.d(TAG, " + found "+uriString);
+                    Log.d(TAG, " + found "+r.uri);
                 }
             }
         } catch (Exception e) {

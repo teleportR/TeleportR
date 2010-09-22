@@ -2,11 +2,11 @@
 <resources> 
     <string-array name="tips"> 
 		<item>Hi, this is Scotty.\n
-				I\'m the teleportation operator.
+				I\'m the teleportR operator.
+				Thanks for trying this early sneak preview! 
 				If there is anything bugging or bothering please tell me.
-				I\'ll be around to assist, help or guide you through :-)
-				Just press that big button again or send me an email..\n
-				So have a pleasant ride and enjoy the beam!</item>
+				Any random thoughts and ideas are of course more than welcome too.
+				\nHave a pleasant beam and enjoy the beam!</item>
 		<item>First download some data for your area.\n
 			  Go to Settings->Autocompletion \nto get offline autocompletion..</item>
 		<item>Tap in the upper right corner\n
@@ -14,16 +14,12 @@
 		<item>Tap on [start]\n
 			  to set where the journey is to begin or to find out where you\'re currently at.</item>
 		<item>There are a few showcase plugins available in the settings.</item>
+		<item>You can edit places in detail by long-pressing on a button.</item>
 		<item>   That\'s it :-)  </item>
 		<item>There is really nothing more to do with this application for now.
 			  You can find more advanced experimental versions in the redpill developer market.</item>
-		<item>This button has no function other than repeating the tips you already heard.
-			  \nSet [start] and [destination] and then go beam..</item>
+
 		<item>Have you tried switching it off and on again?</item>
-		<item>So why are you still asking me?\n
-			  You already know what to do.</item>
-		<item>Ok one last time: Tap on [start] and/or [destination] and start beaming..</item>
-		<item>I am tired of explaining this over and over again!</item>
 		<item>If you don\'t like the user interface \nplease design a better one!</item>
 		<item>Fork one of the git repos or mail scotty@teleportr.org what you\'d like to have..</item>
 		<item>You could also edit these tips to become more useful ;-). </item>
@@ -37,8 +33,8 @@
 		<item>"%$@§X/§! </item>
 		<item>foooo!</item>
 		<item>bar?</item>
-		<item>gr.</item>
+		<item>.</item>
 		<item>Ok you get one more tip if you promise to stop then!</item>
-		<item>You just wasted 1.5 minutes of your valuable time pressing this stupid buttopn agaiun and again. You could be teleporting already. Think about it! \n:-P</item>
+		<item>Ha! \n:-P</item>
     </string-array> 
 </resources> 

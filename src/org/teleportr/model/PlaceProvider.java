@@ -184,7 +184,7 @@ public class PlaceProvider extends ContentProvider implements OnSharedPreference
 			break;
 		case PLACES:
 //			Log.d(TAG, "matched PLACES: "+uri);
-			query = uri.getPathSegments().size() == 3 ? uri.getLastPathSegment(): "";
+			query = uri.getPathSegments().size() == 3 ? uri.getLastPathSegment().split(",")[0]: "";
 			cursor = db.getReadableDatabase().rawQuery(String.format(sql, query), null);
 //					"SELECT _id, " +
 //					    "name AS "+SearchManager.SUGGEST_COLUMN_TEXT_1+", " +

@@ -62,16 +62,22 @@ public class Teleporter extends Application {
 		super.onConfigurationChanged(newConfig);
 	}
 
-	public void setCurrentPlace(Place p) {
-		origin = p;
+	public void setOrigin(Place orig) {
+		if (origin != null) reset();
+		origin = orig;
+	}
+	
+	public void setDestination(Place dest) {
+		if (destination != null) reset();
+		this.destination = dest;
 	}
 
 	public void beam() {
 		
-		Log.d(TAG, "BEAMING..");
-		if (multiplexer == null)
-			multiplexer = new QueryMultiplexer(this);
 		if (origin!=null && destination!=null) {
+			Log.d(TAG, "BEAMING..");
+			if (multiplexer == null)
+				multiplexer = new QueryMultiplexer(this);
 			multiplexer.search(origin, destination);
 		}
 	}

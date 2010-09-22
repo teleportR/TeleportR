@@ -16,38 +16,17 @@
 
 package org.teleportr.activity;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.teleportr.R;
 import org.teleportr.Teleporter;
-import org.teleportr.R.id;
-import org.teleportr.R.layout;
 import org.teleportr.model.Place;
 
 import android.app.Activity;
 import android.app.SearchManager;
 import android.app.SearchManager.OnCancelListener;
 import android.app.SearchManager.OnDismissListener;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 public class HereAmI extends Activity {
 
@@ -58,13 +37,9 @@ public class HereAmI extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
     
+    	super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
         
-         
-         
-         teleporter = (Teleporter) getApplication();
-         onSearchRequested();
          
          ((SearchManager)getSystemService(SEARCH_SERVICE)).setOnCancelListener(new OnCancelListener() {
         	 @Override
@@ -79,91 +54,27 @@ public class HereAmI extends Activity {
 			public void onDismiss() {
 				Log.d(TAG, "onSearchDismissed");
 			}
-		});
+		 });
+
+         teleporter = (Teleporter) getApplication();
+         onSearchRequested();
     }
 
-
-	private void initUI() {
-        setContentView(R.layout.hereami);
-		findViewById(R.id.ok).setOnClickListener(new OnClickListener() {
-			
-			    @Override
-			    public void onClick(View v) {
-				    finish();
-			      }
-		 });
-         findViewById(R.id.name).setOnClickListener(new OnClickListener() {
-			
-			    @Override
-			    public void onClick(View v) {
-				    onSearchRequested();
-			      }
-		 });
-         findViewById(R.id.nmb).setOnClickListener(new OnClickListener() {
-        	 
-        	 @Override
-        	 public void onClick(View v) {
-        		 v.setVisibility(View.GONE);
-        		 EditText nmb = (EditText) findViewById(R.id.nmb_edit);
-        		 nmb.setText(((TextView)v).getText());
-        		 nmb.setVisibility(View.VISIBLE);
-        		 nmb.requestFocus();
-        		 nmb.selectAll();
-        		 ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).showSoftInput(nmb, 0);
-        		 
-        		 nmb.setOnEditorActionListener(new OnEditorActionListener() {
-        			 
-        			 @Override
-        			 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        				 v.setVisibility(View.GONE);
-        				 Log.d(TAG, "action "+actionId);
-        				 TextView nmb = (TextView) findViewById(R.id.nmb);
-        				 nmb.setVisibility(View.VISIBLE);
-
-        				 if (teleporter.origin.address.matches("(.*)\\s+(\\d+)"))
-        					 teleporter.origin.address = teleporter.origin.address.replace(nmb.getText(), v.getText());
-        				 else
-        					 teleporter.origin.address += " "+v.getText();
-        				 display(teleporter.origin);
-        				 return false;
-        			 }
-        		 });
-        		 
-        	 }
-         });
-         
-
-	}
     
-
 	@Override
 	public boolean onSearchRequested() {
 		if (teleporter.origin != null) {
-			startSearch(teleporter.origin.name, true, null, false);
+//			String text;
+//			if (teleporter.origin.address != null)
+//				text = teleporter.origin.address+", "+teleporter.origin.city;
+//			else
+//				text = teleporter.origin.name+", "+teleporter.origin.city;
+			startSearch(teleporter.origin.name+", "+teleporter.origin.city, true, null, false);
 			return true;
 		}
 		return super.onSearchRequested();
 	}
 
-	private void display(Place place) {
-		if (place != null) {
-			((TextView)findViewById(R.id.name)).setText(place.name);
-			((TextView)findViewById(R.id.latlon)).setText(place.lat+"\n"+place.lon);
-			((TextView)findViewById(R.id.city)).setText(place.city);
-			((ImageView)findViewById(R.id.icon)).setImageResource(place.icon);
-			if (place.address != null) {
-				Matcher address = Pattern.compile("(.*)\\s+(\\d+)").matcher(place.address);
-				if (address.find()) {
-					((TextView)findViewById(R.id.street)).setText(address.group(1));
-					((TextView)findViewById(R.id.nmb)).setText(address.group(2));
-				} else {
-					((TextView)findViewById(R.id.street)).setText(place.address);
-					((TextView)findViewById(R.id.nmb)).setText("??");
-				}
-			}
-		}
-	}
-    
     @Override
     protected void onNewIntent(Intent intent) {
         Log.d(TAG, "newIntent: "+intent.toString());
@@ -175,16 +86,9 @@ public class HereAmI extends Activity {
         	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
         
-        if (teleporter.origin != null) 
-        	teleporter.reset();
-        teleporter.origin = place;
+        teleporter.setOrigin(place);
         teleporter.beam();
-        
-		if (place != null && place.icon == R.drawable.a_street) {
-			initUI(); 
-			display(place);
-			Toast.makeText(HereAmI.this, "house number? and city?", Toast.LENGTH_LONG).show();
-		} else finish(); 
+        finish(); 
     }
 
 

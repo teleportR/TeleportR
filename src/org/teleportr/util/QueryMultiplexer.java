@@ -74,9 +74,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
 //        this.mPluginResponseReceiver = new BroadcastReceiver() {
 //            @Override
-//            public void onReceive(Context context, Intent intent) {
+//            public void onReceive(Context context, Intent uri) {
 //                Log.d(TAG, "Plugin Response Received.");
-//                final int duration = intent.getIntExtra("dur", -1);
+//                final int duration = uri.getIntExtra("dur", -1);
 //
 //        this.ctx.registerReceiver(this.mPluginResponseReceiver, new IntentFilter("org.teleporter.intent.action.RECEIVE_RESPONSE"));
         
