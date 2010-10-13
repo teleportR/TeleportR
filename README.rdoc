@@ -7,6 +7,20 @@ TelePortR
 
 == About
 
+TeleportR (lat "take/bring somewhere")
+makes your "mobile" (find) the way to go
+by figuring out how best to get somewhere
+and make better use of available resources.
+
+As kind of a customized "Browser" (optimized for certain types of websites related to mobility)
+it helps compare different means of transportation like bikerental, carsharing, hitchhiking or masstransit.
+Location-based "Bookmarks" (with some little intelligence regarding url-parameters)
+are applied to automate websurfing or hook up with more specialized applications
+
+social road transit gets better the more people us it. spread the word and tell a friend.
+
+
+
 TeleportR 
 (lat "take/bring somewhere")
 is a "multi-modal mobility Browser".
