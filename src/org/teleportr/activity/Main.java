@@ -137,10 +137,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	}
         };
         
-        bindButtons(); // orig/dest/time button
+        // bindButtons(); // orig/dest/time button
         bindListAdapter(); // the rides results
         bindSlidingDrawer(); // priorities pane
-        
+        onNewIntent(getIntent());
     }
     
     private void bindButtons() {
@@ -162,7 +162,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
 			onSearchRequested();
 		else if (v.getId() == R.id.orig)
 			startActivityForResult(new Intent(Main.this, HereAmI.class), 0);
-		else if (v.getId() == R.id.orig) {
+		else if (v.getId() == R.id.logo) {
 			if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
     			tip = 1;
     			openOptionsMenu();
@@ -198,8 +198,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
 				break;
 			}
 		 }
-		teleporter.beam();
 		bindButtons();
+		teleporter.beam();
 	}
 
 	@Override
