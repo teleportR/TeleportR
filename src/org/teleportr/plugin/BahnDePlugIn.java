@@ -89,7 +89,7 @@ public class BahnDePlugIn implements IPlugIn {
                     r.mode = Ride.MODE_TRANSIT;
                     r.dep = dep;
                     r.arr = parseDate(m.group(4), m.group(5));
-                    r.price = 240;
+                    r.price = -1;
                     r.fun = 3;
                     r.eco = 3;
                     r.fast = 1;

@@ -25,6 +25,7 @@ import org.teleportr.model.Ride;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class RideView extends RelativeLayout {
     private TextView hours;
     private TextView hours_label;
     private TextView minutes_label;
+	private ImageView currency;
 
 
 
@@ -57,8 +59,9 @@ public class RideView extends RelativeLayout {
         plugin = (ImageView) findViewById(R.id.plugIn);
         minutes = (TextView) findViewById(R.id.minutes);
         duration = (TextView) findViewById(R.id.duration);
+        currency = (ImageView) findViewById(R.id.currency);
         hours_label = (TextView) findViewById(R.id.hours_label);
-	minutes_label = (TextView) findViewById(R.id.minutes_label);
+        minutes_label = (TextView) findViewById(R.id.minutes_label);
     }
 
 
@@ -108,10 +111,15 @@ public class RideView extends RelativeLayout {
             duration.setText("toooooo long!!!");
         
 //        plugin.setImageResource(ride.plugin);
-        
-        price.setText(String.valueOf(((int)ride.price/100)));
-        int cents = ride.price%100;
-        if (cents != 0) price.append(","+cents);
+        if (ride.price == -1) {
+        	price.setText("");
+        	currency.setVisibility(INVISIBLE);
+        } else {
+        	price.setText(String.valueOf(((int)ride.price/100)));
+        	int cents = ride.price%100;
+        	if (cents != 0) price.append(","+cents);
+        	currency.setVisibility(VISIBLE);
+        }
         
         switch (ride.mode) {
             case Ride.MODE_TELEPORTER:

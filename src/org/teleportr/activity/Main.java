@@ -124,8 +124,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "refresh rides list");
         		rides = teleporter.getRides(rides);
-				bindListAdapter();
-//        		getListView().invalidateViews();
+//				bindListAdapter();
+        		getListView().invalidateViews();
         	}
         };
         
@@ -212,11 +212,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	place = Place.find(intent.getStringExtra(SearchManager.QUERY), this);
         }
         
-//        if (place != null && place.name != null) {
-        teleporter.setDestination(place);
-        teleporter.beam();
+        if (place != null && place.name != null) {
+        	teleporter.setDestination(place);
+        	teleporter.beam();
+        }
         bindButtons();
-        Log.d(Teleporter.TAG, "changed destination place: "+teleporter.destination.name);
     }
 	
 	private void bindListAdapter() {
