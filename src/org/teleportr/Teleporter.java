@@ -33,35 +33,8 @@ public class Teleporter extends Application {
 	public Teleporter() {
 		super();
 		Log.d(TAG, "onCreate");
-		
-		// smartspace fallback 
-//		origin = new Place();
-//		origin.lat = 52512923; 
-//		origin.lon = 13420555;
-//        origin.name = "c-base";
-//        origin.city = "Berlin";
-//        origin.icon = R.drawable.cbase;
-//        origin.address = "Rungestraße 20";
 	}
 	
-	@Override
-	public void onTerminate() {
-		Log.d(Teleporter.TAG, "TERMINATING");
-		super.onTerminate();
-	}
-
-	@Override
-	public void onLowMemory() {
-		Log.d(Teleporter.TAG, "LOW MEMORY");
-		super.onLowMemory();
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		Log.d(Teleporter.TAG, "CONFIG CHANGE");
-		super.onConfigurationChanged(newConfig);
-	}
-
 	public void setOrigin(Place orig) {
 		if (origin != null) reset();
 		origin = orig;
@@ -71,7 +44,7 @@ public class Teleporter extends Application {
 		if (destination != null) reset();
 		this.destination = dest;
 	}
-
+	
 	public void beam() {
 		
 		if (origin!=null && destination!=null) {
