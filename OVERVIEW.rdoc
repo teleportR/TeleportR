@@ -2,18 +2,20 @@ Teleportr technical overview
 ============================
 
 == Rides
-A ride is the Way between two places, it can contain certain characteristics which are used to
+A ride is a way to move between two places, it can contain certain characteristics which are used to
 - display it to the user
 - compare it with other rides
 - use it as input for plugins
 
-it contains at least 2 places.
+it contains at least 2 places for origin and destination.
 
+== Superride
+a collection of rides.
 
 == Places
 A place contains at least a display-name.
 it can contain:
- location with longitude, latitude
+ location with longitude, latitude in integerformat
  poi information
  address
  type information
@@ -27,7 +29,7 @@ it can also enrich data for places and rides
 this is the basic teleportation action. you can react to it when you catch the intent beam://disco.
 
 
-== Query muliplexer
+== Query multiplexer
 this is the component of teleportr which schedules the queries to the several plugins
 
 == plugin registry 
@@ -36,4 +38,6 @@ it is a online component to commit new plugins to
 == places provider
 thats resources to get new places.
 the basic method is downloading databases from teleporter.org which contain streetnames or stationnames arround cities.
- 
+
+== hints 
+useful information done by scotty (the teleporter operator)
