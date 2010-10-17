@@ -167,7 +167,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     			tip = 1;
     			openOptionsMenu();
     		}
-    		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, Help.class));
+    		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, ScottySays.class));
 		}
 	}
 
@@ -280,7 +280,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         if (ride != null && ride.uri != null)
         	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(ride.uri)));
         else
-        	startActivity(new Intent(getString(R.string.explain_mock_plugin), null, Main.this, Help.class));
+        	startActivity(new Intent(getString(R.string.explain_mock_plugin), null, Main.this, ScottySays.class));
     }
     
     
