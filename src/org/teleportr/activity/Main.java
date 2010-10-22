@@ -299,6 +299,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	startActivity(new Intent(this, About.class));
             break;
 
+        case R.id.scotty:
+        	startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, ScottySays.class));
+        	break;
+        	
         case R.id.settings:
             startActivity(new Intent(this, Settings.class));
             break;
