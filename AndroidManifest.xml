@@ -73,7 +73,7 @@
 	    		  android:screenOrientation="portrait">
 	    </activity>
 	    
-		<activity android:name=".activity.Help"
+		<activity android:name=".activity.ScottySays"
 				  android:theme="@android:style/Theme.Dialog">
 		</activity>
 
