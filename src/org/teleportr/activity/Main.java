@@ -125,6 +125,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         		Log.d(Teleporter.TAG, "refresh rides list");
         		rides = teleporter.getRides(rides);
 //				bindListAdapter();
+        		getListView().forceLayout();
         		getListView().invalidateViews();
         	}
         };

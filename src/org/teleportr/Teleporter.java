@@ -33,6 +33,22 @@ public class Teleporter extends Application {
 	public Teleporter() {
 		super();
 		Log.d(TAG, "onCreate");
+		
+// 		smartspace fallback 
+	    origin = new Place();
+	    origin.lat = 48803262; 
+	    origin.lon = 9188745;
+        origin.name = "Shackspace";
+        origin.city = "Stuttgart";
+        origin.icon = R.drawable.shackspace;
+        
+        destination = new Place();
+        destination.lat = 48740955; 
+        destination.lon = 9100823;
+        destination.name = "Droidcamp";
+        destination.city = "Stuttgart";
+        destination.icon = R.drawable.droidcamp;
+		
 	}
 	
 	public void setOrigin(Place orig) {

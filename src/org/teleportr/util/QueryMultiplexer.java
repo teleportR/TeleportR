@@ -49,8 +49,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
         latest = new HashMap<IPlugIn, Ride>();
         
         rides = new ArrayList<Ride>() {
+        	
             @Override
-            public boolean add(Ride object) {
+            public synchronized boolean add(Ride object) {
                 if(!contains(object))
                     return super.add(object);
                 else 
@@ -58,7 +59,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
             }
             
             @Override
-            public boolean addAll(Collection<? extends Ride> collection) {
+            public synchronized boolean addAll(Collection<? extends Ride> collection) {
                 for(Ride r : collection)
                     if(!contains(r))
                         super.add(r);
@@ -144,7 +145,8 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
     }
     
     public void removeOutdated() { 
-    	while (!rides.isEmpty() && rides.get(0).dep.before(new Date(System.currentTimeMillis()-180000)))
+    	final Date threeMinutesAgo = new Date(System.currentTimeMillis()-180000);
+    	while (!rides.isEmpty() && rides.get(0).dep.before(threeMinutesAgo))
     		rides.remove(0); // if departured more than 3 minutes ago
     }
 
