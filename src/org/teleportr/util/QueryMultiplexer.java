@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import org.teleportr.plugin.IPlugIn;
-import android.content.BroadcastReceiver;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 
 public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
@@ -116,12 +116,18 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
             @Override
             public void run() {
             	
+            	int before = rides.size();
                 for (IPlugIn plugin : plugIns) {
                     
-                    nextRides.addAll(plugin.find(orig, dest, 
-                    				latest.containsKey(plugin)? 
-                    				latest.get(plugin).dep : new Date()));
-                    
+                	Date time = null;
+                	if (latest.containsKey(plugin)) {
+                		time = latest.get(plugin).dep;
+                		if (time == null)
+                			break; // this plugin won't find any later rides 
+                		nextRides.addAll(plugin.find(orig, dest, time));
+                	} else
+                		nextRides.addAll(plugin.find(orig, dest, new Date()));
+                		
                     if (!nextRides.isEmpty())
                     	latest.put(plugin, nextRides.get(nextRides.size()-1));
 
@@ -131,6 +137,8 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     
                 }
                 ctx.getContentResolver().notifyChange(Ride.URI, null);
+                if (before == rides.size())
+                SystemClock.sleep(5000);
                 
 //                Intent requestIntent = new Intent("org.teleporter.intent.action.RECEIVE_REQUEST");
 //                requestIntent.putExtra("origLatitude", orig.lat);
@@ -146,8 +154,13 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
     
     public void removeOutdated() { 
     	final Date threeMinutesAgo = new Date(System.currentTimeMillis()-180000);
-    	while (!rides.isEmpty() && rides.get(0).dep.before(threeMinutesAgo))
-    		rides.remove(0); // if departured more than 3 minutes ago
+    	final ArrayList<Ride> rides = this.rides;
+		for(int i = rides.size() - 1; i >= 0; i--) {
+			final Ride r = rides.get(i);
+			if(r.dep != null && r.dep.before(threeMinutesAgo)) {
+				rides.remove(i);
+			}
+		}
     }
 
     public void sort() {

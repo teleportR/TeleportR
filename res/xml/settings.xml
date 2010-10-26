@@ -5,7 +5,7 @@
 	
 		<PreferenceScreen 
 			android:key="autocompletion"
-			android:title="Autocompletion"
+			android:title="Places"
 			android:summary="@string/autocompletion_settings_summary">
 			<PreferenceCategory android:title="Downloads">
 			</PreferenceCategory>
@@ -24,6 +24,16 @@
 				android:summary="public transport.."  
 				/>
 				<CheckBoxPreference  
+				android:key="CloudMadePlugIn"  
+				android:title="Bike"  
+				android:summary="cloudmade webservice.."  
+				/>
+				<CheckBoxPreference  
+				android:key="GMapsPlugIn"  
+				android:title="Drive"  
+				android:summary="google webservice.."  
+				/>
+				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
 				android:title="mitfahrgelegenheit.de"  
 				android:summary="ridesharing agency.."  
@@ -38,11 +48,7 @@
 				android:title="Fly"  
 				android:summary="airline shedules.."  
 				/>
-				<CheckBoxPreference  
-				android:key="DrivePlugIn"  
-				android:title="Drive"  
-				android:summary="turn-by-turn navigation.."
-				/>
+
 				<CheckBoxPreference  
 				android:key="BikePlugIn"  
 				android:title="Bike"  

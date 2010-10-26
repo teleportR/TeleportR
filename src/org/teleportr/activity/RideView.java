@@ -71,7 +71,7 @@ public class RideView extends RelativeLayout {
         final long travelTime; 
         if(ride.dep == null || ride.arr == null) {
             waitingTime = 0;
-            travelTime = ride.duration / 60;
+            travelTime = ride.duration;
             dep.setText(new SimpleDateFormat("hh:mm").format(new Date()));
             arr.setText(new SimpleDateFormat("hh:mm").format(new Date(System.currentTimeMillis()+ride.duration)));
         } else {
