@@ -43,7 +43,7 @@ public class RideView extends RelativeLayout {
     private TextView minutes_label;
 	private ImageView currency;
 
-
+	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
 
     public RideView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -72,13 +72,13 @@ public class RideView extends RelativeLayout {
         if(ride.dep == null || ride.arr == null) {
             waitingTime = 0;
             travelTime = ride.duration;
-            dep.setText(new SimpleDateFormat("hh:mm").format(new Date()));
-            arr.setText(new SimpleDateFormat("hh:mm").format(new Date(System.currentTimeMillis()+ride.duration)));
+            dep.setText(DATE_FORMAT.format(new Date()));
+            arr.setText(DATE_FORMAT.format(new Date(System.currentTimeMillis()+ride.duration)));
         } else {
             waitingTime = (int)(ride.dep.getTime()-System.currentTimeMillis())/60000;
             travelTime = (int) (ride.arr.getTime() - ride.dep.getTime()) / 60000;
-            dep.setText(new SimpleDateFormat("hh:mm").format(ride.dep));
-            arr.setText(new SimpleDateFormat("hh:mm").format(ride.arr));
+            dep.setText(DATE_FORMAT.format(ride.dep));
+            arr.setText(DATE_FORMAT.format(ride.arr));
         }
 //        if (waitingTime < 100) {
         if (waitingTime < 60) {

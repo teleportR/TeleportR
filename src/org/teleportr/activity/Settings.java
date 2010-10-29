@@ -21,6 +21,7 @@ import org.teleportr.util.LogCollector;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,6 +53,9 @@ public class Settings extends PreferenceActivity {
 
         ((PreferenceScreen)findPreference("autocompletion"))
         .setIntent(new Intent(this, Autocompletion.class));
+
+        ((PreferenceScreen)findPreference("quicksearch"))
+        .setIntent(new Intent().setClassName("com.android.quicksearchbox", "com.android.quicksearchbox.SearchSettings"));
     }
 
     @Override

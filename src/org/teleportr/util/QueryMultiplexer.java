@@ -123,7 +123,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                 	if (latest.containsKey(plugin)) {
                 		time = latest.get(plugin).dep;
                 		if (time == null)
-                			break; // this plugin won't find any later rides 
+                			continue; // this plugin won't find any later rides 
                 		nextRides.addAll(plugin.find(orig, dest, time));
                 	} else
                 		nextRides.addAll(plugin.find(orig, dest, new Date()));
@@ -134,9 +134,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     Log.d(TAG, plugin+" found: "+nextRides.size());
                     rides.addAll(nextRides);
                     nextRides.clear();
-                    
+                	ctx.getContentResolver().notifyChange(Ride.URI, null);    
                 }
-                ctx.getContentResolver().notifyChange(Ride.URI, null);
+                
                 if (before == rides.size())
                 SystemClock.sleep(5000);
                 

@@ -13,8 +13,8 @@
 
 
 		<PreferenceScreen 
-			android:key="plugIns"
-			android:title="PlugIns"
+			android:key="plugins"
+			android:title="Plugin"
 			android:summary="@string/plugIns_settings_summary">
 			<PreferenceCategory android:title="Installed PlugIns">
 
@@ -70,6 +70,13 @@
 				android:summary="beam me there.."  
 				/>
 			</PreferenceCategory>
+			
+		</PreferenceScreen>
+		
+		<PreferenceScreen 
+			android:key="quicksearch"
+			android:title="Search"
+			android:summary="@string/quicksearch_settings_summary">
 		</PreferenceScreen>
 		
 	</PreferenceCategory>
