@@ -145,10 +145,17 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     }
     
     private void bindButtons() {
-    	if (teleporter.origin != null)
+    	if (teleporter.origin != null) {
     		((TextView)findViewById(R.id.orig)).setText(teleporter.origin.name);
-    	if (teleporter.destination != null)
+    		((TextView)findViewById(R.id.orig_detail))
+    			.setText(teleporter.origin.address+", "+teleporter.origin.city);
+    	}
+    	if (teleporter.destination != null) {
     		((TextView)findViewById(R.id.dest)).setText(teleporter.destination.name);
+    		((TextView)findViewById(R.id.dest_detail))
+    			.setText(teleporter.destination.address+", "+teleporter.destination.city);
+    		
+    	}
     	if (teleporter.origin != null && teleporter.destination != null) {
     		findViewById(R.id.logo).setVisibility(View.GONE);
     		getListView().setVisibility(View.VISIBLE);
