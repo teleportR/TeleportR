@@ -8,9 +8,18 @@ A ride is a way to move between two places, it can contain certain characteristi
 - use it as input for plugins
 
 it contains at least 2 places for origin and destination.
+it can contain a type of a ride.
 
-== Superride
+=== Trip
+the default is a trip.
+a trip is unique. think of a going from origin to destination at a specific time with a vehicle. this can only take once place. 
+=== Route
+it has a destination and origin, but is not bound to a specific time.
+route can contain Waypoints(Places)
+
+=== Superride
 a collection of rides.
+
 
 == Places
 A place contains at least a display-name.
@@ -23,7 +32,21 @@ it can contain:
 
 == Plugins
 a plugin is basically used to find rides.
-it can also enrich data for places and rides
+  it can also enrich data for places and rides
+
+its done by implenting
+
+basic methods:
+  get (Ride) -> Ride [formally know as find]
+  info () -> PluginInfo
+
+carpooling and carsharing plugins
+  post (Ride) -> offer Ride 
+  put (Ride) -> updates a ride
+  delete (Ride)
+
+when contentprovider 
+
 
 == Disco
 this is the basic teleportation action. you can react to it when you catch the intent beam://disco.
@@ -39,5 +62,6 @@ it is a online component to commit new plugins to
 thats resources to get new places.
 the basic method is downloading databases from teleporter.org which contain streetnames or stationnames arround cities.
 
-== hints 
+== hints
+ 
 useful information done by scotty (the teleporter operator)
