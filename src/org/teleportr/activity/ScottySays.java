@@ -24,6 +24,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ScottySays extends Activity {
@@ -32,15 +33,19 @@ public class ScottySays extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-
-	    setTitle("Scotty says:");
-	    TextView tv = new TextView(this);
-	    tv.setText(getIntent().getAction());
-	    tv.setGravity(Gravity.CENTER);
-	    tv.setPadding(3, 0, 3, 23);
-	    setContentView(tv);
+	    
+	    LinearLayout lv = (LinearLayout) findViewById(R.id.scotty_layout);
+	    //lv.inflate(getApplication(),R.id.scotty_layout )
+	    //setTitle("Scotty says:");
+	    //TextView tv = new TextView(this);
+	    //tv.setText(getIntent().getAction());
+	    //tv.setGravity(Gravity.CENTER);
+	    //tv.setPadding(3, 0, 3, 23);
+	    setContentView(lv);
 	}
 
+	
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		finish();
