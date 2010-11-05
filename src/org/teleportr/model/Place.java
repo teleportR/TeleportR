@@ -150,10 +150,12 @@ public class Place implements Parcelable, BaseColumns {
     		
     	} else if (uri.getScheme().equals("geo")) {
     		String query = URLDecoder.decode(uri.toString().substring(10));
+    		Log.d(Teleporter.TAG, "uri: "+uri);
+    		Log.d(Teleporter.TAG, "query: "+query);
     		
             String[] q = query.split(",");
             if (Character.isDigit(query.charAt(0))) {
-                p.address = q[0].substring(q[0].indexOf(" ")+1) +" "+ q[0].substring(0, q[0].indexOf(" "))+", "+q[1].split(" ")[1];
+//                p.address = q[0].substring(q[0].indexOf(" ")+1) +" "+ q[0].substring(0, q[0].indexOf(" "))+", "+q[1].split(" ")[1];
             } else {
                 p.address = q[0]+", "+ q[1].split(" ")[2];
             }
