@@ -62,7 +62,12 @@
 	    </activity>
 	    
 		<activity android:name=".activity.PlaceDetails"
-				  android:windowSoftInputMode="adjustResize">
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 		</activity>
 	    
 	    <activity android:name=".activity.About"/>
