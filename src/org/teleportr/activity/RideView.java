@@ -125,7 +125,7 @@ public class RideView extends RelativeLayout {
             case Ride.MODE_TELEPORTER:
                 setBackgroundResource(R.drawable.mode_teleporter);
                 break;
-            case Ride.MODE_SKATEBOARD:
+            case Ride.MODE_SK8:
                 setBackgroundResource(R.drawable.mode_sk8);
                 break;
             case Ride.MODE_TRANSIT:

@@ -306,10 +306,12 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     protected void onListItemClick(final ListView pListView, final View pView, final int pPosition, final long pID) {
     	Log.d(Teleporter.TAG, "clicked on search result ride: ");
         Ride ride = (Ride) getListAdapter().getItem(pPosition);
-        if (ride != null && ride.uri != null)
-        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(ride.uri)));
-        else
-        	startActivity(new Intent(getString(R.string.explain_mock_plugin), null, Main.this, ScottySays.class));
+//        if (ride.mode == Ride.MODE_TAXI)
+        	startActivity(new Intent(this, RideDetails.class).putExtra("ride", ride));
+//        else if (ride != null && ride.uri != null)
+//        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(ride.uri)));
+//        else
+//        	startActivity(new Intent(getString(R.string.explain_mock_plugin), null, Main.this, ScottySays.class));
     }
     
     

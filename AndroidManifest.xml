@@ -64,10 +64,18 @@
 		<activity android:name=".activity.PlaceDetails"
 				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+	        </intent-filter>
+		</activity>
+		
+		<activity android:name=".activity.RideDetails"
+				  android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
 		</activity>
 	    
 	    <activity android:name=".activity.About"/>
