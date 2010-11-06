@@ -17,6 +17,8 @@ package org.teleportr.plugin;
 
 import java.util.Date;
 import java.util.List;
+
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
@@ -32,7 +34,7 @@ public interface IPlugIn {
      * @param time  the earliest departure time
      * @return a List of some found search results.
      */
-    public abstract List<Ride> find(Place orig, Place dest, Date time);
+    public abstract List<Ride> find(Place orig, Place dest, Date time, Teleporter tlp);
 
     
     /**

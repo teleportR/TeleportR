@@ -25,7 +25,7 @@ import android.util.Log;
 public class Teleporter extends Application {
 
 	public static final String TAG = "Teleporter";
-	private QueryMultiplexer multiplexer;
+	public QueryMultiplexer multiplexer;
 	public Place origin;
 	public Place destination;
 
@@ -35,21 +35,21 @@ public class Teleporter extends Application {
 		Log.d(TAG, "onCreate");
 		
 // 		smartspace fallback 
-//	    origin = new Place();
-//	    origin.lat = 48803262; 
-//	    origin.lon = 9188745;
-//        origin.name = "Shackspace";
-//        origin.city = "München";
-//        origin.address = "Leopoldstr 7";
-//        origin.icon = R.drawable.shackspace;
-//        
-//        destination = new Place();
-//        destination.lat = 48740955; 
-//        destination.lon = 9100823;
-//        destination.name = "Droidcamp";
-//        destination.city = "Stuttgart";
-//        destination.address = "Nobelstr 12";
-//        destination.icon = R.drawable.droidcamp;
+	    origin = new Place();
+	    origin.lat = 48803262; 
+	    origin.lon = 9188745;
+        origin.name = "Shackspace";
+        origin.city = "München";
+        origin.address = "Leopoldstr 7";
+        origin.icon = R.drawable.shackspace;
+        
+        destination = new Place();
+        destination.lat = 48740955; 
+        destination.lon = 9100823;
+        destination.name = "Droidcamp";
+        destination.city = "München";
+        destination.address = "Arnulfstr 12";
+        destination.icon = R.drawable.droidcamp;
 		
 	}
 	

@@ -25,6 +25,7 @@ import java.util.regex.MatchResult;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.teleportr.R;
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import android.content.Intent;
@@ -43,7 +44,7 @@ public class BahnDePlugIn implements IPlugIn {
     }
 
     
-    public ArrayList<Ride> find(Place orig, Place dest, Date time) {
+    public ArrayList<Ride> find(Place orig, Place dest, Date time, Teleporter tlp) {
         
         StringBuilder url = new StringBuilder();
         url.append("http://mobile.bahn.de/bin/mobil/query.exe/dox?");

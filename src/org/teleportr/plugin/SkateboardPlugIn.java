@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
 public class SkateboardPlugIn implements IPlugIn {
 
     @Override
-    public ArrayList<Ride> find(Place o, Place d, Date time) {
+    public ArrayList<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
 
         ArrayList<Ride> rides = new ArrayList<Ride>();
         

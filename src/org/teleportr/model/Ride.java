@@ -47,6 +47,7 @@ public class Ride implements Parcelable {
     public int mode;
     public int price;
     public String uri;
+    public int distance;
     public long duration;
 
     // scoring
@@ -65,6 +66,7 @@ public class Ride implements Parcelable {
 //		dep = new Date(in.readLong());
 //		arr = new Date(in.readLong());
 		duration = in.readLong();
+		distance = in.readInt();
 		uri = in.readString();
 		price = in.readInt();
 		mode = in.readInt();
@@ -77,6 +79,7 @@ public class Ride implements Parcelable {
 //		out.writeLong((dep!=null)? dep.getTime() : 0);
 //		out.writeLong((arr!=null)? arr.getTime() : 0);
 		out.writeLong(duration);
+		out.writeInt(distance);
 		out.writeString(uri);
 		out.writeInt(price);
 		out.writeInt(mode);
