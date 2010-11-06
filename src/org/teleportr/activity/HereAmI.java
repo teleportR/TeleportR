@@ -61,19 +61,19 @@ public class HereAmI extends Activity {
     }
 
     
-	@Override
-	public boolean onSearchRequested() {
-		if (teleporter.origin != null) {
-//			String text;
-//			if (teleporter.origin.address != null)
-//				text = teleporter.origin.address+", "+teleporter.origin.city;
-//			else
-//				text = teleporter.origin.name+", "+teleporter.origin.city;
-			startSearch(teleporter.origin.name+", "+teleporter.origin.city, true, null, false);
-			return true;
-		}
-		return super.onSearchRequested();
-	}
+//	@Override
+//	public boolean onSearchRequested() {
+//		if (teleporter.origin != null) {
+////			String text;
+////			if (teleporter.origin.address != null)
+////				text = teleporter.origin.address+", "+teleporter.origin.city;
+////			else
+////				text = teleporter.origin.name+", "+teleporter.origin.city;
+//			startSearch(teleporter.origin.name+", "+teleporter.origin.city, true, null, false);
+//			return true;
+//		}
+//		return super.onSearchRequested();
+//	}
 
     @Override
     protected void onNewIntent(Intent intent) {
