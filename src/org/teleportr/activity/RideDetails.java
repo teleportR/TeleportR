@@ -30,14 +30,17 @@ public class RideDetails extends Activity {
 		case Ride.MODE_SK8:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_sk8);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_sk8);
+			((TextView)findViewById(R.id.text1)).setText("wouldn't it be great to go by skateboard through town, and your phone introduces you to the nicest skatespots? if you are skate-nerd or nerd-skater feel free to write this plugin... --> scotty@teleportR.org ");
 			break;
 		case Ride.MODE_MFG:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_mfg);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_mfg);
+			((TextView)findViewById(R.id.text1)).setText("sharing is great! sharing mobility is also quite cheap and enviremental friendly. why not have a place, where you can finde all the different offers at one time? feel free to help us shift the paradimes of mobility...  --> scotty@teleportR.org");
 			break;
 		case Ride.MODE_BIKE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_bike);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_bike);
+			((TextView)findViewById(R.id.text1)).setText("slow down and see the landscape. go by bike, just hit the button below. this plugin is not great jet, but somehow it works. ;-) make a tour, or make this plugin better --> scotty@teleportR.org");
 			break;
 		case Ride.MODE_TAXI:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_taxi);
@@ -49,14 +52,17 @@ public class RideDetails extends Activity {
 					startActivity(new Intent());
 				}
 			});
+			((TextView)findViewById(R.id.text1)).setText("very basic concept of a teleportR taxi-plugin. if you need a taxi, hit the button below, and talk to a munich taxi company. plz. compare the real fare payed to our estimated and tell us the difference --> scotty@teleportR.org");
 			break;
 		case Ride.MODE_DRIVE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_drive);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_car);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			break;
 		case Ride.MODE_WALK:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_walk);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_walk);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			break;
 		case Ride.MODE_FLIGHT:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_flight);
@@ -67,14 +73,17 @@ public class RideDetails extends Activity {
 		case Ride.MODE_TRAIN:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_train);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_train);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			break;
 		case Ride.MODE_TRANSIT:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_transit);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_transit);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			break;
 		case Ride.MODE_TELEPORTER:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_teleporter);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_teleporter);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			break;
 
 		default:

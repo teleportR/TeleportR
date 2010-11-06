@@ -40,6 +40,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
     private ArrayList<Ride> nextRides;
     public HashMap<IPlugIn, Ride> latest;
 	private Teleporter teleporter;
+	private boolean noCar;
+	private boolean car;
+	private boolean taxi;
 
 
     public QueryMultiplexer(Teleporter tlp) {
@@ -93,10 +96,22 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
         
         plugIns = new ArrayList<IPlugIn>();
         try {
+        	
+        	if (plugInSettings.getBoolean("TaxiPlugIn", false)) {
+        		taxi = true;
+        		plugIns.add((IPlugIn) Class.forName("org.teleportr.plugin.CloudMadeDrivePlugIn").newInstance());
+        		if (!plugInSettings.getBoolean("CloudMadeDrivePlugIn", false))
+        			car = false;
+        		else
+        			car = true;
+        			
+        	}
+        		
             for (String p : plugInSettings.getAll().keySet()) {
                 if (plugInSettings.getBoolean(p, false)){
                     Log.d(TAG, " + plugin "+p+" selected");
-                    plugIns.add((IPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
+                    if (!(taxi && p.equals("CloudMadeDrivePlugIn")))
+                    	plugIns.add((IPlugIn) Class.forName("org.teleportr.plugin."+p).newInstance());
                 } else Log.d(TAG, " + plugin "+p+" NOT selected");
             }
         } catch (Exception e) {
@@ -132,8 +147,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     if (!nextRides.isEmpty())
                     	latest.put(plugin, nextRides.get(nextRides.size()-1));
 
-                    Log.d(TAG, plugin+" found: "+nextRides.size());
-                    rides.addAll(nextRides);
+                    Log.d(TAG, plugin.getClass().getName()+" found: "+nextRides.size());
+                    if (!(!car && plugin.getClass().getName().equals("org.teleportr.plugin.CloudMadeDrivePlugIn")))
+                    	rides.addAll(nextRides);
                     nextRides.clear();
                 	teleporter.getContentResolver().notifyChange(Ride.URI, null);    
                 }
