@@ -20,13 +20,13 @@
 
 				<CheckBoxPreference  
 				android:key="BahnDePlugIn"  
-				android:title="PUBLIC TRANSPORT"  
+				android:title="PUBLIC TRANSIT"  
 				android:summary="travel information from bahn.de [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="CloudMadeBikePlugIn"  
 				android:title="BIKE"  
-				android:summary="cloudmade navigation [a]"  
+				android:summary="cloudmade bike route finder [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="CloudMadeDrivePlugIn"  
@@ -40,24 +40,24 @@
 				/>
 				<CheckBoxPreference  
 				android:key="GMapsWalkPlugIn"  
-				android:title="PATHFINDER (walking)"  
-				android:summary="google navigation [a]"  
+				android:title="PATHFINDER"  
+				android:summary="google walking directions [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
 				android:title="RIDESHARING"  
-				android:summary="compare ridesharing providers [p]"  
+				android:summary="compare carpool providers [p]"  
 				/>
 				
 				<CheckBoxPreference  
 				android:key="TaxiPlugIn"  
 				android:title="TAXI"  
-				android:summary="taxi fare calculator & calling [a]"  
+				android:summary="fare calculator &amp; calling [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="SkateboardPlugIn"  
 				android:title="SKATEBOARD"  
-				android:summary="cloud spotfinder & navigation [p]"  
+				android:summary="cloud spotfinder &amp; navigator [p]"  
 				/>
 				<CheckBoxPreference  
 				android:key="TeleporterPlugIn"  

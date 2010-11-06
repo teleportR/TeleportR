@@ -19,14 +19,15 @@ public class TaxiPlugIn implements IPlugIn {
     public ArrayList<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
 
         ArrayList<Ride> rides = new ArrayList<Ride>();
+
         Ride r = new Ride();
+        r.orig = o;
+        r.dest = d;
+        r.price = -1;
+        
         for (Ride ride : tlp.multiplexer.rides) {
         	if (ride.mode == Ride.MODE_DRIVE) {
         		Log.d(Teleporter.TAG, "dist="+ride.distance);
-        		
-        		r = new Ride();
-        		r.orig = o;
-        		r.dest = d;
         		r.duration = ride.duration;
         		r.distance = ride.distance;
         		float dist = r.distance / 1000; // km
@@ -42,18 +43,16 @@ public class TaxiPlugIn implements IPlugIn {
         				r.price += (dist-10) * 125;
         			}
         		}
-        		
-
-        		r.mode = Ride.MODE_TAXI;
-        		r.fun = 1;
-        		r.eco = 1;
-        		r.fast = 4;
-        		r.social = 1;
-        		r.green = 1;
-        		rides.add(r);
         		continue;
         	}
         }
+        r.mode = Ride.MODE_TAXI;
+        r.fun = 1;
+        r.eco = 1;
+        r.fast = 4;
+        r.social = 1;
+        r.green = 1;
+        rides.add(r);
         return rides;
       
     }

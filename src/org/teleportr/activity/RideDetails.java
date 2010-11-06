@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -41,6 +42,13 @@ public class RideDetails extends Activity {
 		case Ride.MODE_TAXI:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_taxi);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_taxi);
+			findViewById(R.id.home).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					startActivity(new Intent());
+				}
+			});
 			break;
 		case Ride.MODE_DRIVE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_drive);
