@@ -2,40 +2,42 @@
 <resources> 
     <string-array name="tips"> 
 		<item>Hi, this is Scotty.\n
-				I\'m the teleportR operator.
-				Thanks for trying this early sneak preview! 
-				If there is anything bugging or bothering please tell me.
-				Any random thoughts and ideas are of course more than welcome too.
-				\nHave a pleasant beam and enjoy the beam!</item>
-		<item>First download some data for your area.\n
-			  Go to Settings->Autocompletion \nto get offline autocompletion..</item>
-		<item>Tap in the upper right corner\n
-			  to set the destination you want to beam to.</item>
-		<item>Press long on the destination or origin button on the top to edit place details.</item>
-		<item>Tap on [start]\n
-			  to set where the journey is to begin or to find out where you\'re currently at.</item>
+				I\'m the TeleportR operator, and I will support you.
+				Thanks for trying our early sneak preview! 
+				If there is anything bugging or bothering please let me know.
+				Have a pleasant beam and enjoy the trip...</item>
+		<item>First download some data for your area. Go to Settings->Places to get offline autocomplition.</item>
+		<item>Tap in the upper right corner to chose the destination you want to beam to.</item>
+		<item>Tap on [start] to set where the journey is to begin or to idetify your position.</item>
+		<item>By long-pressing the destination or origin button on the top you can edit place details.</item>
 		<item>There are a few showcase plugins available in the settings.</item>
-		<item>You can edit places in detail by long-pressing on a button.</item>
-		<item>   That\'s it :-)  </item>
+		<item>That\'s it for the moment :-)  </item>
+		<item>Stay tuned via @teleporter or scotty@teleportr.org (4dev\'s)</item>
 		<item>There is really nothing more to do with this application for now.
 			  You can find more advanced experimental versions in the redpill developer market.</item>
-
 		<item>Have you tried switching it off and on again?</item>
-		<item>If you don\'t like the user interface \nplease design a better one!</item>
 		<item>Fork one of the git repos or mail scotty@teleportr.org what you\'d like to have..</item>
 		<item>You could also edit these tips to become more useful ;-). </item>
 		<item>I\'m through. This has been my last tip. </item>
-		<item>This is the absolute final last tip! </item>
+		<item>"Engineering? I thought you\'d never ask!" </item>
 		<item>I\'ve nothing more to tell you.</item>
-		<item>There are no more tips here!</item>
+		<item>"Shunt the deuterium from the main cryo-pump to the auxiliary tank."</item>
 		<item>Stop pressing this button! </item>
+		<item>"I have spent my whole life trying to figure out crazy ways of doing things. I\'m telling you, as one engineer to another - I can do this."</item>
 		<item>STOP IT!!!!!!!!!!! </item>
-		<item>please stop</item>
-		<item>"%$@§X/§! </item>
+		<item>"What if I told you that your transwarp theory was correct, that is is indeed possible to beam onto a ship that is traveling at warp speed?" </item>
+		<item>Don\'t you find this boring?</item>
+		<item>"Dilithium chamber at maximum... GET DOWN! "</item>
+		<item>%$@§X/§! </item>
+		<item>"I\'m so close to the flow now that it feels like ants crawling all over my body."</item> 
 		<item>foooo!</item>
-		<item>bar?</item>
-		<item>.</item>
-		<item>Ok you get one more tip if you promise to stop then!</item>
-		<item>Ha! \n:-P</item>
+		<item>"All systems automated and ready. A chimpanzee and two trainees could run her."</item>
+		<item>oh cmon...</item>
+		<item>"Where's the damn anti-matter inducer?"</item>
+		<item>RLY???</item>
+		<item>"You bloody big scatterbrain! Make up your monumental mind!"</item>
+		<item>OK...</item>
+		<item>"Well, I didn't see that it was worth fighting about. After all, we're big enough to take a few insults, aren't we?"</item>
+		<item>...YOU WIN! \n\n\You\'ll get one more tip if you promise to stop annoying me. But please! Don\'t tell this to anybody. It is still supergigahyperultra-topsecret:\n\n\nGo on...</item>
     </string-array> 
 </resources> 
