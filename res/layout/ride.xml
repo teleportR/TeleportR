@@ -6,6 +6,19 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 >
 
+<!-- 
+<view class="org.teleportr.activity.RideView"
+android:id="@+id/ride"
+android:layout_height="wrap_content"
+android:layout_width="fill_parent"
+/>
+ -->
+
+<include
+        layout="@layout/rideview"
+        android:id="@+id/ride" 
+/>
+
 
 <FrameLayout android:id="@+id/border"
 android:layout_height="3dp"
@@ -13,6 +26,29 @@ android:layout_width="fill_parent"
 android:layout_marginTop="64dip"
 android:background="#000000"
 />
+
+	
+<TextView android:id="@+id/text1"
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:layout_alignParentLeft="true"
+android:layout_below="@id/border"
+android:layout_marginLeft="111dip"
+android:layout_marginTop="10dip"
+android:textSize="19dp"
+android:textStyle="bold"
+android:textColor="#FFF"
+android:text="Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!"
+/>
+
+<ImageView
+android:layout_below="@id/text1"
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:layout_marginLeft="120dp"
+android:src="@drawable/scotty_bier"
+/>
+
 
 <LinearLayout android:id="@+id/layout"
 android:layout_alignParentLeft="true"
@@ -55,18 +91,5 @@ android:layout_height="wrap_content"
 	/>
 </LinearLayout>
 
-	
-	<TextView android:id="@+id/ok_label"
-	android:layout_alignParentBottom="true"
-	android:layout_centerHorizontal="true"
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
-	android:layout_marginBottom="42dip"
-	android:textSize="42dip"
-	android:textStyle="bold"
-	android:textColor="#999"
-	android:text="Yeah !"
-	
-	>
-	</TextView>
+
 </RelativeLayout>
