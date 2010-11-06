@@ -46,6 +46,7 @@ android:layout_height="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_share"
+	android:onClick="share"
 	/>
 	<FrameLayout android:id="@+id/border4"
 	android:layout_height="3dp"
