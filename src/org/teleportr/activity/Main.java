@@ -15,6 +15,8 @@
 
 package org.teleportr.activity;
 
+import java.io.IOException;
+
 import org.teleportr.R;
 import org.teleportr.Teleporter;
 import org.teleportr.R.drawable;
@@ -39,6 +41,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.ContentObserver;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -79,6 +82,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     private Ride[] rides; // results..
 	private int tip;
 	private BaseAdapter adapter;
+	private MediaPlayer sound;
 
     @Override
     public void onCreate(Bundle state) {
@@ -123,7 +127,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	@Override
         	public void onChange(boolean selfChange) {
         		Log.d(Teleporter.TAG, "refresh rides list");
+        		int before = rides.length;
         		rides = teleporter.getRides(rides);
+        		if (before == 0 && rides.length > 0)
+        			sound.start();
 //				bindListAdapter();
         		getListView().forceLayout();
         		getListView().invalidateViews();
@@ -160,6 +167,11 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     		findViewById(R.id.logo).setVisibility(View.GONE);
     		getListView().setVisibility(View.VISIBLE);
     		findViewById(R.id.priorities).setVisibility(View.VISIBLE);
+    		if (sound == null) {
+    			sound = MediaPlayer.create(this, R.raw.teleport);
+    			try { sound.prepare();} catch (Exception e) {}
+    			
+    		}
     	}
     	refresh.onChange(true);
     }
@@ -174,7 +186,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
 		else if (v.getId() == R.id.logo) {
 			if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
     			tip = 1;
-    			openOptionsMenu();
     		}
     		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, ScottySays.class));
 		}
@@ -314,29 +325,6 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         	
         case R.id.settings:
             startActivity(new Intent(this, Settings.class));
-            break;
-            
-        case R.id.feedback:
-        	new AlertDialog.Builder(this)
-	            .setTitle("feedback")
-	            .setIcon(android.R.drawable.ic_dialog_info)
-	            .setPositiveButton("send logs", new DialogInterface.OnClickListener(){
-	                public void onClick(DialogInterface dialog, int whichButton){
-	                	LogCollector.feedback(Main.this, "scotty@teleportr.org, flo@andlabs.de");
-	                }
-	            })
-	            .setNeutralButton("mail scotty", new Dialog.OnClickListener() {
-	                public void onClick(DialogInterface dialog, int which) {
-	                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:scotty@teleportr.org, flo@andlabs.de"));
-	                    intent.putExtra(Intent.EXTRA_SUBJECT, "feedback "+getString(R.string.app_name));
-						try {
-							PackageInfo info = getPackageManager().getPackageInfo("org.teleportr", PackageManager.GET_META_DATA);
-							intent.putExtra(Intent.EXTRA_TEXT, "version: "+info.versionName+" ("+info.versionCode+") \n");
-						} catch (NameNotFoundException e) {}
-	                    startActivity(intent); 
-	                }}
-	            )
-            .show();
             break;
         }
         return super.onOptionsItemSelected(item);

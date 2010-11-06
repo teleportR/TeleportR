@@ -79,7 +79,7 @@
 	    </activity>
 	    
 		<activity android:name=".activity.ScottySays"
-				  android:theme="@android:style/Theme.Dialog">
+				  android:theme="@android:style/Theme.Translucent.NoTitleBar" >
 		</activity>
 
 

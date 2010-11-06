@@ -37,7 +37,7 @@ public class LogCollector {
         } else {
         	Toast.makeText(ctx, "collecting logs..", Toast.LENGTH_LONG);
         	
-        	String[] filterSpecs = new String[7];
+        	String[] filterSpecs = new String[8];
         	filterSpecs[0] = "*:S";
         	filterSpecs[1] = "HereAmI"+ ":V";
         	filterSpecs[2] = "AndroidRuntime:E";
@@ -45,7 +45,8 @@ public class LogCollector {
         	filterSpecs[4] = Teleporter.TAG + ":V";
         	filterSpecs[5] = "PlaceProvider" + ":V";
         	filterSpecs[6] = "Autocompletion" + ":V";
-        	intent.putExtra("com.xtralogic.logcollector.intent.extra.EXTRA_FILTER_SPECS", filterSpecs);
+        	filterSpecs[7] = "CloudeMadePlugIn" + ":V";
+        	intent.putExtra("com.xtralogic.logcollector.intent.extra.FILTER_SPECS", filterSpecs);
         	
         	intent.putExtra(Intent.EXTRA_SUBJECT, "feedback "+ctx.getString(R.string.app_name));
         	intent.putExtra("com.xtralogic.logcollector.intent.extra.SEND_INTENT_ACTION", Intent.ACTION_SENDTO);
