@@ -114,10 +114,11 @@
 		    <TextView
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-		    	android:paddingLeft="105dip"
+		    	android:paddingLeft="74dip"
 			    android:text="@string/fun"
 			    android:textStyle="bold"
-			    android:textSize="23dip"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
 			  ></TextView>  
 		    <SeekBar android:id="@+id/fun"
 			    android:layout_width="fill_parent"
@@ -134,10 +135,12 @@
 		    <TextView
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-		    	android:paddingLeft="105dip"
+		    	android:paddingLeft="74dip"
 			    android:text="@string/eco"
 			    android:textStyle="bold"
-			    android:textSize="23dip"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+
 			  ></TextView>  
 		    <SeekBar android:id="@+id/eco"
 			    android:layout_width="fill_parent"
@@ -153,10 +156,12 @@
 		    <TextView
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-		    	android:paddingLeft="105dip"
+		    	android:paddingLeft="74dip"
 			    android:text="@string/fast"
 			    android:textStyle="bold"
-			    android:textSize="23dip"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+
 			  ></TextView>  
 		    <SeekBar android:id="@+id/fast"
 			    android:layout_width="fill_parent"
@@ -172,10 +177,11 @@
 		    <TextView
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-		    	android:paddingLeft="105dip"
+		    	android:paddingLeft="74dip"
 			    android:text="@string/green"
 			    android:textStyle="bold"
-			    android:textSize="23dip"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
 			  ></TextView>  
 		    <SeekBar android:id="@+id/green"
 			    android:layout_width="fill_parent"
@@ -191,10 +197,11 @@
 		    <TextView
 			    android:layout_width="fill_parent"
 			    android:layout_height="wrap_content"
-		    	android:paddingLeft="105dip"
+		    	android:paddingLeft="74dip"
 			    android:text="@string/social"
 			    android:textStyle="bold"
-			    android:textSize="23dip"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
 			  ></TextView>  
 		    <SeekBar android:id="@+id/social"
 			    android:layout_width="fill_parent"
