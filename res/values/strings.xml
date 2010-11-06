@@ -34,7 +34,7 @@
     									\nPlease look at the github wiki on how to write your own (working) plugins...</string>
 
     <string name="autocompletion_settings_summary">cities, streets, stations, etc.</string>
-    <string name="plugIns_settings_summary">where to search for results</string>
+    <string name="plugIns_settings_summary">choose your result-resource</string>
     <string name="downloads_activity_titel">Autocompletion downloads</string>
     <string name="inform_sdcard">Found teleportr data on your sdcard \nMenu->Refresh to download more..</string>
     <string name="downloads_fetch_progress">downloads for this area..</string>
@@ -45,11 +45,11 @@
 
     <string name="about">multi modal mobility browser \nfor customized websurfing of sites related to transportation. \n\nTeleportR is distributed under the GPL3v3 license.</string>
     <string name="copyright">(c) 2010 andlabs gbr, teleportr.org contributors. All rights reserverd.</string>
-    <string name="subphcop">        UI + CD (c) 2010 subphisticated. All rights reserverd.</string>
+    <string name="subphcop">UI + CD (c) 2010 subphisticated.com // All rights reserverd.</string>
     <string name="osm_attribution">Downloaded data (c) OpenStreetMap contributors CC-BY-SA license</string>
     
     <string name="accept">Accept</string>
     <string name="reject">Refuse</string>
-    <string name="eula">\nTeleportR is free and independent software: \nyou can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the license or later
+    <string name="eula">\nTeleportR is free and independent software: \nYou can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the license or later
     \n\nTeleportR is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. For more details see \nhttp://www.gnu.org/licenses  \n\nAll downloaded map data (c) OpenStreetMap contributors, \nCC-BY-SA license.</string>
 </resources>

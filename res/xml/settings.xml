@@ -16,59 +16,53 @@
 			android:key="plugins"
 			android:title="Plugin"
 			android:summary="@string/plugIns_settings_summary">
-			<PreferenceCategory android:title="Installed PlugIns">
+			<PreferenceCategory android:title="[a]=alpha, [p]=preview">
 
 				<CheckBoxPreference  
 				android:key="BahnDePlugIn"  
-				android:title="Bahn.de"  
-				android:summary="public transport.."  
+				android:title="PUBLIC TRANSPORT"  
+				android:summary="travel information from bahn.de [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="CloudMadeBikePlugIn"  
-				android:title="Bike"  
-				android:summary="cloudmade webservice.."  
+				android:title="BIKE"  
+				android:summary="cloudmade navigation [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="CloudMadeDrivePlugIn"  
-				android:title="Drive"  
-				android:summary="cloudmade webservice.."  
+				android:title="CAR"  
+				android:summary="cloudmade navigation [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="GMapsDrivePlugIn"  
-				android:title="Drive"  
-				android:summary="google webservice.."  
+				android:title="CAR"  
+				android:summary="google navigation [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="GMapsWalkPlugIn"  
-				android:title="Walk"  
-				android:summary="google webservice.."  
+				android:title="PATHFINDER (walking)"  
+				android:summary="google navigation [a]"  
 				/>
 				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
-				android:title="mitfahrgelegenheit.de"  
-				android:summary="ridesharing agency.."  
+				android:title="RIDESHARING"  
+				android:summary="e.g. from mitfahrgelegenheit.de [p]"  
 				/>
 				
 				<CheckBoxPreference  
 				android:key="TaxiPlugIn"  
-				android:title="Taxi Ruf Berlin"  
-				android:summary="price calculator.."  
+				android:title="TAXI"  
+				android:summary="taxi fare calculator & calling [a]"  
 				/>
-				<CheckBoxPreference  
-				android:key="FlightPlugIn"  
-				android:title="Fly"  
-				android:summary="airline shedules.."  
-				/>
-
 				<CheckBoxPreference  
 				android:key="SkateboardPlugIn"  
-				android:title="Skate"  
-				android:summary="spots on the way.."  
+				android:title="SKATEBOARD"  
+				android:summary="cloud spotfinder & navigation [p]"  
 				/>
 				<CheckBoxPreference  
 				android:key="TeleporterPlugIn"  
-				android:title="Energy!"  
-				android:summary="beam me there.."  
+				android:title="BEAMING"  
+				android:summary="highly experimental [p] ;-)"  
 				/>
 			</PreferenceCategory>
 			
