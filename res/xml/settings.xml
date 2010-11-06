@@ -24,13 +24,23 @@
 				android:summary="public transport.."  
 				/>
 				<CheckBoxPreference  
-				android:key="CloudMadePlugIn"  
+				android:key="CloudMadeBikePlugIn"  
 				android:title="Bike"  
 				android:summary="cloudmade webservice.."  
 				/>
 				<CheckBoxPreference  
-				android:key="GMapsPlugIn"  
+				android:key="CloudMadeDrivePlugIn"  
 				android:title="Drive"  
+				android:summary="cloudmade webservice.."  
+				/>
+				<CheckBoxPreference  
+				android:key="GMapsDrivePlugIn"  
+				android:title="Drive"  
+				android:summary="google webservice.."  
+				/>
+				<CheckBoxPreference  
+				android:key="GMapsWalkPlugIn"  
+				android:title="Walk"  
 				android:summary="google webservice.."  
 				/>
 				<CheckBoxPreference  
@@ -38,6 +48,7 @@
 				android:title="mitfahrgelegenheit.de"  
 				android:summary="ridesharing agency.."  
 				/>
+				
 				<CheckBoxPreference  
 				android:key="TaxiPlugIn"  
 				android:title="Taxi Ruf Berlin"  
@@ -49,16 +60,6 @@
 				android:summary="airline shedules.."  
 				/>
 
-				<CheckBoxPreference  
-				android:key="BikePlugIn"  
-				android:title="Bike"  
-				android:summary="biking maps.."  
-				/>
-				<CheckBoxPreference  
-				android:key="WalkPlugIn"  
-				android:title="Walk"  
-				android:summary="sightseeing walking directions.."  
-				/>
 				<CheckBoxPreference  
 				android:key="SkateboardPlugIn"  
 				android:title="Skate"  

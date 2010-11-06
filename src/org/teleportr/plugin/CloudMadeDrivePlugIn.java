@@ -18,27 +18,23 @@ import org.teleportr.model.Ride;
 import android.app.SearchManager;
 import android.util.Log;
 
-public class CloudMadePlugIn implements IPlugIn {
+public class CloudMadeDrivePlugIn implements IPlugIn {
 	//not needed 
 	private DefaultHttpClient client;
 	private ArrayList<Ride> rides;
 	private static final String TAG = "CloudeMadePlugIn";
 	
 	// needed
-	// api key
-//	private String CloudemadeApiKey = "YOURCLOUDMADEAPIKEY";
 	final static String CloudemadeApiKey = "07617baa158745f49d5f1c86d4f83fdb";
-	final static String[] TravelModes = new String[]{"bicycle","car"};
 	
-	
-	//not needed 	
-	public CloudMadePlugIn() {
+
+	public CloudMadeDrivePlugIn() {
 	        rides = new ArrayList<Ride>();
 	        client = new DefaultHttpClient();
 	}
 	
     @Override
-    public List<Ride> find(Place o, Place d, Date timeh) {
+    public List<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
         
         StringBuilder url = new StringBuilder();
         url.append("http://routes.cloudmade.com/"); 
@@ -48,7 +44,7 @@ public class CloudMadePlugIn implements IPlugIn {
         url.append(o.lon/1E6).append(","); 
         url.append(d.lat/1E6).append(","); 
         url.append(d.lon/1E6).append("/"); 
-        url.append(TravelModes[0]);
+        url.append("car");
         url.append(".js");
         
         Log.d(TAG, "url: "+url.toString());
@@ -66,10 +62,11 @@ public class CloudMadePlugIn implements IPlugIn {
                 r = new Ride();
                 r.orig = o;
                 r.dest = d;
+                r.distance = Integer.valueOf(m.group(1));
                 r.duration = Integer.valueOf(m.group(2))/60;
-                r.mode = Ride.MODE_BIKE;
+                r.mode = Ride.MODE_DRIVE;
                 r.uri = url.toString();
-                
+
                 r.price = -1;
                 r.fun = 3;
                 r.eco = 3;

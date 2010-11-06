@@ -6,13 +6,14 @@ import java.util.List;
 
 
 import org.teleportr.R;
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
 public class BvgPlugIn implements IPlugIn {
 
     @Override
-    public ArrayList<Ride> find(Place o, Place d, Date time) {
+    public ArrayList<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
         
         ArrayList<Ride> rides = new ArrayList<Ride>();
         

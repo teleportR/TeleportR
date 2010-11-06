@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 import org.teleportr.plugin.IPlugIn;
@@ -33,16 +34,16 @@ import android.util.Log;
 public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "Multiplexer";
-    private Context ctx;
     private Thread worker;
     public ArrayList<Ride> rides;
     public ArrayList<IPlugIn> plugIns;
     private ArrayList<Ride> nextRides;
     public HashMap<IPlugIn, Ride> latest;
+	private Teleporter teleporter;
 
 
-    public QueryMultiplexer(Context ctx) {
-        this.ctx = ctx;
+    public QueryMultiplexer(Teleporter tlp) {
+        teleporter = tlp;
 
         
         nextRides = new ArrayList<Ride>();
@@ -81,7 +82,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
 //
 //        this.ctx.registerReceiver(this.mPluginResponseReceiver, new IntentFilter("org.teleporter.intent.action.RECEIVE_RESPONSE"));
         
-        SharedPreferences plugInSettings = ctx.getSharedPreferences("plugIns", ctx.MODE_PRIVATE);
+        SharedPreferences plugInSettings = teleporter.getSharedPreferences("plugIns", teleporter.MODE_PRIVATE);
         plugInSettings.registerOnSharedPreferenceChangeListener(this);
         onSharedPreferenceChanged(plugInSettings, "plugIns");
     }
@@ -124,9 +125,9 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                 		time = latest.get(plugin).dep;
                 		if (time == null)
                 			continue; // this plugin won't find any later rides 
-                		nextRides.addAll(plugin.find(orig, dest, time));
+                		nextRides.addAll(plugin.find(orig, dest, time, teleporter));
                 	} else
-                		nextRides.addAll(plugin.find(orig, dest, new Date()));
+                		nextRides.addAll(plugin.find(orig, dest, new Date(), teleporter));
                 		
                     if (!nextRides.isEmpty())
                     	latest.put(plugin, nextRides.get(nextRides.size()-1));
@@ -134,7 +135,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     Log.d(TAG, plugin+" found: "+nextRides.size());
                     rides.addAll(nextRides);
                     nextRides.clear();
-                	ctx.getContentResolver().notifyChange(Ride.URI, null);    
+                	teleporter.getContentResolver().notifyChange(Ride.URI, null);    
                 }
                 
                 if (before == rides.size())

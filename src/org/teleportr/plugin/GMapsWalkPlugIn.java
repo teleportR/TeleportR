@@ -18,20 +18,20 @@ import org.teleportr.model.Ride;
 
 import android.util.Log;
 
-public class GMapsPlugIn implements IPlugIn {
+public class GMapsWalkPlugIn implements IPlugIn {
 	//not needed 
 	private DefaultHttpClient client;
 	private ArrayList<Ride> rides;
-	private static final String TAG = "GMapsPlugIn";
+	private static final String TAG = "GMapsDrivePlugIn";
 	
 	
-	public GMapsPlugIn() {
+	public GMapsWalkPlugIn() {
 	        rides = new ArrayList<Ride>();
 	        client = new DefaultHttpClient();
 	}
 	
     @Override
-    public List<Ride> find(Place orig, Place dest, Date timeh) {
+    public List<Ride> find(Place orig, Place dest, Date time, Teleporter tlp) {
 
         StringBuffer url = new StringBuffer();
         url.append("http://maps.google.com/maps?f=d&hl=en");
@@ -48,7 +48,7 @@ public class GMapsPlugIn implements IPlugIn {
         else
         	url.append(URLEncoder.encode(dest.name+(dest.city!=null? (", "+dest.city) : "")+"!"));
 
-        url.append("&ie=UTF8&0&om=0&output=kml");
+        url.append("&ie=UTF8&0&om=0&dirflg=w&output=kml");
 
         
         
@@ -75,7 +75,7 @@ public class GMapsPlugIn implements IPlugIn {
             
                 r.orig = orig;
                 r.dest = dest;
-                r.mode = Ride.MODE_DRIVE;
+                r.mode = Ride.MODE_WALK;
                 r.uri = url.toString();
                 
                 r.price = -1;

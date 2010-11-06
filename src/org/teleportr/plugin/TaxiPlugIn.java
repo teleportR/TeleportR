@@ -6,17 +6,25 @@ import java.util.List;
 
 
 import org.teleportr.R;
+import org.teleportr.Teleporter;
 import org.teleportr.model.Place;
 import org.teleportr.model.Ride;
 
+import android.util.Log;
+
 public class TaxiPlugIn implements IPlugIn {
+	
 
     @Override
-    public ArrayList<Ride> find(Place o, Place d, Date time) {
+    public ArrayList<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
 
         ArrayList<Ride> rides = new ArrayList<Ride>();
-        
         Ride r = new Ride();
+        
+        for (Ride ride : tlp.multiplexer.rides) {
+        	if (ride.mode == Ride.MODE_DRIVE)
+        		Log.d(Teleporter.TAG, "dist="+ride.distance);
+        }
       
      // taxi
         r = new Ride();

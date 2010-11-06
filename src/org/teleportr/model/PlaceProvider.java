@@ -16,21 +16,21 @@
 package org.teleportr.model;
 
 import java.io.File;
+
 import org.teleportr.R;
-import org.teleportr.R.drawable;
+
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.UriMatcher;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 
