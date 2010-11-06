@@ -20,29 +20,42 @@ public class TaxiPlugIn implements IPlugIn {
 
         ArrayList<Ride> rides = new ArrayList<Ride>();
         Ride r = new Ride();
-        
         for (Ride ride : tlp.multiplexer.rides) {
-        	if (ride.mode == Ride.MODE_DRIVE)
+        	if (ride.mode == Ride.MODE_DRIVE) {
         		Log.d(Teleporter.TAG, "dist="+ride.distance);
+        		
+        		r = new Ride();
+        		r.orig = o;
+        		r.dest = d;
+        		r.duration = ride.duration;
+        		r.distance = ride.distance;
+        		float dist = r.distance / 1000; // km
+        		r.price = 290;
+        		if (dist < 5) {// first 5km
+        			r.price += dist * 160;
+        		} else {
+        			r.price += 5 * 160;
+        			if (dist < 10) {// 5km - 10km
+        				r.price += (dist-5) * 140;
+        			} else {
+        				r.price += 5 * 140;
+        				r.price += (dist-10) * 125;
+        			}
+        		}
+        		
+
+        		r.mode = Ride.MODE_TAXI;
+        		r.fun = 1;
+        		r.eco = 1;
+        		r.fast = 4;
+        		r.social = 1;
+        		r.green = 1;
+        		rides.add(r);
+        		continue;
+        	}
         }
-      
-     // taxi
-        r = new Ride();
-        r.orig = o;
-        r.dest = d;
-        r.dep = new Date(System.currentTimeMillis()+5*60000);
-        r.arr = new Date(System.currentTimeMillis()+(5+22)*60000);
-        r.mode = Ride.MODE_TAXI;
-        r.price = 2300;
-        r.fun = 1;
-        r.eco = 1;
-        r.fast = 4;
-        r.social = 1;
-        r.green = 1;
-        rides.add(r);
-        rides.add(r);
-        
         return rides;
+      
     }
 
 	@Override

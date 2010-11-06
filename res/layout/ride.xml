@@ -15,8 +15,8 @@ android:layout_width="fill_parent"
  -->
 
 <include
-        layout="@layout/rideview"
-        android:id="@+id/ride" 
+layout="@layout/rideview"
+android:id="@+id/ride" 
 />
 
 
@@ -38,7 +38,6 @@ android:layout_marginTop="10dip"
 android:textSize="19dp"
 android:textStyle="bold"
 android:textColor="#FFF"
-android:text="Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!"
 />
 
 <ImageView
@@ -58,17 +57,19 @@ android:layout_alignParentBottom="true"
 android:layout_width="101dp"
 android:layout_height="wrap_content"
 >
-	<ImageButton android:id="@+id/home"
+	<Button android:id="@+id/home"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_ufo"
+	android:paddingBottom="3dp"
+	android:text="fooo"
 	/>
 	<FrameLayout
 	android:layout_height="3dp"
 	android:layout_width="fill_parent"
-	android:background="#034A66"
+	android:background="#000"
 	/>
-	<ImageButton android:id="@+id/settings"
+	<Button android:id="@+id/settings"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_settings"
@@ -76,9 +77,9 @@ android:layout_height="wrap_content"
 	<FrameLayout android:id="@+id/border3"
 	android:layout_height="3dp"
 	android:layout_width="fill_parent"
-	android:background="#034A66"
+	android:background="#000"
 	/>
-	<ImageButton android:id="@+id/share"
+	<Button android:id="@+id/share"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_share"
@@ -87,7 +88,7 @@ android:layout_height="wrap_content"
 	<FrameLayout android:id="@+id/border4"
 	android:layout_height="3dp"
 	android:layout_width="fill_parent"
-	android:background="#034A66"
+	android:background="#000"
 	/>
 </LinearLayout>
 
