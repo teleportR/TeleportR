@@ -52,7 +52,6 @@ android:imeOptions="actionDone"
 android:inputType="phone"
 android:textStyle="bold"
 android:textSize="33dip"
-
 android:hint="42"
 android:background="@drawable/textfield"
 

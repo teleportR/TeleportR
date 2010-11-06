@@ -93,6 +93,7 @@
      android:orientation="horizontal"
      android:handle="@+id/handle"
      android:content="@+id/pane"
+     android:visibility="gone"
      >
 
      <ImageView android:id="@id/handle"

@@ -159,6 +159,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     	if (teleporter.origin != null && teleporter.destination != null) {
     		findViewById(R.id.logo).setVisibility(View.GONE);
     		getListView().setVisibility(View.VISIBLE);
+    		findViewById(R.id.priorities).setVisibility(View.VISIBLE);
     	}
     	refresh.onChange(true);
     }
