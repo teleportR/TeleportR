@@ -78,7 +78,7 @@ public class ScottySays extends Activity {
 				speak.setDuration(420);
 				final TranslateAnimation bounce = new TranslateAnimation(100, 0, 0, 0);
 				bounce.setInterpolator(new BounceInterpolator());
-				bounce.setDuration(1200);
+				bounce.setDuration(700);
 
 				scottySay.startAnimation(speak);
 				scottyText.startAnimation(speak);
@@ -88,7 +88,7 @@ public class ScottySays extends Activity {
 				mailButton.setVisibility(View.VISIBLE);
 				scottyText.setText(getIntent().getAction());
 			}
-		}, 700);
+		}, 650);
 	}
 	
 	@Override

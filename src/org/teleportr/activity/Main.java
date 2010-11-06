@@ -46,6 +46,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -83,6 +84,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
 	private int tip;
 	private BaseAdapter adapter;
 	private MediaPlayer sound;
+	private Vibrator vibrator;
 
     @Override
     public void onCreate(Bundle state) {
@@ -129,8 +131,15 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         		Log.d(Teleporter.TAG, "refresh rides list");
         		int before = rides.length;
         		rides = teleporter.getRides(rides);
-        		if (before == 0 && rides.length > 0)
+        		if (before == 0 && rides.length > 0) {
+        			new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							vibrator.vibrate(500);
+						}
+					}, 230);
         			sound.start();
+        		}
 //				bindListAdapter();
         		getListView().forceLayout();
         		getListView().invalidateViews();
@@ -168,9 +177,9 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
     		getListView().setVisibility(View.VISIBLE);
     		findViewById(R.id.priorities).setVisibility(View.VISIBLE);
     		if (sound == null) {
-    			sound = MediaPlayer.create(this, R.raw.teleport);
+    			sound = MediaPlayer.create(this, R.raw.meepmeep);
     			try { sound.prepare();} catch (Exception e) {}
-    			
+    			vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     		}
     	}
     	refresh.onChange(true);
@@ -320,7 +329,10 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
             break;
 
         case R.id.scotty:
-        	startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, ScottySays.class));
+        	if (tip > 0 && getSharedPreferences("autocompletion", 0).getAll().isEmpty()) {
+    			tip = 1;
+    		}
+    		startActivity(new Intent(getResources().getStringArray(R.array.tips)[tip++], null, Main.this, ScottySays.class));
         	break;
         	
         case R.id.settings:
