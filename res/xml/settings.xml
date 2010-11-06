@@ -35,7 +35,7 @@
 				/>
 				<CheckBoxPreference  
 				android:key="GMapsDrivePlugIn"  
-				android:title="CAR"  
+				android:title="CAR2"  
 				android:summary="google navigation [a]"  
 				/>
 				<CheckBoxPreference  
@@ -46,7 +46,7 @@
 				<CheckBoxPreference  
 				android:key="MfgPlugIn"  
 				android:title="RIDESHARING"  
-				android:summary="e.g. from mitfahrgelegenheit.de [p]"  
+				android:summary="compare ridesharing providers [p]"  
 				/>
 				
 				<CheckBoxPreference  

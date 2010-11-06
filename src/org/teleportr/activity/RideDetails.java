@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 
 public class RideDetails extends Activity {
 
@@ -51,6 +53,8 @@ public class RideDetails extends Activity {
 		case Ride.MODE_FLIGHT:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_flight);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_ufo);
+			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
+
 			break;
 		case Ride.MODE_TRAIN:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_train);

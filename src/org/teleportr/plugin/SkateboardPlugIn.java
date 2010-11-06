@@ -20,8 +20,7 @@ public class SkateboardPlugIn implements IPlugIn {
         r = new Ride();
         r.orig = o;
         r.dest = d;
-        r.dep = new Date(System.currentTimeMillis()+3*60000);
-        r.arr = new Date(System.currentTimeMillis()+(3+123)*60000);
+        r.duration = (3+123)*60000;
         r.mode = Ride.MODE_SK8;
         
         r.fun = 5;

@@ -38,7 +38,6 @@ android:layout_marginTop="10dip"
 android:textSize="19dp"
 android:textStyle="bold"
 android:textColor="#FFF"
-android:text="Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!"
 />
 
 <ImageView
