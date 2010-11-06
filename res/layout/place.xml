@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/layout"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:background="#000000"
@@ -40,7 +41,7 @@ android:imeOptions="actionDone"
 android:inputType="phone"
 android:textStyle="bold"
 android:textSize="33dip"
-android:gravity="center"
+
 android:hint="42"
 />
 
