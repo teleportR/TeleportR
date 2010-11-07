@@ -109,8 +109,8 @@ public class ScottySays extends Activity {
         })
         .setNeutralButton("mail scotty", new Dialog.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:scotty@teleportr.org, flo@andlabs.de"));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "feedback "+getString(R.string.app_name));
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:scotty@teleportr.org"));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "beam me up! "+getString(R.string.app_name));
 				try {
 					PackageInfo info = getPackageManager().getPackageInfo("org.teleportr", PackageManager.GET_META_DATA);
 					intent.putExtra(Intent.EXTRA_TEXT, "version: "+info.versionName+" ("+info.versionCode+") \n");
