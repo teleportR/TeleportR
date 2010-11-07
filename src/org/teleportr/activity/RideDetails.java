@@ -1,6 +1,7 @@
 package org.teleportr.activity;
 
 import org.teleportr.R;
+import org.teleportr.Teleporter;
 import org.teleportr.model.Ride;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ public class RideDetails extends Activity {
 
 
 	private Ride ride;
+	private String shareText = "mobility goes mobile @teleporter #gtugbc #gddde";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +56,13 @@ public class RideDetails extends Activity {
 				}
 			});
 			((TextView)findViewById(R.id.text1)).setText("very basic concept of a teleportR taxi-plugin. if you need a taxi, hit the button below, and talk to a munich taxi company. plz. compare the real fare payed to our estimated and tell us the difference --> scotty@teleportR.org");
+			shareText = "#taxi to "+((Teleporter)getApplication()).destination.name+"? #rideshare @teleporter #gtugbc #gddde";
 			break;
 		case Ride.MODE_DRIVE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_drive);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_car);
 			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
+			shareText = "driving to "+((Teleporter)getApplication()).destination.name+" #rideshare @teleporter #gtugbc #gddde";
 			break;
 		case Ride.MODE_WALK:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_walk);
@@ -68,7 +73,7 @@ public class RideDetails extends Activity {
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_flight);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_ufo);
 			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
-
+			shareText = "found Scotty @teleporter and unlocked one #beer @niederlassung #gtugbc #gddde";
 			break;
 		case Ride.MODE_TRAIN:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_train);
@@ -79,6 +84,9 @@ public class RideDetails extends Activity {
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_transit);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_transit);
 			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
+			((WebView)findViewById(R.id.web)).loadUrl(ride.uri);
+			findViewById(R.id.web).setVisibility(View.VISIBLE);
+			shareText = "on my way to "+((Teleporter)getApplication()).destination.name+" @teleporter arriving "+RideView.DATE_FORMAT.format(ride.arr)+" #gtugbc #gddde "+ride.uri;
 			break;
 		case Ride.MODE_TELEPORTER:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_teleporter);
@@ -98,7 +106,7 @@ public class RideDetails extends Activity {
 		final Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_SUBJECT, "teleportR");
-		intent.putExtra(Intent.EXTRA_TEXT, "#beer @niederlassung");
+		intent.putExtra(Intent.EXTRA_TEXT, shareText);
 
 		startActivity(Intent.createChooser(intent, "TWEET this to unlock your FREE beer @niederlassung!"));
 	}

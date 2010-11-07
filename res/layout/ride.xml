@@ -48,6 +48,15 @@ android:layout_marginLeft="120dp"
 android:src="@drawable/scotty_bier"
 />
 
+<WebView android:id="@+id/web"
+android:layout_height="wrap_content"
+android:layout_width="wrap_content"
+android:layout_marginLeft="100dip"
+android:layout_below="@id/border"
+android:layout_alignParentRight="true"
+android:layout_alignParentBottom="true"
+android:visibility="gone"
+/>
 
 <LinearLayout android:id="@+id/layout"
 android:layout_alignParentLeft="true"

@@ -43,7 +43,7 @@ public class RideView extends RelativeLayout {
     private TextView minutes_label;
 	private ImageView currency;
 
-	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("hh:mm");
 
     public RideView(Context context, AttributeSet attrs) {
         super(context, attrs);
