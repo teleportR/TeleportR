@@ -35,18 +35,12 @@ android:layout_alignParentLeft="true"
 android:layout_below="@id/border"
 android:layout_marginLeft="111dip"
 android:layout_marginTop="10dip"
-android:textSize="19dp"
+android:textSize="17dp"
 android:textStyle="bold"
 android:textColor="#FFF"
 />
 
-<ImageView
-android:layout_below="@id/text1"
-android:layout_height="wrap_content"
-android:layout_width="wrap_content"
-android:layout_marginLeft="120dp"
-android:src="@drawable/scotty_bier"
-/>
+
 
 
 <LinearLayout android:id="@+id/layout"
@@ -54,7 +48,7 @@ android:layout_alignParentLeft="true"
 android:orientation="vertical"
 android:layout_below="@id/border"
 android:layout_alignParentBottom="true"
-android:layout_width="101dp"
+android:layout_width="100dp"
 android:layout_height="wrap_content"
 >
 	<Button android:id="@+id/home"
@@ -62,7 +56,7 @@ android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_ufo"
 	android:paddingBottom="3dp"
-	android:text="fooo"
+	android:text="start"
 	/>
 	<FrameLayout
 	android:layout_height="3dp"
@@ -73,6 +67,8 @@ android:layout_height="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_settings"
+	android:text="settings"
+
 	/>
 	<FrameLayout android:id="@+id/border3"
 	android:layout_height="3dp"
@@ -84,6 +80,8 @@ android:layout_height="wrap_content"
 	android:layout_width="fill_parent"
 	android:background="@drawable/btn_share"
 	android:onClick="share"
+	android:text="share"
+
 	/>
 	<FrameLayout android:id="@+id/border4"
 	android:layout_height="3dp"

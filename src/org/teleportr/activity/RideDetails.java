@@ -29,12 +29,12 @@ public class RideDetails extends Activity {
 		case Ride.MODE_SK8:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_sk8);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_sk8);
-			((TextView)findViewById(R.id.text1)).setText("wouldn't it be great to skate through town, and your phone introduces you to the nicest spots along the way? if you are skate-nerd or nerd-skater feel free to write this plugin... \n\n--> scotty@teleportR.org ");
+			((TextView)findViewById(R.id.text1)).setText("wouldn't it be great to skate through town, and your phone introduces you to the nicest spots along the way? if you are skate-nerd or nerd-skater feel free to write this plugin. \n\n scotty@teleportR.org ");
 			break;
 		case Ride.MODE_MFG:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_mfg);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_mfg);
-			((TextView)findViewById(R.id.text1)).setText("sharing is great! sharing mobility is also quite cheap and enviremental friendly. why not have a place, where you can find all the different offers at one time? feel free to help us shift the paradigms of mobility...  \n\n--> scotty@teleportR.org");
+			((TextView)findViewById(R.id.text1)).setText("sharing is great! sharing mobility is also quite cheap and enviremental friendly. why not have a place, where you can find all the different offers at one time? feel free to help us shift the paradigms of mobility. \n\n scotty@teleportR.org");
 			break;
 		case Ride.MODE_BIKE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_bike);
@@ -44,17 +44,17 @@ public class RideDetails extends Activity {
 		case Ride.MODE_TAXI:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_taxi);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_taxi);
-			((TextView)findViewById(R.id.text1)).setText("very basic concept of a teleportR taxi-plugin. if you need a taxi, hit the button below, and talk to a munich taxi company. plz. compare the real fare payed to our estimated and tell us the difference \n\n--> scotty@teleportR.org");
+			((TextView)findViewById(R.id.text1)).setText("very basic concept of a teleportR taxi-plugin. if you need a taxi, hit the button below, and talk to a munich taxi company. plz. compare the real fare payed to our estimated and tell us the difference. \n\n scotty@teleportR.org");
 			break;
 		case Ride.MODE_DRIVE:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_drive);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_car);
-			((TextView)findViewById(R.id.text1)).setText("basicly this is just a navi. one like nearly everyboby got. how could one make this extraordinary and super userfriendly? push the button for testing, and share your ideas. \n\n--> scotty@teleportR.org");
+			((TextView)findViewById(R.id.text1)).setText("basicly this is just a navi. one like nearly everybody got. how could one make this extraordinary and super userfriendly? push the button for testing, and share your ideas. \n\n scotty@teleportR.org");
 			break;
 		case Ride.MODE_WALK:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_walk);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_walk);
-			((TextView)findViewById(R.id.text1)).setText("the walkers guide through urbanity. how can we make this galactic? help us \n\n--> scotty@teleportR.org");
+			((TextView)findViewById(R.id.text1)).setText("the walkers guide through urbanity. how can we make this galactic? help us. \n\n scotty@teleportR.org");
 			break;
 		case Ride.MODE_FLIGHT:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_flight);
