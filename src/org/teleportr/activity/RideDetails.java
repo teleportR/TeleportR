@@ -21,6 +21,7 @@ public class RideDetails extends Activity {
 
 	private Ride ride;
 	private String shareText = "mobility goes mobile @teleporter #gtugbc #gddde";
+	private String shareIntruction = "SHARE this";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class RideDetails extends Activity {
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_ufo);
 			((TextView)findViewById(R.id.text1)).setText("Congratulations!\nYou found Scotty :-)\nand won a FREE beer.\nHit the SHARE button\nto unlock your beer.\nCheers!");
 			shareText = "found Scotty @teleporter and unlocked one #beer @niederlassung #gtugbc #gddde";
+			shareIntruction  = "TWEET this to unlock your FREE beer @niederlassung!";
 			break;
 		case Ride.MODE_TRAIN:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_train);
@@ -115,7 +117,6 @@ public class RideDetails extends Activity {
 		}
 	}
 	
-	
 	public void share(View v) {
 		
 		final Intent intent = new Intent(Intent.ACTION_SEND);
@@ -123,7 +124,7 @@ public class RideDetails extends Activity {
 		intent.putExtra(Intent.EXTRA_SUBJECT, "teleportR");
 		intent.putExtra(Intent.EXTRA_TEXT, shareText);
 
-		startActivity(Intent.createChooser(intent, "TWEET this to unlock your FREE beer @niederlassung!"));
+		startActivity(Intent.createChooser(intent, shareIntruction));
 	}
 
 
