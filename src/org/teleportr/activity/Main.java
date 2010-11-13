@@ -49,6 +49,7 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -437,15 +438,29 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         // TODO Auto-generated method stub
         
     }
+    
+    // also supported in donut
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            SlidingDrawer slider = (SlidingDrawer) findViewById(R.id.priorities);
+            if (slider.isOpened()) {
+            	slider.close();
+            	return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
-	@Override
-	public void onBackPressed() {
-		SlidingDrawer slider = (SlidingDrawer) findViewById(R.id.priorities);
-		if (slider.isOpened())
-			slider.close();
-		else
-			super.onBackPressed();
-	}
+    // only supported since eclair (5)
+//	@Override
+//	public void onBackPressed() {
+//		SlidingDrawer slider = (SlidingDrawer) findViewById(R.id.priorities);
+//		if (slider.isOpened())
+//			slider.close();
+//		else
+//			super.onBackPressed();
+//	}
     
     @Override
 	public boolean onSearchRequested() {
