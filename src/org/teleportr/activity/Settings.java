@@ -30,11 +30,14 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class Settings extends PreferenceActivity {
 
@@ -54,8 +57,20 @@ public class Settings extends PreferenceActivity {
         ((PreferenceScreen)findPreference("autocompletion"))
         .setIntent(new Intent(this, Autocompletion.class));
 
-        ((PreferenceScreen)findPreference("quicksearch"))
-        .setIntent(new Intent().setClassName("com.android.quicksearchbox", "com.android.quicksearchbox.SearchSettings"));
+        
+        ((PreferenceScreen)findPreference("quicksearch")).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				try {
+					startActivity(new Intent().setClassName("com.android.globalsearch", "com.android.globalsearch.SearchSettings"));
+				} catch (Exception e) {
+					startActivity(new Intent().setClassName("com.android.quicksearchbox", "com.android.quicksearchbox.SearchSettings"));
+				}
+				Toast.makeText(getApplicationContext(), "Click on 'Searchable items' and select TeleportR..", Toast.LENGTH_LONG).show();
+				return true;
+			}
+		});
     }
 
     @Override
