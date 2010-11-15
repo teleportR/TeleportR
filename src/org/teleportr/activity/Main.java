@@ -142,9 +142,7 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
 					}, 230);
         			sound.start();
         		}
-//				bindListAdapter();
-        		getListView().forceLayout();
-        		getListView().invalidateViews();
+				adapter.notifyDataSetChanged();
         	}
         };
         
