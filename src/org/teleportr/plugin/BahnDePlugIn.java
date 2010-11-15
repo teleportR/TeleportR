@@ -50,8 +50,8 @@ public class BahnDePlugIn implements IPlugIn {
         url.append("http://mobile.bahn.de/bin/mobil/query.exe/dox?");
         url.append("n=1");
         
-        if (orig.city!=null)
-        	Log.d(TAG, "city: "+orig.city);
+//        if (orig.city!=null)
+//        	Log.d(TAG, "city: "+orig.city);
         if (orig.address != null)
         	url.append("&f=2&s=").append(URLEncoder.encode(orig.address+
 							(orig.city!=null? (", "+orig.city) : "")+"!"));

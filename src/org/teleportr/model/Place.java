@@ -149,17 +149,32 @@ public class Place implements Parcelable, BaseColumns {
     		} else Log.d(Teleporter.TAG, "place not found!");
     		
     	} else if (uri.getScheme().equals("geo")) {
-    		String query = URLDecoder.decode(uri.toString().substring(10));
+    		String query = uri.getQuery();
     		Log.d(Teleporter.TAG, "uri: "+uri);
     		Log.d(Teleporter.TAG, "query: "+query);
     		
-            String[] q = query.split(",");
-            if (Character.isDigit(query.charAt(0))) {
-//                p.address = q[0].substring(q[0].indexOf(" ")+1) +" "+ q[0].substring(0, q[0].indexOf(" "))+", "+q[1].split(" ")[1];
-            } else {
-                p.address = q[0]+", "+ q[1].split(" ")[2];
-            }
-            p.name = p.address;
+    		if (query != null) {
+    			// qype formating
+    			String[] q = query.substring(2).split(", ");
+    			if (q.length == 2) {
+    				p.address = q[0].substring(q[0].indexOf(" "))+" "; // street
+    				p.address += q[0].substring(0, q[0].indexOf(" ")); // number
+    				Log.d(Teleporter.TAG, "address: "+p.address);
+    				p.city = q[1].substring(0, q[1].indexOf(" "));
+    				Log.d(Teleporter.TAG, "city: "+p.city);
+    				p.name = q[1].substring(q[1].indexOf("(")+1, q[1].indexOf(")"));
+    				Log.d(Teleporter.TAG, "name: "+p.name);
+    			}
+    		} else {
+    			String[] latlon = uri.toString().split(":")[1].split(",");
+    			if (latlon.length == 2) {
+    				p.lat = (int) (Float.parseFloat(latlon[0])*1E6);
+    				p.lon = (int) (Float.parseFloat(latlon[1])*1E6);
+    				Log.d(Teleporter.TAG, "latlon: "+p.lat+","+p.lon);
+    				p.name = "klicktel";
+    			}
+    		}
+
     	}
     	
     	return p;

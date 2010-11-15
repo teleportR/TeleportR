@@ -136,7 +136,8 @@ public class Main extends ListActivity implements OnSeekBarChangeListener, OnCli
         			new Handler().postDelayed(new Runnable() {
 						@Override
 						public void run() {
-							vibrator.vibrate(500);
+							vibrator.vibrate(200);
+							vibrator.vibrate(200);
 						}
 					}, 230);
         			sound.start();
