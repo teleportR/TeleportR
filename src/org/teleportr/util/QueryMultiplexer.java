@@ -40,8 +40,6 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
     private ArrayList<Ride> nextRides;
     public HashMap<IPlugIn, Ride> latest;
 	private Teleporter teleporter;
-	private boolean noCar;
-	private boolean car;
 	private boolean taxi;
 
 
@@ -98,15 +96,11 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
         try {
         	
         	if (plugInSettings.getBoolean("TaxiPlugIn", false)) {
-        		taxi = true;
+        		taxi = true; // taxi depends car which must be first
         		plugIns.add((IPlugIn) Class.forName("org.teleportr.plugin.CloudMadeDrivePlugIn").newInstance());
-        		if (!plugInSettings.getBoolean("CloudMadeDrivePlugIn", false))
-        			car = false;
-        		else
-        			car = true;
-        			
-        	}
-        		
+        	} else 
+        		taxi = false;
+        	
             for (String p : plugInSettings.getAll().keySet()) {
                 if (plugInSettings.getBoolean(p, false)){
                     Log.d(TAG, " + plugin "+p+" selected");
@@ -148,8 +142,7 @@ public class QueryMultiplexer implements OnSharedPreferenceChangeListener {
                     	latest.put(plugin, nextRides.get(nextRides.size()-1));
 
                     Log.d(TAG, plugin.getClass().getName()+" found: "+nextRides.size());
-                    if (!(!car && plugin.getClass().getName().equals("org.teleportr.plugin.CloudMadeDrivePlugIn")))
-                    	rides.addAll(nextRides);
+                    rides.addAll(nextRides);
                     nextRides.clear();
                 	teleporter.getContentResolver().notifyChange(Ride.URI, null);    
                 }
