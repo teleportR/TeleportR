@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,7 +32,7 @@ public class RideDetails extends Activity {
 	    ride = (Ride) getIntent().getParcelableExtra("ride");
 //	    ((RideView)findViewById(R.id.ride)).setRide(ride);
 	    
-	    switch (ride.mode) {
+		switch (ride.mode) {
 	    
 		case Ride.MODE_SK8:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_sk8);
@@ -81,9 +82,18 @@ public class RideDetails extends Activity {
 		case Ride.MODE_TRANSIT:
 			findViewById(R.id.layout).setBackgroundResource(R.drawable.mode_transit);
 			((Button)findViewById(R.id.home)).setBackgroundResource(R.drawable.btn_transit);
-			((WebView)findViewById(R.id.web)).loadUrl(ride.uri);
-			findViewById(R.id.web).setVisibility(View.VISIBLE);
+			final WebView webview = (WebView)findViewById(R.id.web);
+			findViewById(R.id.progress).setVisibility(View.VISIBLE);
 			findViewById(R.id.go).setVisibility(View.GONE);
+			webview.loadUrl(ride.uri);
+			webview.setWebChromeClient(new WebChromeClient() {
+				@Override
+				public void onProgressChanged(WebView view, int newProgress) {
+					if (newProgress == 100) {
+						webview.setVisibility(View.VISIBLE);
+						findViewById(R.id.progress).setVisibility(View.GONE);
+					}
+			}});
 			shareText = "on my way to "+((Teleporter)getApplication()).destination.name+" @teleporter arriving "+RideView.DATE_FORMAT.format(ride.arr)+" #gtugbc #gddde "+ride.uri;
 			((TextView)findViewById(R.id.text1)).setText("");
 			((ImageView)findViewById(R.id.advertisement)).setBackgroundResource(R.drawable.mode_transit);
