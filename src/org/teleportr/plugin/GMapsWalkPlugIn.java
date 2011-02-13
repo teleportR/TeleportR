@@ -33,6 +33,8 @@ public class GMapsWalkPlugIn implements IPlugIn {
     @Override
     public List<Ride> find(Place orig, Place dest, Date time, Teleporter tlp) {
 
+    	rides.clear();
+    	
         StringBuffer url = new StringBuffer();
         url.append("http://maps.google.com/maps?f=d&hl=en");
         

@@ -36,6 +36,8 @@ public class CloudMadeDrivePlugIn implements IPlugIn {
     @Override
     public List<Ride> find(Place o, Place d, Date time, Teleporter tlp) {
         
+    	rides.clear();
+    	
         StringBuilder url = new StringBuilder();
         url.append("http://routes.cloudmade.com/"); 
         url.append(CloudemadeApiKey);

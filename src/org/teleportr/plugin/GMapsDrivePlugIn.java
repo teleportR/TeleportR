@@ -33,6 +33,8 @@ public class GMapsDrivePlugIn implements IPlugIn {
     @Override
     public List<Ride> find(Place orig, Place dest, Date time, Teleporter tlp) {
 
+    	rides.clear();
+    	
         StringBuffer url = new StringBuffer();
         url.append("http://maps.google.com/maps?f=d&hl=en");
         
@@ -60,16 +62,19 @@ public class GMapsDrivePlugIn implements IPlugIn {
             HttpGet get = new HttpGet(url.toString());
             HttpResponse response = client.execute(get);
             Scanner scanner = new Scanner(response.getEntity().getContent());
-            Log.d(Teleporter.TAG,"foo" + scanner.toString());
-            while (scanner.findWithinHorizon(" \\(about (\\d*) hours? (\\d*) mins?| (\\d*) mins?\\)", 100000) != null) {
+
+            while (scanner.findWithinHorizon("Distance: (.*)&.*\\(about (\\d*) hours? (\\d*) mins?|Distance: (.*)&.* (\\d*) mins?\\)", 100000) != null) {
                 m = scanner.match();
                 r = new Ride();
                 
                 if (m.group(1) != null) {
-                	r.duration += Integer.parseInt(m.group(1))*60;
-                	r.duration += Integer.parseInt(m.group(2));
-                } else
+                	r.distance = (int) (Float.parseFloat(m.group(1))*1000);
+                	r.duration += Integer.parseInt(m.group(2))*60;
                 	r.duration += Integer.parseInt(m.group(3));
+                } else {
+                	r.distance = (int) (Float.parseFloat(m.group(4))*1000);
+                	r.duration += Integer.parseInt(m.group(5));
+                }
                 
                 Log.d(TAG,"duration: "+r.duration+"min");
 
