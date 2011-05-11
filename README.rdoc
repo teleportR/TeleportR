@@ -1,0 +1,68 @@
+TelePortR
+=========
+
+* http://teleportr.org
+* http://github.com/orangeman/teleportr/tree/master
+
+
+== About
+
+TeleportR (lat "take/bring somewhere")
+makes your "mobile" (find) the way to go
+by figuring out how best to get somewhere
+and make better use of available resources.
+
+As kind of a customized "Browser" (optimized for certain types of websites related to mobility)
+it helps compare different means of transportation like bikerental, carsharing, hitchhiking or masstransit.
+Location-based "Bookmarks" (with some little intelligence regarding url-parameters)
+are applied to automate websurfing or hook up with more specialized applications
+
+social road transit gets better the more people us it. spread the word and tell a friend.
+
+
+
+TeleportR 
+(lat "take/bring somewhere")
+is a "multi-modal mobility Browser".
+
+It tries to make the cell phone (find) the way to go
+by automagically figuring out how to best get somewhere.
+
+As a customized browser optimized for certain kind of websites related to transportation
+it uses location-based Bookmarks (with some little intelligence regarding url-parameters)
+that can be applied to automate websurfing and compare different modes of transportation
+
+It should make users aware what data they provide to whom by using positioning detection
+thus putting them in controll and let them decide how to find out their current location
+
+
+
+== Build
+
+	$ android update project --path .
+	$ ant install
+
+
+
+== Improve
+
+	implement plugin/IPlugIn.java[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin/IPlugIn.java]
+	or play with some mockPlugIns[http://github.com/orangeman/teleportr/blob/master/src/org/teleportr/plugin]
+	for the Intent API look here[http://wiki.github.com/orangeman/teleportr/intent-api]
+	
+
+
+mailing list
+
+	* scotty@teleportr.org[mailto://scotty-subscribe@teleportr.org]	
+
+experimental builds
+
+	* cmip.c-base.org/redpill[http://cmip.c-base.org/redpill]	
+
+
+== License
+
+TelePortR is distributed under the GPLv3.  Please see the LICENSE file.
+All autocompletion data-sets (c) openstreetmap.org[http://openstreetmap.org] and geonames.org[http://geonames.org] distributed under CC-BY-SA license.
+

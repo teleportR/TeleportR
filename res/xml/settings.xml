@@ -3,18 +3,76 @@
 	
 	<PreferenceCategory android:title="Settings">
 	
-		<EditTextPreference
-		android:key="key"
-		android:title="@string/settings_title"
-		android:dialogTitle="@string/settings_dialog"
-		/> 
+		<PreferenceScreen 
+			android:key="autocompletion"
+			android:title="Places"
+			android:summary="@string/autocompletion_settings_summary">
+			<PreferenceCategory android:title="Downloads">
+			</PreferenceCategory>
+		</PreferenceScreen>
 
-		<CheckBoxPreference
-			android:key="other"
-			android:title="@string/settings_title"
-			android:summaryOn="@string/settings_on"
-			android:summaryOff="@string/settings_off"
-		/>	
 
+		<PreferenceScreen 
+			android:key="plugins"
+			android:title="Plugin"
+			android:summary="@string/plugIns_settings_summary">
+			<PreferenceCategory android:title="[a]=alpha, [p]=preview">
+
+				<CheckBoxPreference  
+				android:key="BahnDePlugIn"  
+				android:title="PUBLIC TRANSIT"  
+				android:summary="travel information from bahn.de [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="CloudMadeBikePlugIn"  
+				android:title="BIKE"  
+				android:summary="cloudmade bike route finder [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="CloudMadeDrivePlugIn"  
+				android:title="CAR"  
+				android:summary="cloudmade navigation [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="GMapsDrivePlugIn"  
+				android:title="CAR2"  
+				android:summary="google navigation [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="GMapsWalkPlugIn"  
+				android:title="PATHFINDER"  
+				android:summary="google walking directions [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="MfgPlugIn"  
+				android:title="RIDESHARING"  
+				android:summary="compare carpool providers [p]"  
+				/>
+				
+				<CheckBoxPreference  
+				android:key="TaxiPlugIn"  
+				android:title="TAXI"  
+				android:summary="fare calculator &amp; calling [a]"  
+				/>
+				<CheckBoxPreference  
+				android:key="SkateboardPlugIn"  
+				android:title="SKATEBOARD"  
+				android:summary="cloud spotfinder &amp; navigator [p]"  
+				/>
+				<CheckBoxPreference  
+				android:key="TeleporterPlugIn"  
+				android:title="BEAMING"  
+				android:summary="highly experimental [p] ;-)"  
+				/>
+			</PreferenceCategory>
+			
+		</PreferenceScreen>
+		
+		<PreferenceScreen 
+			android:key="quicksearch"
+			android:title="Search"
+			android:summary="@string/quicksearch_settings_summary">
+		</PreferenceScreen>
+		
 	</PreferenceCategory>
 </PreferenceScreen>  

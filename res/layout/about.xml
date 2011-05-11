@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	
+	<ImageView android:id="@+id/andlabs"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:src="@drawable/logo_andlabs"
+		android:layout_marginLeft="10dip"
+		android:layout_marginTop="10dip"
+	/>
+	<ImageView android:id="@+id/subphisticated"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:src="@drawable/logo_subphisticated"
+		android:layout_marginRight="10dip"
+		android:layout_marginTop="10dip"
+	/>
+	
+	<ImageView android:id="@+id/logo"
+		android:layout_below="@id/andlabs"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:src="@drawable/logo"
+	/>
+	<TextView android:id="@+id/about"
+		android:textStyle="bold"
+		android:textSize="16dip"
+		android:gravity="center"
+		android:text="@string/about"
+		android:layout_below="@id/logo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+	/>
+
+	<TextView android:id="@+id/osm"
+		android:textSize="9dip"
+		android:gravity="center"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:text="@string/osm_attribution"
+		android:layout_marginBottom="10dip"
+
+	/>
+	<TextView android:id="@+id/subcop"
+		android:layout_above="@id/osm"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="9dip"
+		android:gravity="center"
+		android:text="@string/subphcop"
+	/>
+	<TextView 
+		android:layout_above="@id/subcop"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="9dip"
+		android:gravity="center"
+		android:text="@string/copyright"
+	/>
+	</RelativeLayout>

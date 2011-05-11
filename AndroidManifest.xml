@@ -1,36 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="de.andlabs.teleporter"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+      package="org.teleportr"
+      android:versionCode="7"
+      android:versionName="v1rc7">
+      
+    <uses-sdk android:minSdkVersion="4" 
+  	      android:targetSdkVersion="8"/>
+    <supports-screens
+          android:largeScreens="false"
+          android:normalScreens="true"
+          android:smallScreens="true"
+          android:anyDensity="false" />
+          
+    <application android:debuggable="true" 
+    			 android:icon="@drawable/icon" 
+    			 android:label="@string/app_name" android:name="Teleporter">
         
-        <activity android:name=".Main"
-                  android:label="@string/app_name">
-                  
+
+        <activity android:name=".activity.Main"
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoTitleBar"
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
-            <!-- Receives the search request. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="geo" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-            <!-- Points to searchable meta data. -->
             <meta-data android:name="android.app.searchable"
-                    android:resource="@xml/searchable"/>
+                    android:resource="@xml/destination">
+            </meta-data>
         </activity>
         
-        <!-- Provides search suggestions for places. -->
-        <provider android:name="PlaceProvider"
-                android:authorities="de.andlabs.teleporter"
-                android:syncable="false" />
+        <activity android:name=".activity.HereAmI"
+        		  android:theme="@android:style/Theme.Translucent"
+				  android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/origin">
+            </meta-data>
+		</activity>
 
-    <activity android:name="SettingsActivity"></activity>
+		 <activity android:name=".activity.Energy" 
+		 		   android:screenOrientation="portrait">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="beam" />
+	        </intent-filter>
+	    </activity>
+	    
+		<activity android:name=".activity.PlaceDetails"
+				  android:theme="@android:style/Theme.NoTitleBar"
+				  android:windowSoftInputMode="adjustPan">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
+		</activity>
+		
+		<activity android:name=".activity.RideDetails"
+				  android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
+		</activity>
+	    
+	    <activity android:name=".activity.About"/>
+	    
+	    <activity android:name=".activity.Settings"/>
+
+	    <activity android:name=".activity.Autocompletion"
+	    		  android:screenOrientation="portrait">
+	    </activity>
+	    
+		<activity android:name=".activity.ScottySays"
+				  android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+		</activity>
+
+
+        <provider android:name=".model.PlaceProvider"
+                android:authorities="org.teleportr"
+                android:syncable="false">
+		</provider>
+
 </application>
 
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 </manifest> 

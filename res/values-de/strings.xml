@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dep_label">ab</string>
+    <string name="arr_label">an</string>
+    <string name="dest_default">ziel</string>
+    
+
+    <string name="dialog_no">Nö!</string>
+
+    <string name="autocompletion_settings_summary">Städte, Straßen, Stationen, etc.</string>
+    <string name="plugIns_settings_summary">search results..</string>
+    <string name="downloads_activity_titel">Autocompletion downloads</string>
+    <string name="downloads_fetch_progress">Downloads für diese Gegend..</string>
+    <string name="download_error">Meest! hat was nicht geklappt!</string>
+    
+    <string name="accept">Akzeptieren</string>
+    <string name="reject">Ablehnen</string>
+</resources>

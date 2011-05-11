@@ -1,12 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/app_name"
+    <Button android:id="@+id/dest"
+			    android:maxWidth="250dip"
+			    android:minWidth="142dip"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentRight="true"
+		    	android:paddingTop="17dip"
+			    android:singleLine="true"
+			    android:textSize="23dip"
+			    android:gravity="left"
+			    android:textStyle="bold"
+			    android:ellipsize="middle"
+			    android:text="@string/dest_default"
+			    android:background="@drawable/btn_to"
+	/>
+	<Button android:id="@+id/orig"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toLeftOf="@id/dest"
+		    	android:layout_marginRight="-12dip"
+		    	android:paddingTop="17dip"
+			    android:layout_alignParentLeft="true"
+			    android:ellipsize="middle"
+			    android:textStyle="bold"
+			    android:textSize="23dip"
+			    android:gravity="left"
+			    android:singleLine="true"
+			    android:maxWidth="135dip"
+			    android:text="@string/orig_default"
+			    android:background="@drawable/btn_from"
+			    android:paddingLeft="11dip"
+
+	/>
+   
+	<TextView android:id="@+id/orig_detail"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			    android:layout_alignParentTop="true"
+			    android:layout_alignLeft="@id/orig"
+			    android:layout_toLeftOf="@id/dest"
+				android:layout_marginTop="46dip"
+				android:layout_marginLeft="12dip"
+			    android:gravity="left"
+				android:textSize="10dip"
+				android:textColor="@android:style/color/black"
+	/>
+    <TextView
+				android:id="@+id/dest_detail"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+			    android:layout_alignParentTop="true"
+			    android:layout_alignLeft="@id/dest"
+		    	android:paddingLeft="12dip"
+				android:layout_marginTop="46dip"
+				android:layout_marginLeft="2dip"
+				android:textColor="@android:style/color/black"
+				android:textSize="10dip"
+				android:gravity="left"
+
+	/>
+	
+	    
+	<ListView  
+		android:id="@android:id/list"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_below="@id/orig"
+		android:layout_marginTop="3dip"
+	    android:drawSelectorOnTop="true"
+	    android:divider="#000000"
+	    android:dividerHeight="2dip"
+	    android:listSelector="@drawable/selector"
+	    android:visibility="gone"
     />
-</LinearLayout>
+    <ImageView android:id="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="155dip"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/logo"
+    />
+    
+    <SlidingDrawer android:id="@+id/priorities"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:orientation="horizontal"
+     android:handle="@+id/handle"
+     android:content="@+id/pane"
+     android:visibility="gone"
+     >
+
+     <ImageView android:id="@id/handle"
+         android:layout_width="wrap_content"
+         android:layout_height="280dp"
+         android:paddingTop="200dp"
+         android:src="@drawable/handle"
+         />
+
+     <LinearLayout android:id="@id/pane"
+		    android:paddingTop="9dip"
+		    android:orientation="vertical"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="#CC000000"
+		    >
+		    
+		    <TextView
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="74dip"
+			    android:text="@string/fun"
+			    android:textStyle="bold"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+			  ></TextView>  
+		    <SeekBar android:id="@+id/fun"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:thumb="@drawable/fun"
+		    	android:paddingRight="23dip"
+		    	android:paddingLeft="80dip"
+		    	android:paddingBottom="23dip"
+					android:progress="0"
+			    android:max="5"
+			    android:tag="fun"
+		    ></SeekBar>
+		    
+		    <TextView
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="74dip"
+			    android:text="@string/eco"
+			    android:textStyle="bold"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+
+			  ></TextView>  
+		    <SeekBar android:id="@+id/eco"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:thumb="@drawable/eco"
+		    	android:paddingLeft="80dip"
+		    	android:paddingBottom="23dip"
+		    	android:paddingRight="23dip"
+					android:progress="0"
+			    android:max="5"
+			    android:tag="eco"
+		    ></SeekBar>
+		    <TextView
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="74dip"
+			    android:text="@string/fast"
+			    android:textStyle="bold"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+
+			  ></TextView>  
+		    <SeekBar android:id="@+id/fast"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:thumb="@drawable/fast"
+		    	android:paddingLeft="80dip"
+		    	android:paddingBottom="23dip"
+		    	android:paddingRight="23dip"
+					android:progress="0"
+			    android:max="5"
+			    android:tag="fast"
+		    ></SeekBar>
+		    <TextView
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="74dip"
+			    android:text="@string/green"
+			    android:textStyle="bold"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+			  ></TextView>  
+		    <SeekBar android:id="@+id/green"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:thumb="@drawable/green"
+		    	android:paddingLeft="80dip"
+		    	android:paddingBottom="23dip"
+		    	android:paddingRight="23dip"
+					android:progress="0"
+			    android:max="5"
+			    android:tag="green"
+		    ></SeekBar>
+		    <TextView
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+		    	android:paddingLeft="74dip"
+			    android:text="@string/social"
+			    android:textStyle="bold"
+			    android:textSize="15dip"
+			    android:textColor="#ffffff"
+			  ></TextView>  
+		    <SeekBar android:id="@+id/social"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:thumb="@drawable/social"
+		    	android:paddingLeft="80dip"
+		    	android:paddingBottom="23dip"
+		    	android:paddingRight="23dip"
+					android:progress="0"
+			    android:max="5"
+			    android:tag="social"
+		    ></SeekBar>
+
+			</LinearLayout>
+
+
+ </SlidingDrawer>
+</RelativeLayout>

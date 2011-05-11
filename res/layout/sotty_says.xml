@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/scotty_layout"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#BB000000"
+  >
+  
+    
+    <ImageView android:id="@+id/scotty"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentLeft="true"
+              android:src="@drawable/scotty" 
+    />
+    <ImageView android:id="@+id/scottysay"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_above="@id/scotty"
+              android:layout_marginBottom="-23dp"
+              android:layout_centerHorizontal="true"
+              android:src="@drawable/scotty_tellme1" 
+              android:visibility="invisible"
+    />
+
+    <TextView android:id="@+id/scottytext"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignTop="@id/scottysay"
+              android:layout_marginTop="-12dp"
+              android:textColor="@android:color/black"
+              android:textSize="15dp"
+              android:padding="23dp"
+              android:visibility="invisible"
+    />
+    
+    <ImageButton android:id="@+id/mail"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+	    	  android:layout_below="@id/scottysay"
+	    	  android:layout_alignParentRight="true"
+	    	  android:layout_marginTop="39dp"
+	    	  android:layout_marginRight="14dp"
+    		  android:src="@android:drawable/ic_menu_send"
+              android:visibility="invisible"
+    		  android:onClick="mail"
+    />
+    
+</RelativeLayout>
